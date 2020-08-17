@@ -1,0 +1,73 @@
+
+
+#form_container{
+    
+}
+
+#section_form{
+   max-width: 500px;
+}
+
+
+#button_erase_form {
+    margin-left: 20px;
+    background-color: aquamarine;
+    transition-property: padding;
+    transition-duration: 2s;
+  }
+
+  #button_erase_form:hover {
+    padding: 20px;
+  }
+/* CSS FOR COMENT / CSS pour les datas */
+
+  #afficher_data{
+      max-height: 400px;
+      overflow-y: scroll;
+  }
+.comment_container{
+    display: flex;
+    flex-direction: column;
+    box-shadow: black 0 2px 2px -1px,rgba(0, 0, 0, 0.411) 0 5px 5px -2px;
+    padding: 0.8em;
+    border-radius: 1em;
+    background: rgb(255,255,255);
+    background: linear-gradient(0deg, rgba(255,255,255,1) 45%, rgba(0,212,255,0.17128858379289214) 100%); 
+    border: black solid  2px 1px;
+    margin-top: 1em;
+    text-transform: capitalize;
+}
+
+.comment_author{
+    font-size: medium;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    font-style: italic;
+    text-transform: capitalize;
+}
+
+.comment_title{
+    font-size: larger;
+    text-decoration: underline;
+    font-weight: bold;
+    text-transform: capitalize;
+    text-transform: capitalize;
+}
+
+.comment_header{
+    display: flex;
+    justify-content: space-between;
+    text-transform: capitalize;
+}
+
+.comment_body{
+    border: black 1px solid;
+    border-radius: 1em;
+    background-color: white;
+    box-shadow: inset black 0 1px 2px;
+    padding: 1em;
+    text-transform: capitalize;
+}
+
+.comment_date{
+    font-style: italic;
+}
