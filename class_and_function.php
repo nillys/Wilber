@@ -24,7 +24,7 @@
 class comment extends data
 {
 
-    protected $db_table_name = "comment";
+    protected $db_table_name = "data";
     
 
     public function db_table_name(){
@@ -82,6 +82,7 @@ class comment extends data
 
         </div>
         <?php
+        return "comment";
     }
 } // ARTICLE
 
@@ -99,7 +100,6 @@ class data
 
 
     private $title, $author, $body, $category, $date_post;
-    protected static $db_table_name = "data";
 
     public function __construct($title_or_data, $author = "", $body = "", $category = "", $date_post = "")
     {
@@ -181,6 +181,8 @@ class dataManager
     private $_db;
     private $list_item_data = array();
     private $current_post, $dumb;
+    // current_treatment_mode recoit en paramètre une string "comment" "article" "contact" 
+    private $current_treatment_mode = array();
     private $debugmode;
     // Fournir à la classe un objet PDO 
     public function __construct(PDO $db, $current_post, $debugmode = 0)
@@ -197,6 +199,11 @@ class dataManager
         $this->debugmode = $debugmode;
     }
 
+    public function add_treatment_mode($param){
+        $this->current_treatment_mode[] = $param;
+    }
+
+    // FONCTION EXTERNE
     public function add(data $data)
     {
         $q = $this->_db->prepare('INSERT INTO ' . $data->db_table_name() . '(author,title,body,category) VALUES(:author,:title,:body,:category)');
@@ -301,7 +308,7 @@ class dataManager
         if (empty($errors)) {
 
             // Let's create a first instance of comment class / on créer un objet data à partir des données envoyées . 
-            $current_data = new data($title, $author, $body, $category);
+            $current_data = new comment($title, $author, $body, $category);
             // Then we use "add" method of gestionnaire_data to add a new comment to the bdd / puis nous utilisons la méthode "add" pour ajouter un nouvel objet à notre bdd
             $this->add($current_data);
             $errors = "no_errors";

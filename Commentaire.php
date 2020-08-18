@@ -35,8 +35,10 @@ $gestionnaire_data = new dataManager($pdo, $_POST);
 <body>
   <?php
   $gestionnaire_data->show_processing_message();
-  comment::generate_form();
+
+  $gestionnaire_data->add_treatment_mode(comment::generate_form());
   ?>
+  
 
   <div id="afficher_data">
     <?php
