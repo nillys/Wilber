@@ -1,0 +1,115 @@
+#image_entete{
+    display: flex;
+   
+}
+
+#image_entete img{
+    box-sizing: border-box;
+}
+
+#form_container{
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background: rgb(63,94,251);
+    background: radial-gradient(circle, rgba(63,94,251,1) 0%, rgba(252,70,107,1) 100%); 
+}
+.title{
+    color: white;
+    text-shadow: white 0 0 5px;
+    
+}
+
+label{
+    color: white;
+    font-weight: bold;
+}
+
+.help_symbole{
+    background-color: black ;
+    border-radius: 1em;
+}
+
+#section_form{
+display: inline-block;
+width: 20%;
+background-color: rgba(255, 255, 255, 0.178);
+box-shadow: white 0 0 5px;
+padding: 1em;
+}
+
+
+#button_erase_form {
+    margin-left: 20px;
+    background-color: aquamarine;
+    transition-property: padding;
+    transition-duration: 2s;
+  }
+
+  #button_erase_form:hover {
+    padding: 20px;
+  }
+
+  #button_autoFill{
+    margin-left: 20px;
+    background-color: aquamarine;
+    transition-property: padding;
+    transition-duration: all 2s;
+  }
+
+  #button_autoFill:hover {
+    background-color: rgb(188, 255, 233);
+    border: white 2px solid;
+  }
+/* CSS FOR COMENT / CSS pour les datas */
+
+  #afficher_data{
+      max-height: 400px;
+      overflow-y: scroll;
+  }
+.comment_container{
+    display: flex;
+    flex-direction: column;
+    box-shadow: black 0 2px 2px -1px,rgba(0, 0, 0, 0.411) 0 5px 5px -2px;
+    padding: 0.8em;
+    border-radius: 1em;
+    background: rgb(255,255,255);
+    background: linear-gradient(0deg, rgba(255,255,255,1) 45%, rgba(0,212,255,0.17128858379289214) 100%); 
+    border: black solid  2px 1px;
+    margin-top: 1em;
+    text-transform: capitalize;
+}
+
+.comment_author{
+    font-size: medium;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    font-style: italic;
+    text-transform: capitalize;
+}
+
+.comment_title{
+    font-size: larger;
+    text-decoration: underline;
+    font-weight: bold;
+    text-transform: capitalize;
+    text-transform: capitalize;
+}
+
+.comment_header{
+    display: flex;
+    justify-content: space-between;
+    text-transform: capitalize;
+}
+
+.comment_body{
+    border: black 1px solid;
+    border-radius: 1em;
+    background-color: white;
+    box-shadow: inset black 0 1px 2px;
+    padding: 1em;
+    text-transform: capitalize;
+}
+
+.comment_date{
+    font-style: italic;
+}

@@ -4,8 +4,8 @@
 
 <?php
 
-require "class_and_function.php";
-require "db.php";
+require "Wilber.php";
+require "config.php";
 
 // instanciation du gestionnaire avec en paramètre le PDO et la variable super global $_POST en ajoutant un 1 en paramètre le mode debug est activé.
 $gestionnaire_data = new dataManager($pdo, $_POST);

@@ -24,7 +24,7 @@
 class comment extends data
 {
 
-    protected $db_table_name = "data";
+    protected $db_table_name = "comment";
     
 
     public function db_table_name(){
@@ -45,33 +45,33 @@ class comment extends data
             <div id="section_form">
 
                 <div class="d-flex">
-                    <h2>Espace data</h2> <button id="button_erase_form" style="" title="Effacer le formulaire" class="oi oi-x btn" onclick="erase()"></button>
+                    <h2>Espace commentaire</h2> <button id="button_erase_form" style="" title="Effacer le formulaire" class="oi oi-x btn" onclick="erase()"></button>
                 </div>
 
                 <form action="" method="post">
 
                     <div class="form-group">
                         <label for="nom">Nom / Pseudo :</label>
-                        <input class="form-control" type="text" value="<?php if (!empty($_POST['author'])) {
-                                                                            echo $_POST['author'];
-                                                                        } ?>" name="author" id="author" placeholder="votre nom">
+                        <input class="form-control" type="text" value="<?php if (!empty($_POST['comment_author'])) {
+                                                                            echo $_POST['comment_author'];
+                                                                        } ?>" name="comment_author" id="author" placeholder="votre nom">
                     </div>
                     <div class="form-group">
                         <label for="nom">Rentrer un titre : </label>
-                        <input class="form-control" type="text" value="<?php if (!empty($_POST['title'])) {
-                                                                            echo $_POST['title'];
-                                                                        } ?>" name="title" id="title" placeholder="Le titre du data">
+                        <input class="form-control" type="text" value="<?php if (!empty($_POST['comment_title'])) {
+                                                                            echo $_POST['comment_title'];
+                                                                        } ?>" name="comment_title" id="title" placeholder="Le titre du data">
                     </div>
                     <div class="form-group">
                         <label for="category">choisissez une catégorie : </label>
-                        <select class="form-control" id="category" name="category">
+                        <select class="form-control" id="category" name="comment_category">
                             <option>Le blog</option>
                             <option>Les développeur</option>
                             <option>Autres</option>
                         </select>
                     </div>
-                    <textarea id="body" name="body" class="form-control" placeholder="Entrez votre data ici"><?php if (!empty($_POST['body'])) {
-                                                                                                                    echo $_POST['body'];
+                    <textarea id="body" name="comment_body" class="form-control" placeholder="Entrez votre data ici"><?php if (!empty($_POST['comment_body'])) {
+                                                                                                                    echo $_POST['comment_body'];
                                                                                                                 } ?></textarea>
                     <br>
                     <button class="btn btn-success class=" type="submit">Envoyer! </button>
@@ -84,8 +84,72 @@ class comment extends data
         <?php
         return "comment";
     }
-} // ARTICLE
+} // COMMENT
 
+class article extends data
+{
+
+    protected $db_table_name = "aticle";
+    
+
+    public function db_table_name(){
+        return $this->db_table_name;
+    }
+
+    /**
+     * generate_form
+     *
+     * @param  mixed $type
+     * @param  int $variant Choose wich of form variant generate 
+     * @return void
+     */
+    public static function generate_form(int $variant=1)
+    {
+?>
+        <div id="form_container" class="d-flex">
+            <div id="section_form">
+
+                <div class="d-flex">
+                    <h2>Espace commentaire</h2> <button id="button_erase_form" style="" title="Effacer le formulaire" class="oi oi-x btn" onclick="erase()"></button>
+                </div>
+
+                <form action="" method="post">
+
+                    <div class="form-group">
+                        <label for="nom">Nom / Pseudo :</label>
+                        <input class="form-control" type="text" value="<?php if (!empty($_POST['article_author'])) {
+                                                                            echo $_POST['article_author'];
+                                                                        } ?>" name="article_author" id="author" placeholder="votre nom">
+                    </div>
+                    <div class="form-group">
+                        <label for="nom">Rentrer un titre : </label>
+                        <input class="form-control" type="text" value="<?php if (!empty($_POST['article_title'])) {
+                                                                            echo $_POST['article_title'];
+                                                                        } ?>" name="article_title" id="title" placeholder="Le titre du data">
+                    </div>
+                    <div class="form-group">
+                        <label for="category">choisissez une catégorie : </label>
+                        <select class="form-control" id="category" name="article_category">
+                            <option>Le blog</option>
+                            <option>Les développeur</option>
+                            <option>Autres</option>
+                        </select>
+                    </div>
+                    <textarea id="body" name="article_body" class="form-control" placeholder="Entrez votre data ici"><?php if (!empty($_POST['article_body'])) {
+                                                                                                                    echo $_POST['article_body'];
+                                                                                                                } ?></textarea>
+                    <br>
+                    <button class="btn btn-success class=" type="submit">Envoyer! </button>
+                </form>
+
+                
+            </div>
+
+        </div>
+        <?php
+        return "article";
+    }
+} // article
 
 /**
  * data
@@ -177,12 +241,20 @@ class data
 
 class dataManager
 {
-
+    //le Pdo fournit par la méthode constructrice
     private $_db;
-    private $list_item_data = array();
-    private $current_post, $dumb;
+    // list des objets récupéré de la base de donné et stocké ici pour l'éxécution du programme
+    private $list_item_data = ["comment" => array(),"article" => array(), "contact" => array()];
+        
+    /**
+     * current_post
+     *
+     * @var mixed stock the $_POST 
+     */
+    private $current_post, $processing_dumb;
     // current_treatment_mode recoit en paramètre une string "comment" "article" "contact" 
     private $current_treatment_mode = array();
+   
     private $debugmode;
     // Fournir à la classe un objet PDO 
     public function __construct(PDO $db, $current_post, $debugmode = 0)
@@ -191,10 +263,13 @@ class dataManager
         $this->current_post = $current_post;
         if ($debugmode) {
             var_dump($current_post);
+    
+            
+           
         }
 
         if (!empty($current_post)) {
-            $this->dumb = $this->processing_form($current_post['author'], $current_post['title'], $current_post['body'], $current_post['category']);
+            $this->processing_dumb = $this->processing_form($current_post['comment_author'], $current_post['comment_title'], $current_post['comment_body'], $current_post['comment_category']);
         }
         $this->debugmode = $debugmode;
     }
@@ -204,7 +279,7 @@ class dataManager
     }
 
     // FONCTION EXTERNE
-    public function add(data $data)
+    public function add(comment $data)
     {
         $q = $this->_db->prepare('INSERT INTO ' . $data->db_table_name() . '(author,title,body,category) VALUES(:author,:title,:body,:category)');
         $q->bindValue(':title', $data->title());
@@ -217,13 +292,14 @@ class dataManager
 
     public function pull()
     {
-        $q = $this->_db->prepare('SELECT * FROM data');
+        // Selectionner la table qui corespond aux dernier mode !!!
+        $q = $this->_db->prepare('SELECT * FROM '. end($this->current_treatment_mode).'');
         $q->execute();
 
 
         while ($result = $q->fetch(PDO::FETCH_ASSOC)) {
 
-            $this->list_item_data[] = new data($result);
+            $this->list_item_data["comment"][] = new data($result);
 
             // var_dump($result);
             // foreach ($result as $key => $value) {
@@ -235,7 +311,7 @@ class dataManager
 
         }
         if ($this->debugmode == true) {
-            var_dump($this->list_item_data);
+            var_dump($this->list_item_data["comment"]);
         }
     }
 
@@ -247,13 +323,13 @@ class dataManager
         if (is_int($key)) {
         ?>
             <div class="comment_container">
-                <div class="comment_title"><?= $this->list_item_data[$key]->title(); ?></div>
+                <div class="comment_title"><?= $this->list_item_data["comment"][$key]->title(); ?></div>
                 <div class="comment_header">
-                    <div class="comment_author"><?= '<span class="oi oi-person"></span> ' . $this->list_item_data[$key]->author(); ?></div>
-                    <div class="comment_date"><?= "le : " . $this->list_item_data[$key]->date_post(); ?></div>
+                    <div class="comment_author"><?= '<span class="oi oi-person"></span> ' . $this->list_item_data["comment"][$key]->author(); ?></div>
+                    <div class="comment_date"><?= "le : " . $this->list_item_data["comment"][$key]->date_post(); ?></div>
                 </div>
 
-                <div class="comment_body"><?= $this->list_item_data[$key]->body(); ?></div>
+                <div class="comment_body"><?= $this->list_item_data["comment"][$key]->body(); ?></div>
             </div>
         <?php
         }
@@ -261,11 +337,11 @@ class dataManager
 
     public function show_all_comment()
     {
-        if (empty($this->list_item_data)) {
+        if (empty($this->list_item_data["comment"])) {
             $this->pull();
         }
 
-        foreach ($this->list_item_data as $value) {
+        foreach ($this->list_item_data["comment"] as $value) {
         ?>
             <div class="comment_container">
                 <div class="comment_title"><?= $value->title(); ?></div>
@@ -323,10 +399,10 @@ class dataManager
     public function show_processing_message()
     {
         if ($this->debugmode) {
-            echo "This is what's treatment of form sended / Voici le renvoi de la procédure traitement du formulaire : " . var_dump($this->dumb);
+            echo "This is what's treatment of form sended / Voici le renvoi de la procédure traitement du formulaire : " . var_dump($this->processing_dumb);
         }
 
-        if ($this->dumb == "no_errors") {
+        if ($this->processing_dumb == "no_errors") {
             echo '
   <div class="alert alert-success alert-dismissible fade show" role="alert">
   <strong> Felicitation votre data a bien été enregistré</strong>
@@ -334,9 +410,9 @@ class dataManager
     <span aria-hidden="true">&times;</span>
   </button>
 </div>';
-        } elseif (!empty($this->dumb)) {
+        } elseif (!empty($this->processing_dumb)) {
 
-            foreach ($this->dumb as $value) {
+            foreach ($this->processing_dumb as $value) {
                 echo '
     <div class="alert alert-danger alert-dismissible fade show" role="alert">
     <strong>' . $value . '</strong>
