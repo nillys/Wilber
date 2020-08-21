@@ -12,7 +12,7 @@ $gestionnaire_data = new dataManager($pdo, $_POST);
 <head>
 
   <meta charset="utf-8">
-  <link rel="stylesheet" type="text/css" href="data.css">
+  <link rel="stylesheet" type="text/css" href="Wilber.css">
   <link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap.css">
 
   <link rel="stylesheet" type="text/css" href="Ressource_icone/open-iconic-master/open-iconic-master/font/css/open-iconic-bootstrap.css">

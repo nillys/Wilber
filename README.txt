@@ -1,7 +1,7 @@
 BONJOUR et MERCI d'utiliser cet outil qui j'espère vous sera utile . 
 
 
-La configuration est simple : tout d'abord : 
+La configuration est simple :
 
 CONFIGURATION :
 
@@ -13,29 +13,31 @@ et de disposer de
 	le nom d'utilisateur 
 	et le mot de passe ! 
 
-Lancer start.php
+Si ce n'est pas le cas sachez que Wilber créera automatiquement la base de donné associé au nom que vous avez renseigné si elle n'éxiste pas.
+
+->	Lancer start.php !
 
 Une fennêtre s'ouvre vous invitant à renseigner ces informations . 
-Si la connexion s'effectue avec succès un message d'érreur apparait et un fichier de configuration qui contient un objet PDO bien configuré 
+Si la connexion s'effectue avec succès un message apparait et un fichier de configuration qui contient un objet PDO bien configuré 
 apparait . et vous êtes redirigé vers la page sql.deploy.php
 _____________________________________________________________
 
 2)Cette page va se charger de créer les tables nécessaire à l'utilisation des classes php pour vous . vous n'avez rien à faire . 
 
-Si l'opération se déroule avec succès vous voyez normalement un message vous indiquant que tout c'est bien passé ! 
+Si l'opération se déroule avec succès vous voyez normalement un message vous indiquant que tout c'est bien passé ! et vous pouvez voir un bouton vous indiquant que vous pouvez fermer cet onglet . Si vous cliquez dessus vous serez redirigé vers : Exemple.php
 
 UTILISATION :
 
 Formulaire ajout base de donné , traitement des formulaires !
 -------------------------------------------------------------
 
-L'utilisation du module DATA est très simple : 
+L'utilisation de Wilber est très simple : 
 
-1) Assurer vous d'inclure dans l'en tête de tous vos fichier le fichier "Wilber.php" avec cette instruction par exemple : 
+1) Assurer vous d'inclure dans l'en tête le fichier "Wilber.php" avec cette instruction par exemple : 
 
 	require "Wilber.php";
 
-2) Instancier en tête de fichier un nouveau manager avec le nom qui vous plaira en l'occurence j'ai choisit "gestionnaire data" 
+2) Instanciez dans l'en tête du fichier un nouveau "Manager" avec le nom qui vous plaira en l'occurence j'ai choisit "gestionnaire data" 
 
 	$gestionnaire_data = new dataManager($pdo, $_POST);
 
@@ -46,10 +48,12 @@ L'utilisation du module DATA est très simple :
 	$gestionnaire_data->add_treatment(contact::generate_form()); // pour les formulaires de contact (fonctionnalité en cours de développement)
 
 
-4) Si vous le souhaitez (ce qui est vivement conseillé) vous pouvez placer à l'endroit ou vous voulez le retour d'info concernant le traitement du formulaire pour l'utilisateur (message d'érreur ou de succès)
+4) Si vous le souhaitez (ce qui est vivement conseillé) vous pouvez placer directement après le formulaire(c'est pour l'instant imperatif) le retour d'info concernant le traitement du formulaire pour l'utilisateur (message d'érreur ou de succès)
 
 	 $gestionnaire_data->show_processing_message();
-
+	 
+	 
+	 
 Afficher les infos depuis la base de donnée !
 -------------------------------------------------------------
 
@@ -62,4 +66,3 @@ Exemple :
 ----------
 
 Le fichier exemple.php peut être lancé pour voir l'utilisation du module .
-

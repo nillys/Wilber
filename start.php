@@ -66,14 +66,18 @@ if (!empty($_POST)) {
             // On lance une nouvelle exception grâce à throw et on instancie directement un objet de la classe Exception.
             throw new Exception('Veuillez rentrer le nom de la bdd');
         }
+        // Creation de la bse de donné si elle n'éxiste pas
+        $create_req = new PDO('mysql:host='.$bdd_adress, $user, $password);
+        $create_req->query('CREATE DATABASE IF NOT EXISTS '.$bdd_name);
 
-
-
+        // Dans touts les cas test de connexion a la base en question
         $pdo_options[PDO::MYSQL_ATTR_INIT_COMMAND] = 'SET NAMES utf8';
         $pdo = new PDO($bdd_name_and_adress, $user, $password, $pdo_options);
+
         //On définit le mode d'erreur de PDO sur Exception
         $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
+        //Création du fichier
         $myfile = fopen("config.php", "w+");
         fwrite($myfile, '<?php $pdo_options[PDO::MYSQL_ATTR_INIT_COMMAND] = \'SET NAMES utf8\';
         $pdo = new PDO(\'' . $bdd_name_and_adress . '\', \'' . $user . '\', \'' . $password . '\', $pdo_options);

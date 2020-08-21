@@ -201,7 +201,7 @@
         <div class="alert alert-success m-4 text-center" role="alert">
             <h4 class="alert-heading">Fellicitation !</h4>
             <p><strong>Succès ! </strong>Les trois tables on été créé avec succès tout devrait bien fonctionner !</p>
-            <button class="card">Vous pouvez fermer cet onglet !</button>
+            <a href="Exemple.php"><button class="card">Vous pouvez fermer cet onglet !</button></a>
 
         </div>
 
