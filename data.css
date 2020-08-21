@@ -1,13 +1,59 @@
+body{
+    background-image: linear-gradient(120deg, #a1c4fd 0%, #c2e9fb 100%);
+}
 
+#header{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    margin-bottom: 2em;
+}
+
+#header p{
+    color: white;
+}
+
+#label_version{
+    color: white;
+    font-style: italic;
+}
+
+#main_title{
+    text-align: center;
+    font-weight: bold;
+    font-size: 4em;
+    color: white;
+    text-shadow: white 0 0 5px;
+
+}
 
 #form_container{
-    
+    padding: 1em;
+    background-color: white;
+    border-radius: 1em;
+}
+
+#form_container button{
+    padding: 1em;
+    background-color: aquamarine;
+    border-radius: 1em;
+    border: white 1px solid;
+    color: black;
+}
+#form_container button:hover{
+    background-color: rgb(191, 255, 234);
 }
 
 #section_form{
-   max-width: 500px;
 }
 
+#section_form h2{
+    text-align: center;
+    font-size: 2em;
+    text-decoration: underline;
+    text-transform: uppercase;
+}
 
 #button_erase_form {
     margin-left: 20px;
@@ -22,7 +68,11 @@
 /* CSS FOR COMENT / CSS pour les datas */
 
   #afficher_data{
-      max-height: 400px;
+      overflow-y: scroll;
+  }
+
+  .show_comment_container{
+      height: 550px;
       overflow-y: scroll;
   }
 .comment_container{

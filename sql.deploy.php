@@ -22,7 +22,9 @@
 <div id="main_container">
     <?php
 
-
+    if (!file_exists("config.php")) {
+        header('location: start.php');
+    }
 
     require "config.php";
 
@@ -199,7 +201,7 @@
         <div class="alert alert-success m-4 text-center" role="alert">
             <h4 class="alert-heading">Fellicitation !</h4>
             <p><strong>Succès ! </strong>Les trois tables on été créé avec succès tout devrait bien fonctionner !</p>
-        <button  class="card">Vous pouvez fermer cet onglet !</button>
+            <button class="card">Vous pouvez fermer cet onglet !</button>
 
         </div>
 
@@ -208,7 +210,8 @@
     ?>
         <div class="alert alert-danger m-4" role="alert">
 
-            <strong>Malheuresement</strong> <em>une érreur est survenue lors de la création des tables pour la base de donné si vous le souhaitez vous pouvez consulter les erreurs retourné il est déconsseillé de poursuivre l'utilisation du module pour le moment </em> <quote>Si vous n'avez pas lancé start.php cela pourrait être la raison</quote>
+            <strong>Malheuresement</strong> <em>une érreur est survenue lors de la création des tables pour la base de donné si vous le souhaitez vous pouvez consulter les erreurs retourné il est déconsseillé de poursuivre l'utilisation du module pour le moment </em>
+            <quote>Si vous n'avez pas lancé start.php cela pourrait être la raison</quote>
 
 
 
@@ -218,3 +221,7 @@
     }
     ?>
 </div>
+
+<script src="bootstrap/js/jquery-3.4.1.min.js"></script>
+
+<script src="bootstrap/js/bootstrap.bundle.js"></script>

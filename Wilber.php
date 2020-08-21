@@ -20,14 +20,20 @@
  * 
  * 
  */
+// si le fichier de config n'a pas été créé on redirige l'utilisateur vers la page approprié
+if(!file_exists("config.php")){
+    header('location: start.php');
+  }
+require "config.php";
 
 class comment extends data
 {
 
     protected $db_table_name = "comment";
-    
 
-    public function db_table_name(){
+
+    public function db_table_name()
+    {
         return $this->db_table_name;
     }
 
@@ -38,13 +44,13 @@ class comment extends data
      * @param  int $variant Choose wich of form variant generate 
      * @return void
      */
-    public static function generate_form(int $variant=1)
+    public static function generate_form(int $variant = 1)
     {
 ?>
-        <div id="form_container" class="d-flex">
+        <div id="form_container" >
             <div id="section_form">
 
-                <div class="d-flex">
+                <div>
                     <h2>Espace commentaire</h2> <button id="button_erase_form" style="" title="Effacer le formulaire" class="oi oi-x btn" onclick="erase()"></button>
                 </div>
 
@@ -71,17 +77,17 @@ class comment extends data
                         </select>
                     </div>
                     <textarea id="body" name="comment_body" class="form-control" placeholder="Entrez votre data ici"><?php if (!empty($_POST['comment_body'])) {
-                                                                                                                    echo $_POST['comment_body'];
-                                                                                                                } ?></textarea>
+                                                                                                                            echo $_POST['comment_body'];
+                                                                                                                        } ?></textarea>
                     <br>
                     <button class="btn btn-success class=" type="submit">Envoyer! </button>
                 </form>
 
-                
+
             </div>
 
         </div>
-        <?php
+    <?php
         return "comment";
     }
 } // COMMENT
@@ -90,9 +96,10 @@ class article extends data
 {
 
     protected $db_table_name = "aticle";
-    
 
-    public function db_table_name(){
+
+    public function db_table_name()
+    {
         return $this->db_table_name;
     }
 
@@ -103,14 +110,14 @@ class article extends data
      * @param  int $variant Choose wich of form variant generate 
      * @return void
      */
-    public static function generate_form(int $variant=1)
+    public static function generate_form(int $variant = 1)
     {
-?>
+    ?>
         <div id="form_container" class="d-flex">
             <div id="section_form">
 
                 <div class="d-flex">
-                    <h2>Espace commentaire</h2> <button id="button_erase_form" style="" title="Effacer le formulaire" class="oi oi-x btn" onclick="erase()"></button>
+                    <h2>Espace ARCTICLE</h2> <button id="button_erase_form" style="" title="Effacer le formulaire" class="oi oi-x btn" onclick="erase()"></button>
                 </div>
 
                 <form action="" method="post">
@@ -136,13 +143,13 @@ class article extends data
                         </select>
                     </div>
                     <textarea id="body" name="article_body" class="form-control" placeholder="Entrez votre data ici"><?php if (!empty($_POST['article_body'])) {
-                                                                                                                    echo $_POST['article_body'];
-                                                                                                                } ?></textarea>
+                                                                                                                            echo $_POST['article_body'];
+                                                                                                                        } ?></textarea>
                     <br>
                     <button class="btn btn-success class=" type="submit">Envoyer! </button>
                 </form>
 
-                
+
             </div>
 
         </div>
@@ -150,6 +157,73 @@ class article extends data
         return "article";
     }
 } // article
+
+class contact extends data
+{
+
+    protected $db_table_name = "contact";
+
+
+    public function db_table_name()
+    {
+        return $this->db_table_name;
+    }
+
+    /**
+     * generate_form
+     *
+     * @param  mixed $type
+     * @param  int $variant Choose wich of form variant generate 
+     * @return void
+     */
+    public static function generate_form(int $variant = 1)
+    {
+    ?>
+        <div id="form_container">
+            <div id="section_form">
+
+                <div class="d-flex">
+                    <h2>Espace COMMENTAIRE</h2> <button id="button_erase_form" style="" title="Effacer le formulaire" class="oi oi-x btn" onclick="erase()"></button>
+                </div>
+
+                <form action="" method="post">
+
+                    <div class="form-group">
+                        <label for="nom">Nom / Pseudo :</label>
+                        <input class="form-control" type="text" value="<?php if (!empty($_POST['comment_author'])) {
+                                                                            echo $_POST['comment_author'];
+                                                                        } ?>" name="comment_author" id="author" placeholder="votre nom">
+                    </div>
+                    <div class="form-group">
+                        <label for="nom">Rentrer un titre : </label>
+                        <input class="form-control" type="text" value="<?php if (!empty($_POST['comment_title'])) {
+                                                                            echo $_POST['comment_title'];
+                                                                        } ?>" name="comment_title" id="title" placeholder="Le titre du data">
+                    </div>
+                    <div class="form-group">
+                        <label for="category">choisissez une catégorie : </label>
+                        <select class="form-control" id="category" name="comment_category">
+                            <option>Le blog</option>
+                            <option>Les développeur</option>
+                            <option>Autres</option>
+                        </select>
+                    </div>
+                    <textarea id="body" name="comment_body" class="form-control" placeholder="Entrez votre data ici"><?php if (!empty($_POST['comment_body'])) {
+                                                                                                                            echo $_POST['comment_body'];
+                                                                                                                        } ?></textarea>
+                    <br>
+                    <button class="btn btn-success class=" type="submit">Envoyer! </button>
+                </form>
+
+
+            </div>
+
+        </div>
+    <?php
+        return "contact";
+    }
+} // contact
+
 
 /**
  * data
@@ -244,8 +318,8 @@ class dataManager
     //le Pdo fournit par la méthode constructrice
     private $_db;
     // list des objets récupéré de la base de donné et stocké ici pour l'éxécution du programme
-    private $list_item_data = ["comment" => array(),"article" => array(), "contact" => array()];
-        
+    private $list_item_data = ["comment" => array(), "article" => array(), "contact" => array()];
+
     /**
      * current_post
      *
@@ -254,7 +328,7 @@ class dataManager
     private $current_post, $processing_dumb;
     // current_treatment_mode recoit en paramètre une string "comment" "article" "contact" 
     private $current_treatment_mode = array();
-   
+
     private $debugmode;
     // Fournir à la classe un objet PDO 
     public function __construct(PDO $db, $current_post, $debugmode = 0)
@@ -263,24 +337,28 @@ class dataManager
         $this->current_post = $current_post;
         if ($debugmode) {
             var_dump($current_post);
-    
-            
-           
         }
 
-        if (!empty($current_post)) {
-            $this->processing_dumb = $this->processing_form($current_post['comment_author'], $current_post['comment_title'], $current_post['comment_body'], $current_post['comment_category']);
-        }
+
         $this->debugmode = $debugmode;
     }
 
-    public function add_treatment_mode($param){
-        $this->current_treatment_mode[] = $param;
+    public function add_treatment($mode)
+    {
+        if (!empty($this->current_post)) {
+            // phase de traitement qui prend en paramêtre le post et le paramètre renvoyé par le formulaire pour savoir le type de traitement a effectuer (article , commentaire,etc)
+            $this->processing_dumb = $this->processing_form($this->current_post, $mode);
+        }
     }
 
     // FONCTION EXTERNE
     public function add(comment $data)
     {
+        // switch ($data) {
+        //     case comment::class:
+
+        //         break;
+        // }
         $q = $this->_db->prepare('INSERT INTO ' . $data->db_table_name() . '(author,title,body,category) VALUES(:author,:title,:body,:category)');
         $q->bindValue(':title', $data->title());
         $q->bindValue(':author', $data->author());
@@ -290,10 +368,10 @@ class dataManager
         $q->execute();
     }
 
-    public function pull()
+    public function pull($table)
     {
         // Selectionner la table qui corespond aux dernier mode !!!
-        $q = $this->_db->prepare('SELECT * FROM '. end($this->current_treatment_mode).'');
+        $q = $this->_db->prepare('SELECT * FROM ' .$table. '');
         $q->execute();
 
 
@@ -338,9 +416,9 @@ class dataManager
     public function show_all_comment()
     {
         if (empty($this->list_item_data["comment"])) {
-            $this->pull();
+            $this->pull("comment");
         }
-
+        echo '<div class="show_comment_container">';
         foreach ($this->list_item_data["comment"] as $value) {
         ?>
             <div class="comment_container">
@@ -355,36 +433,103 @@ class dataManager
 
 <?php
         }
+        echo '</div>';
     }
 
-    public function processing_form(string $author, string $title, string $body, string $category)
+    public function processing_form($current_post, $treatment_type)
     {
         // while processing , errors finded are stored inside this array / Pendant le traitement les érreurs seront stocké dans cet tableau
         $errors = array();
-        // if debug mod enabled then show / si le mode débug est activé alors afficher : 
-        if ($this->debugmode) {
-            echo "This is what's inside SUPER GLOBAL POST Ceci est le contenu de la variable SUPER GLOBAL POST : " . var_dump($_POST);
-        }
+        
+        switch ($treatment_type) {
 
-        // Starting testing phase on the content of object _POST / Début des tests sur l'envoi POST 
-        if ($author and strlen($author) > 1  and strlen($author) < 30 and preg_match('/^[a-z0-9A-Z_é]+$/', $author)) {
-
-            if ($title and strlen($title) >= 5 and strlen($title) < 45) {
-                if (empty($body) or strlen($body) > 300 and strlen($author) <= 5) {
-                    $errors['body'] = "Veuillez rentrer un data d'une longueur inférieur à 300 caractère les champs vides ne sont pas accepté";
+            case "comment":
+                // if debug mod enabled then show / si le mode débug est activé alors afficher : 
+                if ($this->debugmode) {
+                    echo "This is what's inside SUPER GLOBAL POST Ceci est le contenu de la variable SUPER GLOBAL POST : " . var_dump($_POST);
                 }
-            } else {
-                $errors['title'] = 'Veuillez rentrer un <span style="text-decoration:underline">titre</span> d\'une longeur inférieur à 45 caractère';
-            }
-        } else {
-            $errors['author'] = "Veuillez rentrer un nom d'utilisateur valide";
+                
+                // Starting testing phase on the content of object _POST / Début des tests sur l'envoi POST 
+                if ($current_post['comment_author'] and strlen($current_post['comment_author']) > 1  and strlen($current_post['comment_author']) < 30 and preg_match('/^[a-z0-9A-Z_é]+$/', $current_post['comment_author'])) {
+
+                    if ($current_post['comment_title'] and strlen($current_post['comment_title']) >= 5 and strlen($current_post['comment_title']) < 45) {
+                        if (empty($current_post['comment_body']) or strlen($current_post['comment_body']) > 300 and strlen($current_post['comment_author']) <= 5) {
+                            $errors['comment_body'] = "Veuillez rentrer un commentaire d'une longueur inférieur à 300 caractère les champs vides ne sont pas accepté";
+                        }
+                    } else {
+                        $errors['comment_title'] = 'Veuillez rentrer un <span style="text-decoration:underline">titre</span> valide et d\'une longeur inférieur à 45 caractère';
+                    }
+                } else {
+                    $errors['comment_author'] = "Veuillez rentrer un nom d'utilisateur valide";
+                }
+                break;
+
+            case "article":
+                // if debug mod enabled then show / si le mode débug est activé alors afficher : 
+                if ($this->debugmode) {
+                    echo "This is what's inside SUPER GLOBAL POST Ceci est le contenu de la variable SUPER GLOBAL POST : " . var_dump($_POST);
+                }
+
+                // Starting testing phase on the content of object _POST / Début des tests sur l'envoi POST 
+                if ($current_post['article_author'] and strlen($current_post['article_author']) > 1  and strlen($current_post['article_author']) < 30 and preg_match('/^[a-z0-9A-Z_é]+$/', $current_post['article_author'])) {
+
+                    if ($current_post['article_title'] and strlen($current_post['article_title']) >= 5 and strlen($current_post['article_title']) < 45) {
+                        if (empty($current_post['article_body']) or strlen($current_post['article_body']) > 300 and strlen($current_post['article_author']) <= 5) {
+                            $errors['article_body'] = "Veuillez rentrer un data d'une longueur inférieur à 300 caractère les champs vides ne sont pas accepté";
+                        }
+                    } else {
+                        $errors['article_title'] = 'Veuillez rentrer un <span style="text-decoration:underline">titre</span> d\'une longeur inférieur à 45 caractère';
+                    }
+                } else {
+                    $errors['article_author'] = "Veuillez rentrer un nom d'utilisateur valide";
+                }
+                break;
+
+            case "contact":
+                // if debug mod enabled then show / si le mode débug est activé alors afficher : 
+                if ($this->debugmode) {
+                    echo "This is what's inside SUPER GLOBAL POST Ceci est le contenu de la variable SUPER GLOBAL POST : " . var_dump($_POST);
+                }
+
+                // Starting testing phase on the content of object _POST / Début des tests sur l'envoi POST 
+                if ($current_post['contact_author'] and strlen($current_post['contact_author']) > 1  and strlen($current_post['contact_author']) < 30 and preg_match('/^[a-z0-9A-Z_é]+$/', $current_post['contact_author'])) {
+
+                    if ($current_post['contact_title'] and strlen($current_post['contact_title']) >= 5 and strlen($current_post['contact_title']) < 45) {
+                        if (empty($current_post['contact_body']) or strlen($current_post['contact_body']) > 300 and strlen($current_post['contact_author']) <= 5) {
+                            $errors['contact_body'] = "Veuillez rentrer un data d'une longueur inférieur à 300 caractère les champs vides ne sont pas accepté";
+                        }
+                    } else {
+                        $errors['contact_title'] = 'Veuillez rentrer un <span style="text-decoration:underline">titre</span> d\'une longeur inférieur à 45 caractère';
+                    }
+                } else {
+                    $errors['contact_author'] = "Veuillez rentrer un nom d'utilisateur valide";
+                }
+                break;
         }
+
+
+
+
+
 
         //If no errors founded , starting the storage process / Si $errors est vide alors on entame la phase de stockage des données
         if (empty($errors)) {
 
             // Let's create a first instance of comment class / on créer un objet data à partir des données envoyées . 
-            $current_data = new comment($title, $author, $body, $category);
+            switch ($treatment_type) {
+                
+                case "comment":
+         
+                    $current_data = new comment($current_post['comment_title'], $current_post['comment_author'], $current_post['comment_body'], $current_post['comment_category']);
+                    break;
+                case "article":
+                    $current_data = new article($current_post['article_title'], $current_post['article_author'], $current_post['article_body'], $$current_post['article_category']);
+                    break;
+                case "contact":
+                    $current_data = new contact($current_post['contact_title'], $current_post['contact_author'], $current_post['contact_body'], $$current_post['contact_category']);
+                    break;
+            }
+
             // Then we use "add" method of gestionnaire_data to add a new comment to the bdd / puis nous utilisons la méthode "add" pour ajouter un nouvel objet à notre bdd
             $this->add($current_data);
             $errors = "no_errors";
@@ -398,6 +543,7 @@ class dataManager
 
     public function show_processing_message()
     {
+
         if ($this->debugmode) {
             echo "This is what's treatment of form sended / Voici le renvoi de la procédure traitement du formulaire : " . var_dump($this->processing_dumb);
         }

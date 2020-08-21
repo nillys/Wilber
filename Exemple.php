@@ -5,9 +5,6 @@
 <?php
 
 require "Wilber.php";
-require "config.php";
-
-// instanciation du gestionnaire avec en paramètre le PDO et la variable super global $_POST en ajoutant un 1 en paramètre le mode debug est activé.
 $gestionnaire_data = new dataManager($pdo, $_POST);
 
 ?>
@@ -30,23 +27,35 @@ $gestionnaire_data = new dataManager($pdo, $_POST);
 
 </head>
 
-
+<header id="header">
+  <h1 id="main_title">WILBER</h1>
+  <h6 id="label_version">Version Alpha(0.05)</h6>
+  <p>Content managing made : <em>easy fresh and simple !</em> (for developper)</p>
+</header>
 
 <body>
-  <?php
-  $gestionnaire_data->show_processing_message();
+  <div class="container-fluid">
+    <div class="row">
+    <!-- partie formulaire et traitement 2 lignes-->
+      <div class="col-lg-6">
+        <?php
+        // montrer les messages d'intéraction utilisateur
+        
+        // générer le formulaire de votre choix avec enclenchement de la procédure de traitement.
+        $gestionnaire_data->add_treatment(comment::generate_form());
+        $gestionnaire_data->show_processing_message();
+        ?>
+      </div>
+      <!-- partie affichage 1 ligne seulement-->
+      <div class="col-lg-6" style="max-height:100%">
+      
+          <?php
+          $gestionnaire_data->show_all_comment();
+          ?>
 
-  $gestionnaire_data->add_treatment_mode(comment::generate_form());
-  ?>
-  
-
-  <div id="afficher_data">
-    <?php
-    $gestionnaire_data->show_all_comment();
-
-    ?>
+      </div>
+    </div>
   </div>
-
 
   <script src="bootstrap/js/jquery-3.4.1.min.js"></script>
   <script src="bootstrap/js/bootstrap.bundle.js"></script>
