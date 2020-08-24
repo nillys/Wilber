@@ -1,10 +1,13 @@
 #image_entete{
     display: flex;
-   
+ 
 }
 
 #image_entete img{
+    max-width: 100%;
+    display: flex;
     box-sizing: border-box;
+    box-shadow: white 0 0 1px;
 }
 
 #form_container{
