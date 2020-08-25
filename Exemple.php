@@ -5,7 +5,7 @@
 <?php
 
 require "Wilber.php";
-$gestionnaire_data = new dataManager($pdo, $_POST,1);
+$gestionnaire_data = new dataManager($pdo, $_POST);
 
 ?>
 
@@ -40,7 +40,7 @@ $gestionnaire_data = new dataManager($pdo, $_POST,1);
         // générer le formulaire de votre choix avec enclenchement de la procédure de traitement.
         // la partie generate form génère le formulaire et renvoi à la partie traitement les indications traiter de façon approprié le type de contenu
         // la partie treatement détecte si il y a un post , traite le formulaire , se charge d'afficher les érreurs et d'envoyer les données à la base de donnée
-        // $gestionnaire_data->add_treatment(article::generate_form());
+        $gestionnaire_data->add_treatment(article::generate_form());
 
         ?>
       </div>

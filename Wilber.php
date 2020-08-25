@@ -60,7 +60,7 @@ class comment extends data
                         <label for="nom">Rentrer un titre : </label>
                         <input class="form-control" type="text" value="<?php if (!empty($_POST['comment_title'])) {
                                                                             echo $_POST['comment_title'];
-                                                                        } ?>" name="comment_title" id="comment_title" placeholder="Le titre du data">
+                                                                        } ?>" name="comment_title" id="comment_title" placeholder="Le titre du commentaire">
                     </div>
                     <div class="form-group">
                         <label for="category">choisissez une catégorie : </label>
@@ -70,7 +70,7 @@ class comment extends data
                             <option>Autres</option>
                         </select>
                     </div>
-                    <textarea id="comment_body" name="comment_body" class="form-control" placeholder="Entrez votre data ici"><?php if (!empty($_POST['comment_body'])) {
+                    <textarea id="comment_body" name="comment_body" class="form-control" placeholder="Entrez votre commentaire ici"><?php if (!empty($_POST['comment_body'])) {
                                                                                                                                     echo $_POST['comment_body'];
                                                                                                                                 } ?></textarea>
                     <br>
@@ -111,7 +111,7 @@ class article extends data
             <div class="section_form" id="article_section_form">
 
                 <div class="data_title">
-                    <h2>Espace ARCTICLE</h2> <button class=" oi oi-x btn button_erase_form" style="" title="Effacer le formulaire" onclick="erase_article()"></button>
+                    <h2>Espace ARCTICLE</h2> <button class=" oi oi-x btn button_erase_form" style="" title="Effacer le formulaire" onclick="erase_article_form()"></button>
                 </div>
 
                 <form action="" method="post">
@@ -122,7 +122,7 @@ class article extends data
                             <label for="title">Rentrer un titre : </label>
                             <input class="form-control" type="text" value="<?php if (!empty($_POST['article_title'])) {
                                                                                 echo $_POST['article_title'];
-                                                                            } ?>" name="article_title" id="article_title" placeholder="Le titre du data">
+                                                                            } ?>" name="article_title" id="article_title" placeholder="Le titre de l'article">
                         </div>
                         <div class="col">
                             <div class="form-group">
@@ -141,7 +141,7 @@ class article extends data
                                                                             echo $_POST['article_author'];
                                                                         } ?>" name="article_author" id="article_author" placeholder="votre nom">
                     </div>
-                    <textarea id="article_body" name="article_body" class="form-control" placeholder="Entrez votre data ici"><?php if (!empty($_POST['article_body'])) {
+                    <textarea id="article_body" name="article_body" class="form-control" placeholder="Entrez le corps de l'article ici"><?php if (!empty($_POST['article_body'])) {
                                                                                                                                     echo $_POST['article_body'];
                                                                                                                                 } ?></textarea>
                     <br>
@@ -354,7 +354,7 @@ class dataManager
     }
 
     // FONCTION EXTERNE
-    public function add(comment $data)
+    public function add(data $data)
     {
         // switch ($data) {
         //     case comment::class:
@@ -373,8 +373,10 @@ class dataManager
     public function pull($table)
     {
         // Selectionner la table qui corespond aux dernier mode !!!
-        $q = $this->_db->prepare('SELECT * FROM ' . $table . '');
+        // Desc signifie inverser l'ordre de trie
+        $q = $this->_db->prepare('SELECT * FROM ' . $table . ' ORDER BY id DESC');
         $q->execute();
+
 
         // Ici l'objet pdo est converti en tableau car l'objet data prend un tableau en entré
         while ($result = $q->fetch(PDO::FETCH_ASSOC)) {
@@ -482,7 +484,7 @@ class dataManager
 
                     if ($current_post['article_title'] and strlen($current_post['article_title']) >= 5 and strlen($current_post['article_title']) < 45) {
                         if (empty($current_post['article_body']) or strlen($current_post['article_body']) > 300 and strlen($current_post['article_author']) <= 5) {
-                            $errors['article_body'] = "Veuillez rentrer un data d'une longueur inférieur à 300 caractère les champs vides ne sont pas accepté";
+                            $errors['article_body'] = "Veuillez rentrer un corps d'article d'une longueur inférieur à 300 caractère les champs vides ne sont pas accepté";
                         }
                     } else {
                         $errors['article_title'] = 'Veuillez rentrer un <span style="text-decoration:underline">titre</span> d\'une longeur inférieur à 45 caractère';
@@ -531,16 +533,18 @@ class dataManager
                     $current_data = new comment($current_post['comment_title'], $current_post['comment_author'], $current_post['comment_body'], $current_post['comment_category']);
                     break;
                 case "article":
-                    $current_data = new article($current_post['article_title'], $current_post['article_author'], $current_post['article_body'], $$current_post['article_category']);
+                    $current_data = new article($current_post['article_title'], $current_post['article_author'], $current_post['article_body'], $current_post['article_category']);
                     break;
                 case "contact":
-                    $current_data = new contact($current_post['contact_title'], $current_post['contact_author'], $current_post['contact_body'], $$current_post['contact_category']);
+                    $current_data = new contact($current_post['contact_title'], $current_post['contact_author'], $current_post['contact_body'], $current_post['contact_category']);
                     break;
             }
 
             // Then we use "add" method of gestionnaire_data to add a new comment to the bdd / puis nous utilisons la méthode "add" pour ajouter un nouvel objet à notre bdd
             // La fonction interne add prend en paramètre un objet a ajouter a la base de donnée . un article un commentaire etc
             $this->add($current_data);
+            $errors = "no_errors";
+            $this->show_processing_message($errors);
             // if debug mod enabled then show / si le mode débug est activé alors afficher : 
         } else {
             if ($this->debugmode) {
@@ -562,7 +566,7 @@ class dataManager
         if ($dumb == "no_errors") {
             echo '
   <div class="alert alert-success alert-dismissible fade show" role="alert">
-  <strong> Felicitation votre data a bien été enregistré</strong>
+  <strong> Felicitation votre Post a bien été enregistré</strong>
   <button type="button" class="close" data-dismiss="alert" aria-label="Close">
     <span aria-hidden="true">&times;</span>
   </button>
