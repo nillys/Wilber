@@ -21,9 +21,9 @@
  * 
  */
 // si le fichier de config n'a pas été créé on redirige l'utilisateur vers la page approprié
-if(!file_exists("config.php")){
+if (!file_exists("config.php")) {
     header('location: start.php');
-  }
+}
 require "config.php";
 
 class comment extends data
@@ -37,21 +37,15 @@ class comment extends data
         return $this->db_table_name;
     }
 
-    /**
-     * generate_form
-     *
-     * @param  mixed $type
-     * @param  int $variant Choose wich of form variant generate 
-     * @return void
-     */
+
     public static function generate_form(int $variant = 1)
     {
 ?>
-        <div id="form_container" >
-            <div id="section_form">
+        <div class="form_container">
+            <div class="section_form" id="comment_section_form">
 
-                <div>
-                    <h2>Espace commentaire</h2> <button id="button_erase_form" style="" title="Effacer le formulaire" class="oi oi-x btn" onclick="erase()"></button>
+                <div class="data_title">
+                    <h2>Espace commentaire</h2> <button class=" oi oi-x btn button_erase_form" style="" title="Effacer le formulaire" onclick="erase_comment_form()"></button>
                 </div>
 
                 <form action="" method="post">
@@ -60,25 +54,25 @@ class comment extends data
                         <label for="nom">Nom / Pseudo :</label>
                         <input class="form-control" type="text" value="<?php if (!empty($_POST['comment_author'])) {
                                                                             echo $_POST['comment_author'];
-                                                                        } ?>" name="comment_author" id="author" placeholder="votre nom">
+                                                                        } ?>" name="comment_author" id="comment_author" placeholder="votre nom">
                     </div>
                     <div class="form-group">
                         <label for="nom">Rentrer un titre : </label>
                         <input class="form-control" type="text" value="<?php if (!empty($_POST['comment_title'])) {
                                                                             echo $_POST['comment_title'];
-                                                                        } ?>" name="comment_title" id="title" placeholder="Le titre du data">
+                                                                        } ?>" name="comment_title" id="comment_title" placeholder="Le titre du data">
                     </div>
                     <div class="form-group">
                         <label for="category">choisissez une catégorie : </label>
-                        <select class="form-control" id="category" name="comment_category">
+                        <select class="form-control" id="comment_category" name="comment_category">
                             <option>Le blog</option>
                             <option>Les développeur</option>
                             <option>Autres</option>
                         </select>
                     </div>
-                    <textarea id="body" name="comment_body" class="form-control" placeholder="Entrez votre data ici"><?php if (!empty($_POST['comment_body'])) {
-                                                                                                                            echo $_POST['comment_body'];
-                                                                                                                        } ?></textarea>
+                    <textarea id="comment_body" name="comment_body" class="form-control" placeholder="Entrez votre data ici"><?php if (!empty($_POST['comment_body'])) {
+                                                                                                                                    echo $_POST['comment_body'];
+                                                                                                                                } ?></textarea>
                     <br>
                     <button class="btn btn-success class=" type="submit">Envoyer! </button>
                 </form>
@@ -95,7 +89,7 @@ class comment extends data
 class article extends data
 {
 
-    protected $db_table_name = "aticle";
+    protected $db_table_name = "article";
 
 
     public function db_table_name()
@@ -113,39 +107,46 @@ class article extends data
     public static function generate_form(int $variant = 1)
     {
     ?>
-        <div id="form_container" class="d-flex">
-            <div id="section_form">
+        <div class="form_container" class="d-flex">
+            <div class="section_form" id="article_section_form">
 
-                <div class="d-flex">
-                    <h2>Espace ARCTICLE</h2> <button id="button_erase_form" style="" title="Effacer le formulaire" class="oi oi-x btn" onclick="erase()"></button>
+                <div class="data_title">
+                    <h2>Espace ARCTICLE</h2> <button class=" oi oi-x btn button_erase_form" style="" title="Effacer le formulaire" onclick="erase_article()"></button>
                 </div>
 
                 <form action="" method="post">
 
+                    <div class="form-row">
+                        <div class="col">
+
+                            <label for="title">Rentrer un titre : </label>
+                            <input class="form-control" type="text" value="<?php if (!empty($_POST['article_title'])) {
+                                                                                echo $_POST['article_title'];
+                                                                            } ?>" name="article_title" id="article_title" placeholder="Le titre du data">
+                        </div>
+                        <div class="col">
+                            <div class="form-group">
+                                <label for="category">Choisissez une catégorie : </label>
+                                <select class="form-control" id="article_category" name="article_category">
+                                    <option>Le blog</option>
+                                    <option>Les développeur</option>
+                                    <option>Autres</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
                     <div class="form-group">
-                        <label for="nom">Nom / Pseudo :</label>
+                        <label for="nom">Nom / Pseudo : </label>
                         <input class="form-control" type="text" value="<?php if (!empty($_POST['article_author'])) {
                                                                             echo $_POST['article_author'];
-                                                                        } ?>" name="article_author" id="author" placeholder="votre nom">
+                                                                        } ?>" name="article_author" id="article_author" placeholder="votre nom">
                     </div>
-                    <div class="form-group">
-                        <label for="nom">Rentrer un titre : </label>
-                        <input class="form-control" type="text" value="<?php if (!empty($_POST['article_title'])) {
-                                                                            echo $_POST['article_title'];
-                                                                        } ?>" name="article_title" id="title" placeholder="Le titre du data">
-                    </div>
-                    <div class="form-group">
-                        <label for="category">choisissez une catégorie : </label>
-                        <select class="form-control" id="category" name="article_category">
-                            <option>Le blog</option>
-                            <option>Les développeur</option>
-                            <option>Autres</option>
-                        </select>
-                    </div>
-                    <textarea id="body" name="article_body" class="form-control" placeholder="Entrez votre data ici"><?php if (!empty($_POST['article_body'])) {
-                                                                                                                            echo $_POST['article_body'];
-                                                                                                                        } ?></textarea>
+                    <textarea id="article_body" name="article_body" class="form-control" placeholder="Entrez votre data ici"><?php if (!empty($_POST['article_body'])) {
+                                                                                                                                    echo $_POST['article_body'];
+                                                                                                                                } ?></textarea>
                     <br>
+
+                    <input type="file" name="article_image_1" id="article_image_1">
                     <button class="btn btn-success class=" type="submit">Envoyer! </button>
                 </form>
 
@@ -153,7 +154,7 @@ class article extends data
             </div>
 
         </div>
-        <?php
+    <?php
         return "article";
     }
 } // article
@@ -179,38 +180,36 @@ class contact extends data
     public static function generate_form(int $variant = 1)
     {
     ?>
-        <div id="form_container">
-            <div id="section_form">
-
-                <div class="d-flex">
-                    <h2>Espace COMMENTAIRE</h2> <button id="button_erase_form" style="" title="Effacer le formulaire" class="oi oi-x btn" onclick="erase()"></button>
+        <div class="form_container">
+            <div class="section_form" id="contact_section_form">
+                <div class="data_title">
+                    <h2>Espace COMMENTAIRE</h2> <button class=" oi oi-x btn button_erase_form" style="" title="Effacer le formulaire" onclick="erase()"></button>
                 </div>
-
                 <form action="" method="post">
 
                     <div class="form-group">
                         <label for="nom">Nom / Pseudo :</label>
                         <input class="form-control" type="text" value="<?php if (!empty($_POST['comment_author'])) {
                                                                             echo $_POST['comment_author'];
-                                                                        } ?>" name="comment_author" id="author" placeholder="votre nom">
+                                                                        } ?>" name="comment_author" id="contact_author" placeholder="votre nom">
                     </div>
                     <div class="form-group">
                         <label for="nom">Rentrer un titre : </label>
                         <input class="form-control" type="text" value="<?php if (!empty($_POST['comment_title'])) {
                                                                             echo $_POST['comment_title'];
-                                                                        } ?>" name="comment_title" id="title" placeholder="Le titre du data">
+                                                                        } ?>" name="comment_title" id="contact_title" placeholder="Le titre du data">
                     </div>
                     <div class="form-group">
                         <label for="category">choisissez une catégorie : </label>
-                        <select class="form-control" id="category" name="comment_category">
+                        <select class="form-control" id="contact_category" name="comment_category">
                             <option>Le blog</option>
                             <option>Les développeur</option>
                             <option>Autres</option>
                         </select>
                     </div>
-                    <textarea id="body" name="comment_body" class="form-control" placeholder="Entrez votre data ici"><?php if (!empty($_POST['comment_body'])) {
-                                                                                                                            echo $_POST['comment_body'];
-                                                                                                                        } ?></textarea>
+                    <textarea id="contact_body" name="comment_body" class="form-control" placeholder="Entrez votre data ici"><?php if (!empty($_POST['comment_body'])) {
+                                                                                                                                    echo $_POST['comment_body'];
+                                                                                                                                } ?></textarea>
                     <br>
                     <button class="btn btn-success class=" type="submit">Envoyer! </button>
                 </form>
@@ -219,7 +218,7 @@ class contact extends data
             </div>
 
         </div>
-    <?php
+        <?php
         return "contact";
     }
 } // contact
@@ -325,7 +324,7 @@ class dataManager
      *
      * @var mixed stock the $_POST 
      */
-    private $current_post, $processing_dumb;
+    private $current_post;
     // current_treatment_mode recoit en paramètre une string "comment" "article" "contact" 
     private $current_treatment_mode = array();
 
@@ -345,9 +344,12 @@ class dataManager
 
     public function add_treatment($mode)
     {
-        if (!empty($this->current_post)) {
+        // Si $_POST contient une valleur ayant le titre de la catégorie qu'on veut traiter alors on lance le traitement sur cette catégorie .
+        // Cela permet de lancer un traitement de façon modulable .  
+
+        if (!empty($this->current_post[$mode . "_author"])) {
             // phase de traitement qui prend en paramêtre le post et le paramètre renvoyé par le formulaire pour savoir le type de traitement a effectuer (article , commentaire,etc)
-            $this->processing_dumb = $this->processing_form($this->current_post, $mode);
+            $this->processing_form($this->current_post, $mode);
         }
     }
 
@@ -371,13 +373,15 @@ class dataManager
     public function pull($table)
     {
         // Selectionner la table qui corespond aux dernier mode !!!
-        $q = $this->_db->prepare('SELECT * FROM ' .$table. '');
+        $q = $this->_db->prepare('SELECT * FROM ' . $table . '');
         $q->execute();
 
-
+        // Ici l'objet pdo est converti en tableau car l'objet data prend un tableau en entré
         while ($result = $q->fetch(PDO::FETCH_ASSOC)) {
 
-            $this->list_item_data["comment"][] = new data($result);
+            //l'attribut list_item_data est un tableau de tableau ces sous tableau corespondent aux type d'objet "article" "comentaire" etc.
+            //Le tableau est séléctionné à l'aide du paramètre $table et il va être remplit d'objet de type data qui seront hydraté a chaque parcours de l'objet renvoyé par la base de donné
+            $this->list_item_data[$table][] = new data($result);
 
             // var_dump($result);
             // foreach ($result as $key => $value) {
@@ -389,7 +393,10 @@ class dataManager
 
         }
         if ($this->debugmode == true) {
+            echo '<div class="debug_source_item"><strong>DEBUG_WB_Fonction : PULL <br></strong>Affichage du tableau remplit par la fonction à partir de la base de donnée  <br><em>NOTE : PULL est appelé une seul fois dans show_all_comment</em></div>';
+            echo '<pre class="debug_vardump">';
             var_dump($this->list_item_data["comment"]);
+            echo '</pre>';
         }
     }
 
@@ -440,7 +447,7 @@ class dataManager
     {
         // while processing , errors finded are stored inside this array / Pendant le traitement les érreurs seront stocké dans cet tableau
         $errors = array();
-        
+
         switch ($treatment_type) {
 
             case "comment":
@@ -448,7 +455,7 @@ class dataManager
                 if ($this->debugmode) {
                     echo "This is what's inside SUPER GLOBAL POST Ceci est le contenu de la variable SUPER GLOBAL POST : " . var_dump($_POST);
                 }
-                
+
                 // Starting testing phase on the content of object _POST / Début des tests sur l'envoi POST 
                 if ($current_post['comment_author'] and strlen($current_post['comment_author']) > 1  and strlen($current_post['comment_author']) < 30 and preg_match('/^[a-z0-9A-Z_é]+$/', $current_post['comment_author'])) {
 
@@ -515,11 +522,12 @@ class dataManager
         //If no errors founded , starting the storage process / Si $errors est vide alors on entame la phase de stockage des données
         if (empty($errors)) {
 
-            // Let's create a first instance of comment class / on créer un objet data à partir des données envoyées . 
+            // Let's create a first instance of comment class / on créer un objet data à partir des données envoyées .
+            // Si le paramatère traitement est :  
             switch ($treatment_type) {
-                
+
                 case "comment":
-         
+
                     $current_data = new comment($current_post['comment_title'], $current_post['comment_author'], $current_post['comment_body'], $current_post['comment_category']);
                     break;
                 case "article":
@@ -531,24 +539,27 @@ class dataManager
             }
 
             // Then we use "add" method of gestionnaire_data to add a new comment to the bdd / puis nous utilisons la méthode "add" pour ajouter un nouvel objet à notre bdd
+            // La fonction interne add prend en paramètre un objet a ajouter a la base de donnée . un article un commentaire etc
             $this->add($current_data);
-            $errors = "no_errors";
             // if debug mod enabled then show / si le mode débug est activé alors afficher : 
-        } elseif ($this->debugmode) {
-            echo '<pre>' . var_dump($errors) . '</pre>';
+        } else {
+            if ($this->debugmode) {
+                echo '<pre>' . var_dump($errors) . '</pre>';
+            }
+            $this->show_processing_message($errors);
         }
 
         return $errors;
     }
 
-    public function show_processing_message()
+    public function show_processing_message($dumb)
     {
 
         if ($this->debugmode) {
             echo "This is what's treatment of form sended / Voici le renvoi de la procédure traitement du formulaire : " . var_dump($this->processing_dumb);
         }
 
-        if ($this->processing_dumb == "no_errors") {
+        if ($dumb == "no_errors") {
             echo '
   <div class="alert alert-success alert-dismissible fade show" role="alert">
   <strong> Felicitation votre data a bien été enregistré</strong>
@@ -556,9 +567,9 @@ class dataManager
     <span aria-hidden="true">&times;</span>
   </button>
 </div>';
-        } elseif (!empty($this->processing_dumb)) {
+        } elseif (!empty($dumb)) {
 
-            foreach ($this->processing_dumb as $value) {
+            foreach ($dumb as $value) {
                 echo '
     <div class="alert alert-danger alert-dismissible fade show" role="alert">
     <strong>' . $value . '</strong>

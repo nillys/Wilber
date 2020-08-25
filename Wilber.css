@@ -28,41 +28,45 @@ body{
 
 }
 
-#form_container{
+.form_container{
     padding: 1em;
     background-color: white;
     border-radius: 1em;
 }
 
-#form_container button{
+.form_container button{
     padding: 1em;
     background-color: aquamarine;
     border-radius: 1em;
     border: white 1px solid;
     color: black;
 }
-#form_container button:hover{
+.form_container button:hover{
     background-color: rgb(191, 255, 234);
 }
 
-#section_form{
+.section_form{
 }
 
-#section_form h2{
+.data_title{
+
+}
+
+.section_form h2{
     text-align: center;
     font-size: 2em;
     text-decoration: underline;
     text-transform: uppercase;
 }
 
-#button_erase_form {
+.button_erase_form {
     margin-left: 20px;
     background-color: aquamarine;
     transition-property: padding;
-    transition-duration: 2s;
+    transition-duration: all 2sec;
   }
 
-  #button_erase_form:hover {
+  .button_erase_form:hover {
     padding: 20px;
   }
 /* CSS FOR COMENT / CSS pour les datas */
@@ -120,4 +124,44 @@ body{
 
 .comment_date{
     font-style: italic;
+}
+
+
+#article_body{
+    height: 250px;
+}
+
+.debug_source_item{
+    background: rgb(255,255,255);
+    background: linear-gradient(180deg, rgba(255,255,255,1) 0%, rgba(227,213,255,1) 89%, rgba(255,245,184,1) 100%); 
+    padding: 1em;
+    border:1px white solid;
+    border-radius: 1em;
+}
+
+.debug_source_item strong{
+    font-size: large;
+    font-weight: bold;
+    text-decoration: underline;
+    text-shadow: white 0 0 2px,black 0 0 1px;
+}
+
+.debug_source_item em{
+    color: white;
+    font-weight: bold;
+    background-color: rgba(255, 246, 184, 0.589);
+    padding: 0.2em;
+    box-shadow: rgba(255,255,255,1);
+    border-radius: 1em;
+}
+
+.debug_vardump{
+    background: rgb(255,255,255);
+    background: linear-gradient(0deg, rgba(255,255,255,1) 0%, rgba(255,249,213,1) 74%, rgba(255,245,184,1) 100%); 
+    max-height: 250px;
+    overflow-y: scroll;
+    box-shadow: rgb(255, 255, 255) 0 0 10px;
+    padding: 1em;
+    border-radius: 1em;
+    border: white 1px solid;
 }
