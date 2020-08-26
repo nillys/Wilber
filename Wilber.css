@@ -30,8 +30,12 @@ body{
 
 .form_container{
     padding: 1em;
-    background-color: white;
+    background: rgb(255,255,255);
+    background: radial-gradient(circle, rgba(255,255,255,1) 0%, rgb(249, 254, 255) 45%, rgba(255,255,255,1) 100%); 
     border-radius: 1em;
+    border: black 1px solid;
+    box-shadow: black 0 2px 5px -2px;
+    box-shadow: inset rgba(167, 223, 255, 0.315) 0 10px 25px 6px;
 }
 
 .form_container button{

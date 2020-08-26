@@ -1,11 +1,16 @@
+html, body{
+    height: 100%;
+    background-color: yellow;
+}
+
 #image_entete{
-    display: flex;
+    /* display: flex; */
  
 }
 
 #image_entete img{
     max-width: 100%;
-    display: flex;
+    display: inline-block;
     box-sizing: border-box;
     box-shadow: white 0 0 1px;
 }
@@ -13,9 +18,11 @@
 #form_container{
     justify-content: center;
     align-items: center;
-    height: 100vh;
+    min-height: 100%;
     background: rgb(63,94,251);
     background: radial-gradient(circle, rgba(63,94,251,1) 0%, rgba(252,70,107,1) 100%); 
+    background-attachment: fixed;
+    background-size: contain;
 }
 .title{
     color: white;
@@ -35,7 +42,9 @@ label{
 
 #section_form{
 display: inline-block;
-width: 20%;
+max-width: 340px;
+
+
 background-color: rgba(255, 255, 255, 0.178);
 box-shadow: white 0 0 5px;
 padding: 1em;

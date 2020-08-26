@@ -23,7 +23,7 @@ $gestionnaire_data = new dataManager($pdo, $_POST);
 
 <header id="header">
   <h1 id="main_title">WILBER</h1>
-  <h6 id="label_version">Version Alpha(0.05)</h6>
+  <h6 id="label_version">Version Alpha(0.0.06)</h6>
   <p>Content managing made : <em>easy fresh and simple !</em> (for developper)</p>
 
 </header>
