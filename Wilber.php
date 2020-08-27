@@ -33,6 +33,7 @@ require "WB_data_article.php";
 require "WB_data_contact.php";
 
 require "WB_Toolbox.php";
+include "WB_about.php";
 
 
 class dataManager
@@ -294,9 +295,9 @@ class dataManager
                 }
 
                 // Starting testing phase on the content of object _POST / Début des tests sur l'envoi POST 
-                if ($current_post['article_author'] and strlen($current_post['article_author']) > 1  and strlen($current_post['article_author']) < 400 and preg_match('/^[a-z0-9A-Z_é]+$/', $current_post['article_author'])) {
+                if ($current_post['article_author'] and strlen($current_post['article_author']) > 1  and strlen($current_post['article_author']) < 80 and preg_match('/^[a-z0-9A-Z_é]+$/', $current_post['article_author'])) {
 
-                    if ($current_post['article_title'] and strlen($current_post['article_title']) >= 5 and strlen($current_post['article_title']) < 45) {
+                    if ($current_post['article_title'] and strlen($current_post['article_title']) >= 5 and strlen($current_post['article_title']) < 200) {
                         if (empty($current_post['article_body'])) {
                             $errors['article_body'] = "Veuillez rentrer un corps d'article d'une longueur inférieur à 1500 caractère les champs vides ne sont pas accepté";
                         }

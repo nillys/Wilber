@@ -24,10 +24,9 @@ $gestionnaire_data = new dataManager($pdo, $_POST);
 
 <header id="header">
     <a href="exemple.php"><h1 id="main_title">WILBER</h1></a>
-    <h6 id="label_version">Version Alpha(0.0.07)</h6>
+    <h6 id="label_version"><?=$WB_version_number;?></h6>
+    <h6 id="label_version"><?=$WB_slogan;?></h6>
     <h2 id="page_name">Afficher un article</h2>
-
-    <p>Content managing made : <em>easy fresh and simple !</em> (for developper)</p>
 
 </header>
 

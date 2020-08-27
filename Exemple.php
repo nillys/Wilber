@@ -12,8 +12,8 @@ $gestionnaire_data = new dataManager($pdo, $_POST);
 <head>
 
   <meta charset="utf-8">
-  
-  
+
+
 
   <link rel="stylesheet" type="text/css" href="Ressource_code/bootstrap/css/bootstrap.css">
   <link rel="stylesheet" type="text/css" href="WB_main_css.css">
@@ -23,18 +23,19 @@ $gestionnaire_data = new dataManager($pdo, $_POST);
   <script src="Wilber.script.js"></script>
   <script src="Ressource_code/tinymce_5.4.2/tinymce/js/tinymce/tinymce.min.js"></script>
   <script type="text/javascript">
-  tinymce.init({
-    selector: '#article_body'
-  });
+    tinymce.init({
+      selector: '#article_body'
+    });
   </script>
 
 </head>
 
 <header id="header">
   <h1 id="main_title">WILBER</h1>
+
+  <h6 id="label_version"><?= $WB_version_number; ?></h6>
   <h2 id="page_name"> Accueil</h2>
-  <h6 id="label_version">Version Alpha(0.0.98)</h6>
-  <p>Content managing made : <em>easy fresh and simple !</em> (for developper)</p>
+  <?= $WB_slogan; ?>
 
 
 

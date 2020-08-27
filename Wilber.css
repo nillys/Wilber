@@ -36,6 +36,10 @@ body{
     text-shadow: white 0 0 5px;
 }
 
+#WB_slogan{
+    text-align: center;
+}
+
 .form_container{
     padding: 1em;
     background: rgb(255,255,255);

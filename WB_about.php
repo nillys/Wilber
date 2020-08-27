@@ -2,4 +2,6 @@
 
 $auteur = "Nillys";
 
-$numero_version = "(0.0.98)";
+$WB_version_number = "Version Alpha(0.0.99)";
+
+$WB_slogan = '<p id="WB_slogan">Content managing made : <em>easy fresh and simple !</em> (for developper)</p>';
