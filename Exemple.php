@@ -13,10 +13,11 @@ $gestionnaire_data = new dataManager($pdo, $_POST);
 
   <meta charset="utf-8">
   
-  <link rel="stylesheet" type="text/css" href="Wilber.css">
+  
 
   <link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap.css">
   <link rel="stylesheet" type="text/css" href="WB_main_css.css">
+  <link rel="stylesheet" type="text/css" href="Wilber.css">
   <link rel="stylesheet" type="text/css" href="Ressource_icone/open-iconic-master/open-iconic-master/font/css/open-iconic-bootstrap.css">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <script src="Wilber.script.js"></script>
@@ -26,7 +27,7 @@ $gestionnaire_data = new dataManager($pdo, $_POST);
 <header id="header">
   <h1 id="main_title">WILBER</h1>
   <h2 id="page_name"> Accueil</h2>
-  <h6 id="label_version">Version Alpha(0.0.07)</h6>
+  <h6 id="label_version">Version Alpha(0.0.97)</h6>
   <p>Content managing made : <em>easy fresh and simple !</em> (for developper)</p>
 
 

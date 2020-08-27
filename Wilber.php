@@ -228,14 +228,21 @@ class dataManager
 
                 <div class="article_title"><?= $this->list_item_data["article"][$_GET['position_article']]->title(); ?></div>
                 <div class="article_header">
-                    <div class="article_author"><?= '<span class="oi oi-person"></span>' . ' : '. $this->list_item_data["article"][$_GET['position_article']]->author(); ?></div>
-                    <div class="article_date"><?= '<span class="oi oi-timer"></span>'." le : " . $this->list_item_data["article"][$_GET['position_article']]->date_post(); ?></div>
+                    <div class="article_author"><?= '<span class="oi oi-person"></span>' . ' : ' . $this->list_item_data["article"][$_GET['position_article']]->author(); ?></div>
+                    <div class="article_date"><?= '<span class="oi oi-timer"></span>' . " le : " . $this->list_item_data["article"][$_GET['position_article']]->date_post(); ?></div>
                 </div>
 
                 <div class="article_container_body">
-        
-                    <img class="article_img1" src="<?= $this->list_item_data["article"][$_GET['position_article']]->article_picture1_name; ?>" alt="article_picture1">
-                    <div class="article_body"><?= $this->list_item_data["article"][$_GET['position_article']]->body(); ?></div>
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <img class="article_img1" src="<?= $this->list_item_data["article"][$_GET['position_article']]->article_picture1_name; ?>" alt="article_picture1">
+                            </div>
+                            <div class="col-md-8">
+                                <div class="article_body"><?= $this->list_item_data["article"][$_GET['position_article']]->body(); ?></div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

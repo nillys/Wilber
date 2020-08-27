@@ -147,11 +147,11 @@ body{
     display: flex;
     justify-content: center;
     align-items: center;
-    overflow-y: scroll;
 }
+
 .thumbnail_article_container{
   display: inline-block;
-  box-shadow: black 0 2px 2px -1px,rgba(0, 0, 0, 0.411) 0 5px 5px -2px;
+  box-shadow: rgb(17, 0, 0) 0 2px 2px -1px,rgba(0, 0, 0, 0.411) 0 5px 5px -2px;
   border-radius: 1em;
   background: rgba(255, 255, 255, 0.253);
   background: linear-gradient(0deg, rgba(255, 255, 255, 0.774) 45%, rgba(0,212,255,0.17128858379289214) 100%); 
@@ -160,6 +160,15 @@ body{
   text-transform: capitalize;
   max-width: 300px;
   cursor: pointer;
+  position: relative;
+  transition: all 1s;
+}
+
+.thumbnail_article_container:hover{
+    box-shadow: rgba(0, 0, 0, 0.678) 0 15px 15px -2px;
+    max-width: 305px;
+    position: relative;
+    bottom:6px;
 }
 
 .thumbnail_article_img_thumbnail{
@@ -167,7 +176,7 @@ body{
     max-height: 200px;
     overflow: hidden;
     width: 100%;
-    max-width: 300px;
+    max-width: 305px;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -252,9 +261,10 @@ font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 
 }
 
-.article_img1{
 
-    min-width: 40%;
+.article_img1{
+    margin: auto;
+    max-width: 100%;
     margin:0.5em;
     box-shadow: black 0 0 5px;
 }
@@ -262,10 +272,9 @@ font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 .article_container_body{
     padding: 0.1em;
     background-color: white;
-    display: flex;
     box-shadow: inset rgba(0, 0, 0, 0.411) 0 0 5px;
 
-
+width: 100%;
 }
 
 .article_author{
@@ -315,7 +324,7 @@ text-align: center;
   font-weight: 500;
     font-family: Tahoma, Geneva, Verdana, sans-serif;
 flex-wrap: wrap;
-
+    width: 100%;
  
 }
 

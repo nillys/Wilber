@@ -56,7 +56,7 @@ class article extends data
             <div class="section_form" id="article_section_form">
 
                 <div class="data_title">
-                    <h2>Espace ARCTICLE</h2> <button class=" oi oi-x btn button_erase_form" style="" title="Effacer le formulaire" onclick="erase_article_form()"></button>
+                    <h2>Espace ARTICLE</h2> <button class=" oi oi-x btn button_erase_form" style="" title="Effacer le formulaire" onclick="erase_article_form()"></button>
                 </div>
 
                 <form action="" method="post" enctype="multipart/form-data">
