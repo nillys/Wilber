@@ -185,9 +185,11 @@ body{
     background-size: cover;
     background-repeat: no-repeat;
     background-color: rgba(255, 0, 0, 0.322);
+    padding:1em;
 }
 
 .thumbnail_article_container_body{
+    text-align: center;
     padding: 0.1em;
     max-height: 320px;
     overflow: hidden;
@@ -338,6 +340,7 @@ flex-wrap: wrap;
 
 
 #article_body{
+    min-height: 500px;
 
 }
 

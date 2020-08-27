@@ -7,11 +7,12 @@ class article extends data
 
     protected $db_table_name = "article";
     public $db_table_configuration = '(author,title,body,category,article_picture1,article_picture2,article_picture3) VALUES(:author,:title,:body,:category,:article_picture1,:article_picture2,:article_picture3)';
-    
-    public function custom_request_data_parameters($q,$data_received){
+
+    public function custom_request_data_parameters($q, $data_received)
+    {
         $q->bindValue(':article_picture1', $data_received->article_picture1_name);
-            $q->bindValue(':article_picture2', $data_received->article_picture2_name);
-            $q->bindValue(':article_picture3', $data_received->article_picture3_name);
+        $q->bindValue(':article_picture2', $data_received->article_picture2_name);
+        $q->bindValue(':article_picture3', $data_received->article_picture3_name);
     }
     public $article_picture1_name, $article_picture2_name, $article_picture3_name;
 
@@ -21,10 +22,10 @@ class article extends data
         return $this->db_table_name;
     }
 
-    public function __construct($title_or_data, $author = "", $body = "", $category = "",$article_picture1="", $article_picture2="", $article_picture3="", $date_post = "")
+    public function __construct($title_or_data, $author = "", $body = "", $category = "", $article_picture1 = "", $article_picture2 = "", $article_picture3 = "", $date_post = "")
     {
         //Traitement dans le cas de l'hydratation de l'objet manuellement !
-        
+
         if (is_string($title_or_data)) {
             $this->setTitle($title_or_data);
             $this->setAuthor($author);
@@ -34,7 +35,7 @@ class article extends data
             $this->article_picture1_name = $article_picture1;
             $this->article_picture2_name = $article_picture2;
             $this->article_picture3_name = $article_picture3;
-        } 
+        }
         //Traitement dans le cas de l'hydratation de l'objet avec un tableau
         elseif (is_array($title_or_data)) {
             $this->setTitle($title_or_data['title']);
@@ -46,12 +47,11 @@ class article extends data
             $this->article_picture3_name = $title_or_data['article_picture3'];
             $this->setDate_post($title_or_data['date_post']);
         }
- 
     }
 
     public static function generate_form(int $variant = 1)
     {
-    ?>
+?>
         <div class="form_container" class="d-flex">
             <div class="section_form" id="article_section_form">
 
@@ -79,13 +79,14 @@ class article extends data
                                 </select>
                             </div>
                         </div>
+                        <div class=" col form-group">
+                            <label for="nom">Nom / Pseudo : </label>
+                            <input class="form-control" type="text" value="<?php if (!empty($_POST['article_author'])) {
+                                                                                echo $_POST['article_author'];
+                                                                            } ?>" name="article_author" id="article_author" placeholder="votre nom">
+                        </div>
                     </div>
-                    <div class="form-group">
-                        <label for="nom">Nom / Pseudo : </label>
-                        <input class="form-control" type="text" value="<?php if (!empty($_POST['article_author'])) {
-                                                                            echo $_POST['article_author'];
-                                                                        } ?>" name="article_author" id="article_author" placeholder="votre nom">
-                    </div>
+
                     <textarea id="article_body" name="article_body" class="form-control" placeholder="Entrez le corps de l'article ici"><?php if (!empty($_POST['article_body'])) {
                                                                                                                                             echo $_POST['article_body'];
                                                                                                                                         } ?></textarea>
@@ -99,7 +100,7 @@ class article extends data
             </div>
 
         </div>
-    <?php
+<?php
         return "article";
     }
 } // article

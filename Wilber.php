@@ -32,7 +32,7 @@ require "WB_data_comment.php";
 require "WB_data_article.php";
 require "WB_data_contact.php";
 
-require "WB_function.php";
+require "WB_Toolbox.php";
 
 
 class dataManager
@@ -294,14 +294,14 @@ class dataManager
                 }
 
                 // Starting testing phase on the content of object _POST / Début des tests sur l'envoi POST 
-                if ($current_post['article_author'] and strlen($current_post['article_author']) > 1  and strlen($current_post['article_author']) < 30 and preg_match('/^[a-z0-9A-Z_é]+$/', $current_post['article_author'])) {
+                if ($current_post['article_author'] and strlen($current_post['article_author']) > 1  and strlen($current_post['article_author']) < 400 and preg_match('/^[a-z0-9A-Z_é]+$/', $current_post['article_author'])) {
 
                     if ($current_post['article_title'] and strlen($current_post['article_title']) >= 5 and strlen($current_post['article_title']) < 45) {
                         if (empty($current_post['article_body'])) {
                             $errors['article_body'] = "Veuillez rentrer un corps d'article d'une longueur inférieur à 1500 caractère les champs vides ne sont pas accepté";
                         }
                     } else {
-                        $errors['article_title'] = 'Veuillez rentrer un <span style="text-decoration:underline">titre</span> d\'une longeur inférieur à 45 caractère';
+                        $errors['article_title'] = 'Veuillez rentrer un <span style="text-decoration:underline">titre</span> d\'une longeur inférieur à 200 caractère';
                     }
                 } else {
                     $errors['article_author'] = "Veuillez rentrer un nom d'utilisateur valide";
@@ -325,10 +325,10 @@ class dataManager
                     if ($_FILES['article_picture1']['size'] <= $max_size) {
                         $extension_file_uploaded = strtolower(substr(strrchr($_FILES['article_picture1']['name'], '.'), 1));
                         if (in_array($extension_file_uploaded, $valid_extensions)) {
-                            $WB_image_directory_path = "Posts_images/Article/" . "WB_article_" . clean($current_post['article_title']) . "/1." . $extension_file_uploaded;
+                            $WB_image_directory_path = "Posts_images/Article/" . "WB_article_" . toolbox::clean($current_post['article_title']) . "/1." . $extension_file_uploaded;
                             // Créer le dossier si celui ci n'éxiste pas . 
-                            if (!is_dir("Posts_images/Article/" . "WB_article_" . clean($current_post['article_title']) . "/")) {
-                                mkdir("Posts_images/Article/" . "WB_article_" . clean($current_post['article_title']) . "/");
+                            if (!is_dir("Posts_images/Article/" . "WB_article_" . toolbox::clean($current_post['article_title']) . "/")) {
+                                mkdir("Posts_images/Article/" . "WB_article_" . toolbox::clean($current_post['article_title']) . "/");
                             }
 
                             $resultat = move_uploaded_file($_FILES['article_picture1']['tmp_name'], $WB_image_directory_path);
