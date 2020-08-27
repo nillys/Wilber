@@ -1,68 +1,54 @@
-BONJOUR et MERCI d'utiliser cet outil qui j'espère vous sera utile . 
+CONVENTION EN VIGUEUR POUR L'UTILISATION GIT DU PROJET 
+
+chaque nouveau commit reçoit en titre : Le but requis pour passer à la version suivante : 
+
+ex: Implementer la fonctionnalité de ARTICLE
+
+Un tableau à trois colonne : la première valeur étant le numéro de la version à partir de la quelle est éffectué l'amérlioration , la deuxième : étant la valeur actuel , la troisième étant le numéro de version corespondant au travail voulant être apporté . 
+
+ex: 0.0.07 -> 0.0.09 => 0.0.10
+
+Un tableau aux nombre de colonnes indéterminé présentant un apperçu pratique et simple des diférrentes thématiques propre au logiciel ayant été amélioré au cours du dernier travail. Le plus indiquant en proportion l'amélioration apporté pour chaque catégorie
+
+Voici le glossaire de la terminologie : 
+
+FUNC : fonctionnalités 
+
+DOC : Documentation
+
+FILE : Toute modification apporté sur la structure des dossiers et fichiers
+
+MODULAR : La capacité du logiciel a être facilement amélioré , maintenu , sa modularité , la façon dont il codé
+
+ORG : Organisation , Convention , méthode 
+
+ex : [ Func.++ | DOC . + | File . ++ | Modular . ++ | ORG . +]
 
 
-La configuration est simple :
+Ensuite par CATEGORIE les AMELIORATIONS sont listé séparé par un simple espace , puis suivit par : LES POINTS A AMELIORER pour atteindre l'objectif relatif à la version suivante sont listé avec ce symbole ->/
 
-CONFIGURATION :
+================================================================================
+*/FILE // nom de la catégorie
 
-1) Assurez vous d'avoir créé une base de donné avec l'outil que vous voulez ! 
-et de disposer de 
+// LISTES DES POINTS EFFECTUE
 
-	son adresse / HOST 
-	Le nom que vous lui avez donné ! 
-	le nom d'utilisateur 
-	et le mot de passe ! 
+Décomposition des classes data en plusieurs sous classes afin de
+faciliter la lisibilité et la maintenance du logiciel.
 
-Si ce n'est pas le cas sachez que Wilber créera automatiquement la base de donné associé au nom que vous avez renseigné si elle n'éxiste pas.
+Creation d'un nouveau fichier WB_SHOW_ARTICLE qui va servir à afficher
+les articles
 
-->	Lancer start.php !
-
-Une fennêtre s'ouvre vous invitant à renseigner ces informations . 
-Si la connexion s'effectue avec succès un message apparait et un fichier de configuration qui contient un objet PDO bien configuré 
-apparait . et vous êtes redirigé vers la page sql.deploy.php
-_____________________________________________________________
-
-2)Cette page va se charger de créer les tables nécessaire à l'utilisation des classes php pour vous . vous n'avez rien à faire . 
-
-Si l'opération se déroule avec succès vous voyez normalement un message vous indiquant que tout c'est bien passé ! et vous pouvez voir un bouton vous indiquant que vous pouvez fermer cet onglet . Si vous cliquez dessus vous serez redirigé vers : Exemple.php
-
-UTILISATION :
-
-Formulaire ajout base de donné , traitement des formulaires !
--------------------------------------------------------------
-
-L'utilisation de Wilber est très simple : 
-
-1) Assurer vous d'inclure dans l'en tête le fichier "Wilber.php" avec cette instruction par exemple : 
-
-	require "Wilber.php";
-
-2) Instanciez dans l'en tête du fichier un nouveau "Manager" avec le nom qui vous plaira en l'occurence j'ai choisit "gestionnaire data" 
-
-	$gestionnaire_data = new dataManager($pdo, $_POST);
-
-3) A l'endroit ou vous souhaitez insérer le formulaire de votre choix (commentaire , article , contact) avec l'instruction suivante exemple pour commentaire :
-
-	$gestionnaire_data->add_treatment(comment::generate_form()); // pour les commentaire
-	$gestionnaire_data->add_treatment(article::generate_form()); // pour les articles (fonctionnalité en cours de développement)
-	$gestionnaire_data->add_treatment(contact::generate_form()); // pour les formulaires de contact (fonctionnalité en cours de développement)
+Création d'un dossier Post_images servant à receptionner le contenu
+afférant aux différents envoi d'image .
 
 
-4) Si vous le souhaitez (ce qui est vivement conseillé) vous pouvez placer directement après le formulaire(c'est pour l'instant imperatif) le retour d'info concernant le traitement du formulaire pour l'utilisateur (message d'érreur ou de succès)
-
-	 $gestionnaire_data->show_processing_message();
-	 
-	 
-	 
-Afficher les infos depuis la base de donnée !
--------------------------------------------------------------
-
-1) en l'occurence la seul fonction disponible pour l'instant est celle ci . elle permet d'afficher les commentaire stocké dans la base de donné à l'endroit ou il vous plaira sur le site elle requiert simplement de déclarer un gestionnaire de donné dans la page 
-
-	   $gestionnaire_data->show_all_comment();
 
 
-Exemple :
-----------
+->/ Il faudra renomer le fichier exemple en : WB_accueil.php
 
-Le fichier exemple.php peut être lancé pour voir l'utilisation du module .
+->/ Travailler sur les conventions de nomage des fichiers et sur le nom
+des fichiers thèmes css de wilber
+
+
+Le symbole ? -> veut dire que ce a quoi il est fait référence s'est vu documenté et ajouté (probablement dans le README) , ce qui suit ce symbole est juste une courte description et est indenté.
+

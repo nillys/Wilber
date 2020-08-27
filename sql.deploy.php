@@ -92,9 +92,9 @@
         `body` varchar(255) NOT NULL,
         `category` varchar(255) DEFAULT NULL,
         `date_post` timestamp NOT NULL DEFAULT current_timestamp(),
-        `photo1` varchar(100) DEFAULT NULL,
-        `photo2` varchar(100) DEFAULT NULL,
-        `photo3` varchar(100) DEFAULT NULL,
+        `article_picture1` varchar(100) DEFAULT NULL,
+        `article_picture2` varchar(100) DEFAULT NULL,
+        `article_picture3` varchar(100) DEFAULT NULL,
         PRIMARY KEY (`id`)
        ) ENGINE=MyISAM DEFAULT CHARSET=utf8');
         $check_count += 1;

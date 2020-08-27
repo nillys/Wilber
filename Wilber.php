@@ -26,291 +26,14 @@ if (!file_exists("config.php")) {
 }
 require "config.php";
 
-class comment extends data
-{
+require "WB_data.php";
 
-    protected $db_table_name = "comment";
-
-
-    public function db_table_name()
-    {
-        return $this->db_table_name;
-    }
+require "WB_data_comment.php";
+require "WB_data_article.php";
+require "WB_data_contact.php";
 
 
-    public static function generate_form(int $variant = 1)
-    {
-?>
-        <div class="form_container">
-            <div class="section_form" id="comment_section_form">
 
-                <div class="data_title">
-                    <h2>Espace commentaire</h2> <button class=" oi oi-x btn button_erase_form" style="" title="Effacer le formulaire" onclick="erase_comment_form()"></button>
-                </div>
-
-                <form action="" method="post">
-
-                    <div class="form-group">
-                        <label for="nom">Nom / Pseudo :</label>
-                        <input class="form-control" type="text" value="<?php if (!empty($_POST['comment_author'])) {
-                                                                            echo $_POST['comment_author'];
-                                                                        } ?>" name="comment_author" id="comment_author" placeholder="votre nom">
-                    </div>
-                    <div class="form-group">
-                        <label for="nom">Rentrer un titre : </label>
-                        <input class="form-control" type="text" value="<?php if (!empty($_POST['comment_title'])) {
-                                                                            echo $_POST['comment_title'];
-                                                                        } ?>" name="comment_title" id="comment_title" placeholder="Le titre du commentaire">
-                    </div>
-                    <div class="form-group">
-                        <label for="category">choisissez une catégorie : </label>
-                        <select class="form-control" id="comment_category" name="comment_category">
-                            <option>Le blog</option>
-                            <option>Les développeur</option>
-                            <option>Autres</option>
-                        </select>
-                    </div>
-                    <textarea id="comment_body" name="comment_body" class="form-control" placeholder="Entrez votre commentaire ici"><?php if (!empty($_POST['comment_body'])) {
-                                                                                                                                    echo $_POST['comment_body'];
-                                                                                                                                } ?></textarea>
-                    <br>
-                    <button class="btn btn-success class=" type="submit">Envoyer! </button>
-                </form>
-
-
-            </div>
-
-        </div>
-    <?php
-        return "comment";
-    }
-} // COMMENT
-
-class article extends data
-{
-
-    protected $db_table_name = "article";
-
-
-    public function db_table_name()
-    {
-        return $this->db_table_name;
-    }
-
-    /**
-     * generate_form
-     *
-     * @param  mixed $type
-     * @param  int $variant Choose wich of form variant generate 
-     * @return void
-     */
-    public static function generate_form(int $variant = 1)
-    {
-    ?>
-        <div class="form_container" class="d-flex">
-            <div class="section_form" id="article_section_form">
-
-                <div class="data_title">
-                    <h2>Espace ARCTICLE</h2> <button class=" oi oi-x btn button_erase_form" style="" title="Effacer le formulaire" onclick="erase_article_form()"></button>
-                </div>
-
-                <form action="" method="post">
-
-                    <div class="form-row">
-                        <div class="col">
-
-                            <label for="title">Rentrer un titre : </label>
-                            <input class="form-control" type="text" value="<?php if (!empty($_POST['article_title'])) {
-                                                                                echo $_POST['article_title'];
-                                                                            } ?>" name="article_title" id="article_title" placeholder="Le titre de l'article">
-                        </div>
-                        <div class="col">
-                            <div class="form-group">
-                                <label for="category">Choisissez une catégorie : </label>
-                                <select class="form-control" id="article_category" name="article_category">
-                                    <option>Le blog</option>
-                                    <option>Les développeur</option>
-                                    <option>Autres</option>
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="nom">Nom / Pseudo : </label>
-                        <input class="form-control" type="text" value="<?php if (!empty($_POST['article_author'])) {
-                                                                            echo $_POST['article_author'];
-                                                                        } ?>" name="article_author" id="article_author" placeholder="votre nom">
-                    </div>
-                    <textarea id="article_body" name="article_body" class="form-control" placeholder="Entrez le corps de l'article ici"><?php if (!empty($_POST['article_body'])) {
-                                                                                                                                    echo $_POST['article_body'];
-                                                                                                                                } ?></textarea>
-                    <br>
-
-                    <input type="file" name="article_image_1" id="article_image_1">
-                    <button class="btn btn-success class=" type="submit">Envoyer! </button>
-                </form>
-
-
-            </div>
-
-        </div>
-    <?php
-        return "article";
-    }
-} // article
-
-class contact extends data
-{
-
-    protected $db_table_name = "contact";
-
-
-    public function db_table_name()
-    {
-        return $this->db_table_name;
-    }
-
-    /**
-     * generate_form
-     *
-     * @param  mixed $type
-     * @param  int $variant Choose wich of form variant generate 
-     * @return void
-     */
-    public static function generate_form(int $variant = 1)
-    {
-    ?>
-        <div class="form_container">
-            <div class="section_form" id="contact_section_form">
-                <div class="data_title">
-                    <h2>Espace COMMENTAIRE</h2> <button class=" oi oi-x btn button_erase_form" style="" title="Effacer le formulaire" onclick="erase()"></button>
-                </div>
-                <form action="" method="post">
-
-                    <div class="form-group">
-                        <label for="nom">Nom / Pseudo :</label>
-                        <input class="form-control" type="text" value="<?php if (!empty($_POST['comment_author'])) {
-                                                                            echo $_POST['comment_author'];
-                                                                        } ?>" name="comment_author" id="contact_author" placeholder="votre nom">
-                    </div>
-                    <div class="form-group">
-                        <label for="nom">Rentrer un titre : </label>
-                        <input class="form-control" type="text" value="<?php if (!empty($_POST['comment_title'])) {
-                                                                            echo $_POST['comment_title'];
-                                                                        } ?>" name="comment_title" id="contact_title" placeholder="Le titre du data">
-                    </div>
-                    <div class="form-group">
-                        <label for="category">choisissez une catégorie : </label>
-                        <select class="form-control" id="contact_category" name="comment_category">
-                            <option>Le blog</option>
-                            <option>Les développeur</option>
-                            <option>Autres</option>
-                        </select>
-                    </div>
-                    <textarea id="contact_body" name="comment_body" class="form-control" placeholder="Entrez votre data ici"><?php if (!empty($_POST['comment_body'])) {
-                                                                                                                                    echo $_POST['comment_body'];
-                                                                                                                                } ?></textarea>
-                    <br>
-                    <button class="btn btn-success class=" type="submit">Envoyer! </button>
-                </form>
-
-
-            </div>
-
-        </div>
-        <?php
-        return "contact";
-    }
-} // contact
-
-
-/**
- * data
- * 
- * A simple comment class that group all usefull attribut and method related to such object
- * Une classe toute simple qui regroupe toutes les méthodes et attribut propres cet élément
- * 
- */
-
-class data
-{
-
-
-    private $title, $author, $body, $category, $date_post;
-
-    public function __construct($title_or_data, $author = "", $body = "", $category = "", $date_post = "")
-    {
-
-        if (is_string($title_or_data)) {
-            $this->setTitle($title_or_data);
-            $this->setAuthor($author);
-            $this->setBody($body);
-            $this->setCategory($category);
-            $this->setDate_post($date_post);
-        } elseif (is_array($title_or_data)) {
-            $this->setTitle($title_or_data['title']);
-            $this->setAuthor($title_or_data['author']);
-            $this->setBody($title_or_data['body']);
-            $this->setCategory($title_or_data['category']);
-            $this->setDate_post($title_or_data['date_post']);
-        }
-    }
-
-    public function setTitle(string $title)
-    {
-
-        $this->title = $title;
-    }
-    public function setAuthor(string $author)
-    {
-
-        $this->author = $author;
-    }
-    public function setBody(string $body)
-    {
-
-        $this->body = $body;
-    }
-    public function setCategory(string $category)
-    {
-        $this->category = $category;
-    }
-    public function setDate_post($date_post)
-    {
-
-        $this->date_post = $date_post;
-    }
-    public function setTable($db_table_name)
-    {
-
-        $this->db_table_name = $db_table_name;
-    }
-
-    public function title()
-    {
-        return $this->title;
-    }
-    public function author()
-    {
-        return $this->author;
-    }
-    public function body()
-    {
-        return $this->body;
-    }
-    public function category()
-    {
-        return $this->category;
-    }
-    public function date_post()
-    {
-        return $this->date_post;
-    }
-    public function db_table_name()
-    {
-        return $this->db_table_name;
-    }
-} // data
 
 class dataManager
 {
@@ -349,23 +72,38 @@ class dataManager
 
         if (!empty($this->current_post[$mode . "_author"])) {
             // phase de traitement qui prend en paramêtre le post et le paramètre renvoyé par le formulaire pour savoir le type de traitement a effectuer (article , commentaire,etc)
+
             $this->processing_form($this->current_post, $mode);
         }
     }
 
-    // FONCTION EXTERNE
-    public function add(data $data)
+    // FONCTION EXTERNE    
+    /**
+     * Fonction chargé d'envoyer les données reçu à la base de donnée
+     *
+     * @param  data Prend en paramètre un objet issu du type data ('Article, Commentaire, Contact')
+     * @return void
+     */
+    public function add($data_received)
     {
-        // switch ($data) {
-        //     case comment::class:
+        // Traitement approprié au type d'objet (article , commentaire , contact etc)
 
-        //         break;
-        // }
-        $q = $this->_db->prepare('INSERT INTO ' . $data->db_table_name() . '(author,title,body,category) VALUES(:author,:title,:body,:category)');
-        $q->bindValue(':title', $data->title());
-        $q->bindValue(':author', $data->author());
-        $q->bindValue(':body', $data->body());
-        $q->bindValue(':category', $data->category());
+
+        $q = $this->_db->prepare('INSERT INTO ' . $data_received->db_table_name() . $data_received->db_table_configuration);
+
+        // Partie Commune
+        // Affection des paramètres commun aux objet data
+        $q->bindValue(':title', $data_received->title());
+        $q->bindValue(':author', $data_received->author());
+        $q->bindValue(':body', $data_received->body());
+        $q->bindValue(':category', $data_received->category());
+
+        // Partie Particulière
+        // Cette fonction est chargé d'éxecuter les parties de requettes propres aux objets traité qui dispose de paramètres suplémentaires 
+        if(method_exists($data_received,"custom_request_data_parameters")){
+            $data_received->custom_request_data_parameters($q, $data_received);
+        }
+        
 
         $q->execute();
     }
@@ -377,27 +115,30 @@ class dataManager
         $q = $this->_db->prepare('SELECT * FROM ' . $table . ' ORDER BY id DESC');
         $q->execute();
 
-
-        // Ici l'objet pdo est converti en tableau car l'objet data prend un tableau en entré
-        while ($result = $q->fetch(PDO::FETCH_ASSOC)) {
-
-            //l'attribut list_item_data est un tableau de tableau ces sous tableau corespondent aux type d'objet "article" "comentaire" etc.
-            //Le tableau est séléctionné à l'aide du paramètre $table et il va être remplit d'objet de type data qui seront hydraté a chaque parcours de l'objet renvoyé par la base de donné
-            $this->list_item_data[$table][] = new data($result);
-
-            // var_dump($result);
-            // foreach ($result as $key => $value) {
-            //     // echo $key . ' : ' . $value . ' | ';
-
-
-
-            // }
-
+        switch ($table) {
+            case "comment":
+                while ($result = $q->fetch(PDO::FETCH_ASSOC)) {
+                    $this->list_item_data[$table][] = new comment($result);
+                }
+                break;
+            case "article":
+                while ($result = $q->fetch(PDO::FETCH_ASSOC)) {
+                    $this->list_item_data[$table][] = new article($result);
+                }
+                break;
+            case "contact":
+                while ($result = $q->fetch(PDO::FETCH_ASSOC)) {
+                    $this->list_item_data[$table][] = new contact($result);
+                }
+                break;
         }
+        // Ici l'objet pdo est converti en tableau car l'objet data prend un tableau en entré
+
+
         if ($this->debugmode == true) {
             echo '<div class="debug_source_item"><strong>DEBUG_WB_Fonction : PULL <br></strong>Affichage du tableau remplit par la fonction à partir de la base de donnée  <br><em>NOTE : PULL est appelé une seul fois dans show_all_comment</em></div>';
             echo '<pre class="debug_vardump">';
-            var_dump($this->list_item_data["comment"]);
+            var_dump($this->list_item_data[$table]);
             echo '</pre>';
         }
     }
@@ -408,7 +149,7 @@ class dataManager
         // $this->pull();
 
         if (is_int($key)) {
-        ?>
+?>
             <div class="comment_container">
                 <div class="comment_title"><?= $this->list_item_data["comment"][$key]->title(); ?></div>
                 <div class="comment_header">
@@ -440,14 +181,76 @@ class dataManager
                 <div class="comment_body"><?= $value->body(); ?></div>
             </div>
 
-<?php
+        <?php
+        }
+        echo '</div>';
+    }
+    public function show_all_article_thumbnail()
+    {
+        if (empty($this->list_item_data["article"])) {
+            $this->pull("article");
+        }
+        echo '<div class="thumbnail_show_article_container">';
+        foreach ($this->list_item_data["article"] as $key => $value) {
+        ?>
+            <a href="WB_show_articles.php?position_article=<?= $key; ?>">
+                <div class="thumbnail_article_container">
+                    <div class="thumbnail_article_img_thumbnail" style="background-image: url('<?= $value->article_picture1_name; ?>')">
+                        <div class="thumbnail_article_title"><?= $value->title(); ?></div>
+                        <div class="thumbnail_article_header">
+                            <div class="thumbnail_article_author"><?= '<span class="oi oi-person"></span> ' . $value->author(); ?></div>
+                            <div class="thumbnail_article_date"><?= "le : " . $value->date_post(); ?></div>
+                        </div>
+                    </div>
+                    <div class="thumbnail_article_container_body">
+
+
+                        <div class="thumbnail_article_body"><?= $value->body(); ?></div>
+                    </div>
+                </div>
+            </a>
+        <?php
         }
         echo '</div>';
     }
 
+    public function show_an_article()
+    {
+        if (empty($this->list_item_data["article"])) {
+            $this->pull("article");
+        }
+        ?>
+
+        <div class="show_article_container">
+
+
+            <div class="article_container">
+                <div class="article_img1" style="background-image: url('<?= $this->list_item_data["article"][$_GET['position_article']]->article_picture1_name; ?>')">
+                    <div class="article_title"><?= $this->list_item_data["article"][$_GET['position_article']]->title(); ?></div>
+                    <div class="article_header">
+                        <div class="article_author"><?= '<span class="oi oi-person"></span> ' . $this->list_item_data["article"][$_GET['position_article']]->author(); ?></div>
+                        <div class="article_date"><?= "le : " . $this->list_item_data["article"][$_GET['position_article']]->date_post(); ?></div>
+                    </div>
+                </div>
+                <div class="article_container_body">
+
+
+                    <div class="article_body"><?= $this->list_item_data["article"][$_GET['position_article']]->body(); ?></div>
+                </div>
+            </div>
+        </div>
+
+        <?php
+    }
+
     public function processing_form($current_post, $treatment_type)
     {
+
+        // PARTIE ANNALYSE D'ERREUR DANS LES DIFFENTS TYPE DE FORMULAIRES
         // while processing , errors finded are stored inside this array / Pendant le traitement les érreurs seront stocké dans cet tableau
+        //-----------------------------------------------------------------------------------------------------------------------------\\
+        //-----------------------------------------------------------------------------------------------------------------------------\\
+
         $errors = array();
 
         switch ($treatment_type) {
@@ -471,8 +274,11 @@ class dataManager
                 } else {
                     $errors['comment_author'] = "Veuillez rentrer un nom d'utilisateur valide";
                 }
-                break;
+                break; // FIN ANNALYSE FORMULAIRE COMMENTAIRE
 
+
+                // ARTICLE
+                //-----------------------------------------------------------------------------------------------------------------------------\\
             case "article":
                 // if debug mod enabled then show / si le mode débug est activé alors afficher : 
                 if ($this->debugmode) {
@@ -492,8 +298,98 @@ class dataManager
                 } else {
                     $errors['article_author'] = "Veuillez rentrer un nom d'utilisateur valide";
                 }
-                break;
 
+
+                // PARTIE ANNALYSE EVENTUEL FICHIER 
+                // $_FILES ['name'] = Nom du fichier uploadé
+                // ['size'] = taille du fichier uploadé
+                // ['extension']
+                // ['tmp_name'] = nom du dossier temporaire ou le fichier est stocké
+
+                $tmp_article_picture_1 = "";
+                $tmp_article_picture_2 = "";
+                $tmp_article_picture_3 = "";
+
+                // Traitement fichier 1
+                if (isset($_FILES['article_picture1']) and !empty($_FILES['article_picture1']['name'])) {
+                    $max_size = 2097152;
+                    $valid_extensions = array('jpg', 'jpeg', 'gif', 'png');
+                    if ($_FILES['article_picture1']['size'] <= $max_size) {
+                        $extension_file_uploaded = strtolower(substr(strrchr($_FILES['article_picture1']['name'], '.'), 1));
+                        if (in_array($extension_file_uploaded, $valid_extensions)) {
+                            $WB_image_directory_path = "Posts_images/Article/" . "WB_article_" . $current_post['article_title'] . "/1." . $extension_file_uploaded;
+                            // Créer le dossier si celui ci n'éxiste pas . 
+                            if (!is_dir("Posts_images/Article/" . "WB_article_" . $current_post['article_title'] . "/")) {
+                                mkdir("Posts_images/Article/" . "WB_article_" . $current_post['article_title'] . "/");
+                            }
+
+                            $resultat = move_uploaded_file($_FILES['article_picture1']['tmp_name'], $WB_image_directory_path);
+                            if ($resultat) {
+                                // Le chemin d'accès au fichier qui sera transmis à la base de donnée
+                                $tmp_article_picture_1 = $WB_image_directory_path;
+                            } else {
+                                $errors['article_picture1'] = "Erreur durant le transfert de votre fichier";
+                            }
+                        } else {
+                            $errors['article_picture1'] = "L'extension de votre image doit être jpg , jpeg, png, gif";
+                        }
+                    } else {
+                        $errors['article_picture1'] = "La taille de votre image est supérieur à 2mo";
+                    }
+                }
+
+                // traitement fichier 2
+                if (isset($_FILES['article_picture2']) and !empty($_FILES['article_picture2']['name'])) {
+                    $max_size = 2097152;
+                    $valid_extensions = array('jpg', 'jpeg', 'gif', 'png');
+                    if ($_FILES['article_picture2']['size'] <= $max_size) {
+                        $extension_file_uploaded = strtolower(substr(strrchr($_FILES['article_picture2']['name'], '.'), 1));
+                        echo $extension_file_uploaded;
+                        if (in_array($extension_file_uploaded, $valid_extensions)) {
+                            $WB_image_directory_path = "Posts_images/Article/" . "WB_article : " . $current_post['article_title'] . "/1." . $extension_file_uploaded;
+                            $resultat = move_uploaded_file($_FILES['article_picture2']['tmp_name'], $WB_image_directory_path);
+                            if ($resultat) {
+                                // Le chemin d'accès au fichier qui sera transmis à la base de donnée
+                                $tmp_article_picture_2 = $WB_image_directory_path;
+                            } else {
+                                $errors['article_picture2'] = "Erreur durant le transfert de votre fichier";
+                            }
+                        } else {
+                            $errors['article_picture2'] = "L'extension de votre image doit être jpg , jpeg, png, gif";
+                        }
+                    } else {
+                        $errors['article_picture2'] = "La taille de votre image est supérieur à 2mo";
+                    }
+                }
+
+                // traitement fichier 3
+                if (isset($_FILES['article_picture3']) and !empty($_FILES['article_picture3']['name'])) {
+                    $max_size = 2097152;
+                    $valid_extensions = array('jpg', 'jpeg', 'gif', 'png');
+                    if ($_FILES['article_picture3']['size'] <= $max_size) {
+                        $extension_file_uploaded = strtolower(substr(strrchr($_FILES['article_picture3']['name'], '.'), 1));
+                        echo $extension_file_uploaded;
+                        if (in_array($extension_file_uploaded, $valid_extensions)) {
+                            $WB_image_directory_path = "Posts_images/Article/" . "WB_article : " . $current_post['article_title'] . "/1." . $extension_file_uploaded;
+                            $resultat = move_uploaded_file($_FILES['article_picture3']['tmp_name'], $WB_image_directory_path);
+                            if ($resultat) {
+                                // Le chemin d'accès au fichier qui sera transmis à la base de donnée
+                                $tmp_article_picture_3 = $WB_image_directory_path;
+                            } else {
+                                $errors['article_picture3'] = "Erreur durant le transfert de votre fichier";
+                            }
+                        } else {
+                            $errors['article_picture3'] = "L'extension de votre image doit être jpg , jpeg, png, gif";
+                        }
+                    } else {
+                        $errors['article_picture3'] = "La taille de votre image est supérieur à 2mo";
+                    }
+                }
+                break; // FIN ANNALYSE FORMULAIRE ARTICLE
+
+
+                // CONTACT
+                //-----------------------------------------------------------------------------------------------------------------------------\\
             case "contact":
                 // if debug mod enabled then show / si le mode débug est activé alors afficher : 
                 if ($this->debugmode) {
@@ -513,19 +409,19 @@ class dataManager
                 } else {
                     $errors['contact_author'] = "Veuillez rentrer un nom d'utilisateur valide";
                 }
-                break;
+                break; // FIN ANNALYSE FORMULAIRE CONTACT
         }
 
-
-
-
-
-
+        // PARTIE TRAITEMENT DES DONNEES RECU APRES ANNALYSE
         //If no errors founded , starting the storage process / Si $errors est vide alors on entame la phase de stockage des données
+        //-----------------------------------------------------------------------------------------------------------------------------
+        //-----------------------------------------------------------------------------------------------------------------------------
+        //-----------------------------------------------------------------------------------------------------------------------------
+
+        // si il n'y a pas d'érreur
         if (empty($errors)) {
 
-            // Let's create a first instance of comment class / on créer un objet data à partir des données envoyées .
-            // Si le paramatère traitement est :  
+
             switch ($treatment_type) {
 
                 case "comment":
@@ -533,7 +429,7 @@ class dataManager
                     $current_data = new comment($current_post['comment_title'], $current_post['comment_author'], $current_post['comment_body'], $current_post['comment_category']);
                     break;
                 case "article":
-                    $current_data = new article($current_post['article_title'], $current_post['article_author'], $current_post['article_body'], $current_post['article_category']);
+                    $current_data = new article($current_post['article_title'], $current_post['article_author'], $current_post['article_body'], $current_post['article_category'], $tmp_article_picture_1, $tmp_article_picture_2, $tmp_article_picture_3);
                     break;
                 case "contact":
                     $current_data = new contact($current_post['contact_title'], $current_post['contact_author'], $current_post['contact_body'], $current_post['contact_category']);
@@ -560,27 +456,30 @@ class dataManager
     {
 
         if ($this->debugmode) {
-            echo "This is what's treatment of form sended / Voici le renvoi de la procédure traitement du formulaire : " . var_dump($this->processing_dumb);
+            echo "This is what's treatment of form sended / Voici le renvoi de la procédure traitement du formulaire : " . var_dump($dumb);
         }
 
         if ($dumb == "no_errors") {
-            echo '
-  <div class="alert alert-success alert-dismissible fade show" role="alert">
-  <strong> Felicitation votre Post a bien été enregistré</strong>
-  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-    <span aria-hidden="true">&times;</span>
-  </button>
-</div>';
+        ?>
+
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                <strong> Felicitation votre Post a bien été enregistré</strong>
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <?php
         } elseif (!empty($dumb)) {
 
             foreach ($dumb as $value) {
-                echo '
-    <div class="alert alert-danger alert-dismissible fade show" role="alert">
-    <strong>' . $value . '</strong>
-    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-      <span aria-hidden="true">&times;</span>
-    </button>
-  </div>';
+            ?>
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    <strong>' . <?= $value; ?> . '</strong>
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+<?php
             }
         }
     }

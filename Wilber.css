@@ -28,6 +28,14 @@ body{
 
 }
 
+#page_name{
+    text-align: center;
+    font-weight: bold;
+    font-size: 3em;
+    color: white;
+    text-shadow: white 0 0 5px;
+}
+
 .form_container{
     padding: 1em;
     background: rgb(255,255,255);
@@ -79,6 +87,8 @@ body{
       overflow-y: scroll;
   }
 
+/* CSS AFFICHAGE COMENTAIRE FONCTION SHOW_ALL_COMMENT */
+
   .show_comment_container{
       height: 550px;
       overflow-y: scroll;
@@ -128,11 +138,190 @@ body{
 
 .comment_date{
     font-style: italic;
+  
+}
+
+/* CSS AFFICHAGE ARTICLE FONCTION SHOW_ALL_ARTICLE_THUMBNAIL */
+
+.thumbnail_show_article_container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow-y: scroll;
+}
+.thumbnail_article_container{
+  display: inline-block;
+  box-shadow: black 0 2px 2px -1px,rgba(0, 0, 0, 0.411) 0 5px 5px -2px;
+  border-radius: 1em;
+  background: rgba(255, 255, 255, 0.253);
+  background: linear-gradient(0deg, rgba(255, 255, 255, 0.774) 45%, rgba(0,212,255,0.17128858379289214) 100%); 
+  border: black solid  2px 1px;
+  margin:1em;
+  text-transform: capitalize;
+  max-width: 300px;
+  cursor: pointer;
+}
+
+.thumbnail_article_img_thumbnail{
+    border-radius:  1em 1em 0 0;
+    max-height: 200px;
+    overflow: hidden;
+    width: 100%;
+    max-width: 300px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-color: rgba(255, 0, 0, 0.322);
+}
+
+.thumbnail_article_container_body{
+    padding: 0.1em;
+    max-height: 320px;
+    overflow: hidden;
+ 
+}
+
+.thumbnail_article_author{
+    text-align: center;
+  font-size: medium;
+    font-family: Arial, Helvetica, sans-serif;
+  text-transform: capitalize;
+}
+
+.thumbnail_article_title{
+
+  font-size: 2em;
+  text-overflow: ellipsis;
+    color: white;
+    text-shadow: black 0 0 5px;
+  font-weight: bold;
+  text-transform: capitalize;
+  text-transform: capitalize;
+}
+
+.thumbnail_article_header{
+    border-radius:  1em 1em 0 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  text-transform: capitalize;
+  top:28px;
+  background-color: rgba(255, 255, 255, 0.411);
+  width: 100%;
+
+}
+
+.thumbnail_article_body{
+    box-shadow: inset black 0 3.2px 6px -5px;
+    border-radius: 0 0 1em 1em ;
+    padding: 0.5em;
+  text-transform: capitalize;
+  color: rgb(0, 0, 0);
+  text-shadow: rgb(255, 255, 255) 0 0 2px;
+  font-weight: 500;
+ font-family:sans-serif;
+ text-overflow: clip;
+}
+
+.thumbnail_article_date{
+    font-style: italic;
+    text-align: center;
+    font-size: 0.7em;
+}
+
+/* CSS AFFICHAGE ARTICLE FONCTION SHOW_AN_ARTICLE */
+
+.show_article_container{
+
+}
+.article_container{
+  box-shadow: rgb(29, 27, 27) 0 2px 2px -1px,rgba(0, 0, 0, 0.411) 0 5px 5px -2px;
+  border-radius: 1em;
+  background: rgba(255, 255, 255, 0.253);
+  background: linear-gradient(0deg, rgba(255, 255, 255, 0.774) 45%, rgba(0,212,255,0.17128858379289214) 100%); 
+  border: black solid  2px 1px;
+  margin:1em;
+  text-transform: capitalize;
+
+}
+
+.article_img1{
+    border-radius:  1em 1em 0 0;
+    overflow: hidden;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-color: rgba(255, 0, 0, 0.322);
+}
+
+.article_container_body{
+    padding: 0.1em;
+
+    overflow: hidden;
+ 
+}
+
+.article_author{
+    text-align: center;
+  font-size: medium;
+    font-family: Arial, Helvetica, sans-serif;
+  text-transform: capitalize;
+}
+
+.article_title{
+
+  font-size: 2em;
+  text-overflow: ellipsis;
+    color: white;
+    text-shadow: black 0 0 5px;
+  font-weight: bold;
+  text-transform: capitalize;
+  text-transform: capitalize;
+}
+
+.article_header{
+    border-radius:  1em 1em 0 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  text-transform: capitalize;
+  top:28px;
+  background-color: rgba(255, 255, 255, 0.411);
+  width: 100%;
+
+}
+
+.article_body{
+    box-shadow: inset black 0 3.2px 6px -5px;
+    border-radius: 0 0 1em 1em ;
+    padding: 0.5em;
+  text-transform: capitalize;
+  color: rgb(0, 0, 0);
+  text-shadow: rgb(255, 255, 255) 0 0 2px;
+  font-weight: 500;
+ font-family:sans-serif;
+ text-overflow: clip;
+}
+
+.article_date{
+    font-style: italic;
+    text-align: center;
+    font-size: 0.7em;
 }
 
 
 #article_body{
     height: 250px;
+ 
 }
 
 .debug_source_item{
