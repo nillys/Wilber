@@ -1,0 +1,38 @@
+(0.0.9) Implementer la fonctionnalité article
+
+0.0.09 -> 0.0.095 => 0.0.10
+
+[ Func.+ | DESIGN . +]
+
+====================================================================
+*/FILE
+
+->/ Il faudra renomer le fichier exemple en : WB_accueil.php
+
+->/ Travailler sur les conventions de nomage des fichiers et sur le nom
+des fichiers thèmes css de wilber
+
+====================================================================
+*/DOC
+
+=====================================================================
+*/MODULAR 
+
+=====================================================================
+*/FUNC Ajout de la possibilité d'ajouter un article avec trois photo .
+
+	* Travailler sur l'affichage css de l'article
+	->/ Implementer la possibilité de cliquer sur une vignette pour
+	modifier l'article
+	-->/ Inserer dans l'objet DATA l'ID de l'objet reçu ...
+	probablement nécessaire pour un tas de chose
+
+=====================================================================
+*/ORG
+
+	? -> Organisation général des commit ?(README_Contributor.txt)
+
+====================================================================
+*/DESIGN
+
+	* Changé la position de la description wilber ? et numéro version (page acceuil)

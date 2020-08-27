@@ -32,7 +32,7 @@ require "WB_data_comment.php";
 require "WB_data_article.php";
 require "WB_data_contact.php";
 
-
+require "WB_function.php";
 
 
 class dataManager
@@ -100,10 +100,10 @@ class dataManager
 
         // Partie Particulière
         // Cette fonction est chargé d'éxecuter les parties de requettes propres aux objets traité qui dispose de paramètres suplémentaires 
-        if(method_exists($data_received,"custom_request_data_parameters")){
+        if (method_exists($data_received, "custom_request_data_parameters")) {
             $data_received->custom_request_data_parameters($q, $data_received);
         }
-        
+
 
         $q->execute();
     }
@@ -222,23 +222,24 @@ class dataManager
         ?>
 
         <div class="show_article_container">
-
+            <!-- style="background-image: url('<?= $this->list_item_data["article"][$_GET['position_article']]->article_picture1_name; ?>')" -->
 
             <div class="article_container">
-                <div class="article_img1" style="background-image: url('<?= $this->list_item_data["article"][$_GET['position_article']]->article_picture1_name; ?>')">
-                    <div class="article_title"><?= $this->list_item_data["article"][$_GET['position_article']]->title(); ?></div>
-                    <div class="article_header">
-                        <div class="article_author"><?= '<span class="oi oi-person"></span> ' . $this->list_item_data["article"][$_GET['position_article']]->author(); ?></div>
-                        <div class="article_date"><?= "le : " . $this->list_item_data["article"][$_GET['position_article']]->date_post(); ?></div>
-                    </div>
+
+                <div class="article_title"><?= $this->list_item_data["article"][$_GET['position_article']]->title(); ?></div>
+                <div class="article_header">
+                    <div class="article_author"><?= '<span class="oi oi-person"></span>' . ' : '. $this->list_item_data["article"][$_GET['position_article']]->author(); ?></div>
+                    <div class="article_date"><?= '<span class="oi oi-timer"></span>'." le : " . $this->list_item_data["article"][$_GET['position_article']]->date_post(); ?></div>
                 </div>
+
                 <div class="article_container_body">
-
-
+        
+                    <img class="article_img1" src="<?= $this->list_item_data["article"][$_GET['position_article']]->article_picture1_name; ?>" alt="article_picture1">
                     <div class="article_body"><?= $this->list_item_data["article"][$_GET['position_article']]->body(); ?></div>
                 </div>
             </div>
         </div>
+
 
         <?php
     }
@@ -289,8 +290,8 @@ class dataManager
                 if ($current_post['article_author'] and strlen($current_post['article_author']) > 1  and strlen($current_post['article_author']) < 30 and preg_match('/^[a-z0-9A-Z_é]+$/', $current_post['article_author'])) {
 
                     if ($current_post['article_title'] and strlen($current_post['article_title']) >= 5 and strlen($current_post['article_title']) < 45) {
-                        if (empty($current_post['article_body']) or strlen($current_post['article_body']) > 300 and strlen($current_post['article_author']) <= 5) {
-                            $errors['article_body'] = "Veuillez rentrer un corps d'article d'une longueur inférieur à 300 caractère les champs vides ne sont pas accepté";
+                        if (empty($current_post['article_body'])) {
+                            $errors['article_body'] = "Veuillez rentrer un corps d'article d'une longueur inférieur à 1500 caractère les champs vides ne sont pas accepté";
                         }
                     } else {
                         $errors['article_title'] = 'Veuillez rentrer un <span style="text-decoration:underline">titre</span> d\'une longeur inférieur à 45 caractère';
@@ -317,10 +318,10 @@ class dataManager
                     if ($_FILES['article_picture1']['size'] <= $max_size) {
                         $extension_file_uploaded = strtolower(substr(strrchr($_FILES['article_picture1']['name'], '.'), 1));
                         if (in_array($extension_file_uploaded, $valid_extensions)) {
-                            $WB_image_directory_path = "Posts_images/Article/" . "WB_article_" . $current_post['article_title'] . "/1." . $extension_file_uploaded;
+                            $WB_image_directory_path = "Posts_images/Article/" . "WB_article_" . clean($current_post['article_title']) . "/1." . $extension_file_uploaded;
                             // Créer le dossier si celui ci n'éxiste pas . 
-                            if (!is_dir("Posts_images/Article/" . "WB_article_" . $current_post['article_title'] . "/")) {
-                                mkdir("Posts_images/Article/" . "WB_article_" . $current_post['article_title'] . "/");
+                            if (!is_dir("Posts_images/Article/" . "WB_article_" . clean($current_post['article_title']) . "/")) {
+                                mkdir("Posts_images/Article/" . "WB_article_" . clean($current_post['article_title']) . "/");
                             }
 
                             $resultat = move_uploaded_file($_FILES['article_picture1']['tmp_name'], $WB_image_directory_path);

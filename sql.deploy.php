@@ -89,7 +89,7 @@
         `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
         `title` varchar(255) NOT NULL,
         `author` varchar(100) NOT NULL,
-        `body` varchar(255) NOT NULL,
+        `body` text NOT NULL,
         `category` varchar(255) DEFAULT NULL,
         `date_post` timestamp NOT NULL DEFAULT current_timestamp(),
         `article_picture1` varchar(100) DEFAULT NULL,

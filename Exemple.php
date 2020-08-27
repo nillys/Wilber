@@ -29,6 +29,9 @@ $gestionnaire_data = new dataManager($pdo, $_POST);
   <h6 id="label_version">Version Alpha(0.0.07)</h6>
   <p>Content managing made : <em>easy fresh and simple !</em> (for developper)</p>
 
+
+
+
 </header>
 
 <body>
