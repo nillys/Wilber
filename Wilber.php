@@ -22,7 +22,7 @@
  */
 // si le fichier de config n'a pas été créé on redirige l'utilisateur vers la page approprié
 if (!file_exists("config.php")) {
-    header('location: start.php');
+    header('location: WB_start.php');
 }
 require "config.php";
 
@@ -195,9 +195,9 @@ class dataManager
         foreach ($this->list_item_data["article"] as $key => $value) {
         ?>
             <a href="WB_show_articles.php?position_article=<?= $key; ?>">
-                <div class="thumbnail_article_container">
+                <div title="<?= $value->title(); ?>" class="thumbnail_article_container">
                     <div class="thumbnail_article_img_thumbnail" style="background-image: url('<?= $value->article_picture1_name; ?>')">
-                        <div class="thumbnail_article_title"><?= $value->title(); ?></div>
+                        <div class="thumbnail_article_title"><?= substr($value->title(),0,40).'...'; ?></div>
                         <div class="thumbnail_article_header">
                             <div class="thumbnail_article_author"><?= '<span class="oi oi-person"></span> ' . $value->author(); ?></div>
                             <div class="thumbnail_article_date"><?= "le : " . $value->date_post(); ?></div>
@@ -217,39 +217,46 @@ class dataManager
 
     public function show_an_article()
     {
-        if (empty($this->list_item_data["article"])) {
-            $this->pull("article");
-        }
+        if (isset($_GET['position_article'])) {
+
+
+            if (empty($this->list_item_data["article"])) {
+                $this->pull("article");
+            }
         ?>
 
-        <div class="show_article_container">
-            <!-- style="background-image: url('<?= $this->list_item_data["article"][$_GET['position_article']]->article_picture1_name; ?>')" -->
+            <div class="show_article_container">
+                <!-- style="background-image: url('<?= $this->list_item_data["article"][$_GET['position_article']]->article_picture1_name; ?>')" -->
 
-            <div class="article_container">
+                <div class="article_container">
 
-                <div class="article_title"><?= $this->list_item_data["article"][$_GET['position_article']]->title(); ?></div>
-                <div class="article_header">
-                    <div class="article_author"><?= '<span class="oi oi-person"></span>' . ' : ' . $this->list_item_data["article"][$_GET['position_article']]->author(); ?></div>
-                    <div class="article_date"><?= '<span class="oi oi-timer"></span>' . " le : " . $this->list_item_data["article"][$_GET['position_article']]->date_post(); ?></div>
-                </div>
+                    <div class="article_title"><?= $this->list_item_data["article"][$_GET['position_article']]->title(); ?></div>
+                    <div class="article_header">
+                        <div class="article_author"><?= '<span class="oi oi-person"></span>' . ' : ' . $this->list_item_data["article"][$_GET['position_article']]->author(); ?></div>
+                        <div class="article_date"><?= '<span class="oi oi-timer"></span>' . " le : " . $this->list_item_data["article"][$_GET['position_article']]->date_post(); ?></div>
+                    </div>
 
-                <div class="article_container_body">
-                    <div class="container-fluid">
-                        <div class="row">
-                            <div class="col-md-4">
-                                <img class="article_img1" src="<?= $this->list_item_data["article"][$_GET['position_article']]->article_picture1_name; ?>" alt="article_picture1">
-                            </div>
-                            <div class="col-md-8">
-                                <div class="article_body"><?= $this->list_item_data["article"][$_GET['position_article']]->body(); ?></div>
+                    <div class="article_container_body">
+                        <div class="container-fluid">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <img class="article_img1" src="<?= $this->list_item_data["article"][$_GET['position_article']]->article_picture1_name; ?>" alt="article_picture1">
+                                </div>
+                                <div class="col-md-8">
+                                    <div class="article_body"><?= $this->list_item_data["article"][$_GET['position_article']]->body(); ?></div>
+                                </div>
                             </div>
                         </div>
                     </div>
+                    <div class="article_">
+
+                    </div>
                 </div>
             </div>
-        </div>
 
 
         <?php
+        }
     }
 
     public function processing_form($current_post, $treatment_type)

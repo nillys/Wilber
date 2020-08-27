@@ -2,29 +2,33 @@
 
 0.0.09 -> 0.0.098 => 0.0.10
 
-[FILE . + | DESIGN . + | ORG. +]
+[]
+
+Description/ 
+
+La première version de Wilber disposant de la possibilité d'ajouter un article . 
+Divers améliorations sont prévu et cette version doit être débugé . 
+
 
 ====================================================================
 */FILE
 
-	* Création d'un fichier WB_about.php
 
-->/ Il faudra renomer le fichier exemple en : WB_accueil.php
 
-->/ Travailler sur les conventions de nomage des fichiers et sur le nom
-des fichiers thèmes css de wilber
 
 ====================================================================
 */DOC
 
 
 
-=====================================================================
+
+====================================================================
 */MODULAR 
 
 
 
-=====================================================================
+
+====================================================================
 */FUNC 
 
 
@@ -33,12 +37,14 @@ des fichiers thèmes css de wilber
 	-->/ Inserer dans l'objet DATA l'ID de l'objet reçu ...
 	probablement nécessaire pour un tas de chose
 
-=====================================================================
+
+====================================================================
 */ORG
 
-	* include pour numéro de version
+
+
 
 ====================================================================
 */DESIGN
 
-	* Arrangement css divers
+

@@ -12,7 +12,7 @@ $gestionnaire_data = new dataManager($pdo, $_POST);
 <head>
 
     <meta charset="utf-8">
-    <link rel="stylesheet" type="text/css" href="Wilber.css">
+    <link rel="stylesheet" type="text/css" href="WB_main_theme.css">
 
 <link rel="stylesheet" type="text/css" href="Ressource_code/bootstrap/css/bootstrap.css">
 <link rel="stylesheet" type="text/css" href="WB_main_css.css">
@@ -23,7 +23,7 @@ $gestionnaire_data = new dataManager($pdo, $_POST);
 </head>
 
 <header id="header">
-    <a href="exemple.php"><h1 id="main_title">WILBER</h1></a>
+    <a href="WB_accueil.php"><h1 id="main_title">WILBER</h1></a>
     <h6 id="label_version"><?=$WB_version_number;?></h6>
     <h6 id="label_version"><?=$WB_slogan;?></h6>
     <h2 id="page_name">Afficher un article</h2>

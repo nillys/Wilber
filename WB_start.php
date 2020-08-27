@@ -4,7 +4,7 @@
 <head>
 
     <meta charset="utf-8">
-    <link rel="stylesheet" type="text/css" href="start.css">
+    <link rel="stylesheet" type="text/css" href="WB_start.css">
     <link rel="stylesheet" type="text/css" href="Ressource_code/bootstrap/css/bootstrap.css">
 
     <link rel="stylesheet" type="text/css" href="Ressource_icone/open-iconic-master/open-iconic-master/font/css/open-iconic-bootstrap.css">
@@ -94,7 +94,7 @@ if (!empty($_POST)) {
                 <div class="card-header" id="headingOne">
                     <h5 class="mb-0 d-flex justify-content-between align-items-center">
                         <strong>Dernière étape :</strong><em title="En vérifiant les informations">Vous pouvez désormais cliquez sur ce bouton afin de procéder au déploiement de l'application !</em>
-                        <a href="sql.deploy.php"><button class="btn btn-success btn-smbtn-success " data-toggle="collapse" data-target="#returned_error" aria-expanded="false" aria-controls="returned_error">
+                        <a href="WB_sql.deploy.php"><button class="btn btn-success btn-smbtn-success " data-toggle="collapse" data-target="#returned_error" aria-expanded="false" aria-controls="returned_error">
                                 Déployer !
                             </button></a>
                     </h5>

@@ -15,16 +15,16 @@ et de disposer de
 
 Si ce n'est pas le cas sachez que Wilber créera automatiquement la base de donné associé au nom que vous avez renseigné si elle n'éxiste pas.
 
-->	Lancer start.php !
+->	Lancer WB_start.php !
 
 Une fennêtre s'ouvre vous invitant à renseigner ces informations . 
 Si la connexion s'effectue avec succès un message apparait et un fichier de configuration qui contient un objet PDO bien configuré 
-apparait . et vous êtes redirigé vers la page sql.deploy.php
+apparait . et vous êtes redirigé vers la page WB_sql.deploy.php
 _____________________________________________________________
 
 2)Cette page va se charger de créer les tables nécessaire à l'utilisation des classes php pour vous . vous n'avez rien à faire . 
 
-Si l'opération se déroule avec succès vous voyez normalement un message vous indiquant que tout c'est bien passé ! et vous pouvez voir un bouton vous indiquant que vous pouvez fermer cet onglet . Si vous cliquez dessus vous serez redirigé vers : Exemple.php
+Si l'opération se déroule avec succès vous voyez normalement un message vous indiquant que tout c'est bien passé ! et vous pouvez voir un bouton vous indiquant que vous pouvez fermer cet onglet . Si vous cliquez dessus vous serez redirigé vers : WB_accueil.php
 
 UTILISATION :
 
@@ -65,4 +65,4 @@ Afficher les infos depuis la base de donnée !
 Exemple :
 ----------
 
-Le fichier exemple.php peut être lancé pour voir l'utilisation du module .
+Le fichier WB_accueil.php peut être lancé pour voir l'utilisation du module .
