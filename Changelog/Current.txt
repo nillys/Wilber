@@ -1,0 +1,41 @@
+(0.0.9) Implementer la fonctionnalité article
+
+0.0.09 -> 0.0.098 => 0.0.10
+
+[FUNC . ++ | FILE . +]
+
+====================================================================
+*/FILE
+
+	* Ajout d'un dossier ressource code qui acceuillera toutes les ressources externes
+	* Ajout de tinyMCE
+
+
+->/ Il faudra renomer le fichier exemple en : WB_accueil.php
+
+->/ Travailler sur les conventions de nomage des fichiers et sur le nom
+des fichiers thèmes css de wilber
+
+====================================================================
+*/DOC
+
+=====================================================================
+*/MODULAR 
+
+=====================================================================
+*/FUNC 
+
+	* Ajout de la fonctionnalité texte enrichit pour les articles à l'aide de TinyMCE
+	Credit = https://www.tiny.cloud/
+
+	->/ Implementer la possibilité de cliquer sur une vignette pour
+	modifier l'article
+	-->/ Inserer dans l'objet DATA l'ID de l'objet reçu ...
+	probablement nécessaire pour un tas de chose
+
+=====================================================================
+*/ORG
+
+
+====================================================================
+*/DESIGN

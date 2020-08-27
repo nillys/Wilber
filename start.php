@@ -5,7 +5,7 @@
 
     <meta charset="utf-8">
     <link rel="stylesheet" type="text/css" href="start.css">
-    <link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="Ressource_code/bootstrap/css/bootstrap.css">
 
     <link rel="stylesheet" type="text/css" href="Ressource_icone/open-iconic-master/open-iconic-master/font/css/open-iconic-bootstrap.css">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
