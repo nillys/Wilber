@@ -1,25 +1,26 @@
-(0.0.9) Implementer la fonctionnalité article
+(0.1.0) Fonctionnalité Article ajouté
 
-0.0.09 -> 0.0.098 => 0.0.10
+0.0.098 -> 0.1.0 => 0.1.1
 
-[]
+[FUNC . ++]
 
 Description/ 
 
-La première version de Wilber disposant de la possibilité d'ajouter un article . 
-Divers améliorations sont prévu et cette version doit être débugé . 
+La première version de Wilber disposant de la possibilité d'ajouter un article et de les consulter. 
+Divers ajouts de futurs fonctionnalités sont prévus et cette version doit être débugué. 
+Belle avancé.
 
 
 ====================================================================
 */FILE
 
-
+	* Renomage de plusieurs fichiers
 
 
 ====================================================================
 */DOC
 
-
+	
 
 
 ====================================================================
@@ -30,6 +31,8 @@ Divers améliorations sont prévu et cette version doit être débugé .
 
 ====================================================================
 */FUNC 
+
+	*** 
 
 
 	->/ Implementer la possibilité de cliquer sur une vignette pour
@@ -47,4 +50,4 @@ Divers améliorations sont prévu et cette version doit être débugé .
 ====================================================================
 */DESIGN
 
-
+	* Amélioration global du css pour les vignettes notament.
