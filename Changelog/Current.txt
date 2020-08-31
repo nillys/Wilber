@@ -1,8 +1,7 @@
-(0.1.3) Func : Suprimer commentaire (U.I)
+(0.1.31) Amélioration documentation 
 
-0.1.2 -> 0.1.3 => 0.1.4
-
-[ FUNC . + ]
+0.1.3 -> 0.1.31 => 0.1.4
+[DOC . +]
 
 Description/ 
 
@@ -18,7 +17,7 @@ Ajout de la possibilité de suprimé un comentaire à partir de l'interface util
 ====================================================================
 */DOC
 
-	
+	* Amélioration général de la documentation du code
 
 
 ====================================================================

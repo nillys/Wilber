@@ -1,5 +1,7 @@
 <?php
-
+if (!file_exists("config.php")) {
+    header('location: WB_start.php');
+}
 require "config.php";
 require "WB_Toolbox.php";
 

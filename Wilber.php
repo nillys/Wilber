@@ -3,9 +3,8 @@
 /**
  * This file contains class and functions to treat with comments and linked forms 
  * 
- * Ce fichier contient des classes et des fonctions permetant la bonne gestion de 
- * datas et de formulaire . il permet avec facilité de gerer en 
- * toute simplicité l'ajout , l'affichage de data par exemple. 
+ * Ce fichier contient des classes et des fonctions permetant de disposer d'objet préconçu permetant de gérer facilement de dispositif comme des formulaires et des articles etc
+ * 
  *
  * @license    http://opensource.org/licenses/gpl-license.php  GNU Public License
  * @author     Mathieu <dwwm-mathieu@mode83.onmicrosoft.com>
@@ -26,13 +25,17 @@ if (!file_exists("config.php")) {
 }
 require "config.php";
 
+// La classe abstraite servant de base aux différents modèles de données
 require "WB_data.php";
 
+// Les classes de données pour l'instant chacune des classes enfants contient les formulaires associé / 
 require "WB_data_comment.php";
 require "WB_data_article.php";
 require "WB_data_contact.php";
 
+// Une classe regroupant des méthodes utiles divers et variés trouvé sur le net ou conçu par moi même
 require "WB_Toolbox.php";
+// Un fichier contenant toutes les informations sur la version de Wilber en cours , et d'autres détails
 include "WB_about.php";
 
 
@@ -40,20 +43,14 @@ class dataManager
 {
     //le Pdo fournit par la méthode constructrice
     private $_db;
-    // list des objets récupéré de la base de donné et stocké ici pour l'éxécution du programme
+    // list des objets récupéré de la base de donné et stocké ici quand besoin d'êtres utilisé par d'autres fonctions
     public $list_item_data = ["comment" => array(), "article" => array(), "contact" => array()];
 
-    /**
-     * current_post
-     *
-     * @var mixed stock the $_POST 
-     */
+    // La variable super global $_POST est absorbé par la classe c'est un choix . 
     private $current_post;
-    // current_treatment_mode recoit en paramètre une string "comment" "article" "contact" 
-    private $current_treatment_mode = array();
 
+    // Si cette variable est positive alors partout dans l'éxécution du code les infos de débuggage s'afficheront.
     private $debugmode;
-    // Fournir à la classe un objet PDO 
 
     // GETTER
 
@@ -65,6 +62,7 @@ class dataManager
     public function __construct(PDO $pdo, $current_post, $debugmode = 0)
     {
         $this->current_post = $current_post;
+
         if ($debugmode) {
             var_dump($current_post);
         }
@@ -73,6 +71,10 @@ class dataManager
         $this->debugmode = $debugmode;
     }
 
+
+    // Cette fonction initie le procéssus de traitement des données qui est le suivant : CONTROL -> AJOUT / MODIFIER -> AFFICHER 
+    // La variable $mode indique au procéssus de traitement le type d'information qui est en train d'être traiter
+    // Le mode est fournit par le formulaire qui est traité . la fonction generate form renvoit cette information après avoir généré le formulaire
     public function add_treatment($mode)
     {
         // Si $_POST contient une valleur ayant le titre de la catégorie qu'on veut traiter alors on lance le traitement sur cette catégorie .
@@ -85,13 +87,16 @@ class dataManager
         }
     }
 
-    // FONCTION EXTERNE    
-    /**
-     * Fonction chargé d'envoyer les données reçu à la base de donnée
-     *
-     * @param  data Prend en paramètre un objet issu du type data ('Article, Commentaire, Contact')
-     * @return void
-     */
+
+//====================================================================================================================================//
+// PARTIE FONCTION LIEES A LA BASE DE DONNEES
+        //Les fonctions pour envoyer et recevoir des données depuis la base de donnée
+        //-----------------------------------------------------------------------------------------------------------------------------
+        //-----------------------------------------------------------------------------------------------------------------------------
+        //-----------------------------------------------------------------------------------------------------------------------------
+
+    // Fonction intéligente qui detecte et rentre des données dans la base de donnée 
+    // Elle prend en entrée un objet de donnée (type : article , commentaire, etc)
     public function add($data_received)
     {
         // Traitement approprié au type d'objet (article , commentaire , contact etc)
@@ -128,6 +133,7 @@ class dataManager
         $q->bindValue(':body', $data_received->body());
         $q->bindValue(':category', $data_received->category());
         $q->bindValue(':id', $id);
+
         // Partie Particulière
         // Cette fonction est chargé d'éxecuter les parties de requettes propres aux objets traité qui dispose de paramètres suplémentaires 
         if (method_exists($data_received, "custom_request_data_parameters")) {
@@ -137,6 +143,7 @@ class dataManager
         $q->execute();
     }
 
+    // Cette fonction hydrate le tableau de donnée
     public function pull($table)
     {
         // Selectionner la table qui corespond aux dernier mode !!!
@@ -188,6 +195,14 @@ class dataManager
         return $result;
     }
 
+//====================================================================================================================================//
+// PARTIE AFFICHAGE FRONT DES DONNEES 
+        // ARTICLE , COMMENTAIRE , CONTACT
+        //-----------------------------------------------------------------------------------------------------------------------------\\
+        //-----------------------------------------------------------------------------------------------------------------------------\\
+
+     // COMMENT // AFFICHER UN SEUL COMMENTAIRE
+    //-----------------------------------------------------------------------------------------------------------------------------\\
     public function show_comment($key = 0)
     {
 
@@ -206,8 +221,11 @@ class dataManager
             </div>
         <?php
         }
-    } // MANAGER data
+    } 
 
+
+    // ALL COMMENT // AFFICHER TOUT LES COMMENTAIRES
+    //-----------------------------------------------------------------------------------------------------------------------------\\
     public function show_all_comment()
     {
         if (empty($this->list_item_data["comment"])) {
@@ -233,6 +251,9 @@ class dataManager
         }
         echo '</div>';
     }
+
+     // ALL ARTICLE // AFFICHER TOUTES LES VIGNETTES ARTICLES
+    //-----------------------------------------------------------------------------------------------------------------------------\\
     public function show_all_article_thumbnail()
     {
         if (empty($this->list_item_data["article"])) {
@@ -280,6 +301,8 @@ class dataManager
         echo '</div>';
     }
 
+     // ARTICLE // AFICHER UN ARTICLE
+    //-----------------------------------------------------------------------------------------------------------------------------\\
     public function show_an_article()
     {
         if (isset($_GET['position_article'])) {
@@ -324,18 +347,23 @@ class dataManager
         }
     }
 
+//====================================================================================================================================//
+    // PARTIE ANNALYSE D'ERREUR DANS LES DIFFENTS TYPE DE FORMULAIRES
+    // while processing , errors finded are stored inside this array / Pendant le traitement les érreurs seront stocké dans cet tableau
+    //-----------------------------------------------------------------------------------------------------------------------------\\
+    //-----------------------------------------------------------------------------------------------------------------------------\\
     public function processing_form($current_post, $treatment_type)
     {
 
-        // PARTIE ANNALYSE D'ERREUR DANS LES DIFFENTS TYPE DE FORMULAIRES
-        // while processing , errors finded are stored inside this array / Pendant le traitement les érreurs seront stocké dans cet tableau
-        //-----------------------------------------------------------------------------------------------------------------------------\\
-        //-----------------------------------------------------------------------------------------------------------------------------\\
+        
 
         $errors = array();
 
         switch ($treatment_type) {
 
+
+            // COMMENT
+            //-----------------------------------------------------------------------------------------------------------------------------\\
             case "comment":
                 // if debug mod enabled then show / si le mode débug est activé alors afficher : 
                 if ($this->debugmode) {
@@ -358,8 +386,8 @@ class dataManager
                 break; // FIN ANNALYSE FORMULAIRE COMMENTAIRE
 
 
-                // ARTICLE
-                //-----------------------------------------------------------------------------------------------------------------------------\\
+            // ARTICLE
+            //-----------------------------------------------------------------------------------------------------------------------------\\
             case "article":
                 // if debug mod enabled then show / si le mode débug est activé alors afficher : 
                 if ($this->debugmode) {
@@ -381,6 +409,7 @@ class dataManager
 
 
                 // PARTIE ANNALYSE EVENTUEL FICHIER 
+                //-----------------------------------------------------------------------------------------------------------------------------\\
                 // $_FILES ['name'] = Nom du fichier uploadé
                 // ['size'] = taille du fichier uploadé
                 // ['extension']
@@ -468,8 +497,8 @@ class dataManager
                 break; // FIN ANNALYSE FORMULAIRE ARTICLE
 
 
-                // CONTACT
-                //-----------------------------------------------------------------------------------------------------------------------------\\
+            // CONTACT
+            //-----------------------------------------------------------------------------------------------------------------------------\\
             case "contact":
                 // if debug mod enabled then show / si le mode débug est activé alors afficher : 
                 if ($this->debugmode) {
@@ -491,9 +520,9 @@ class dataManager
                 }
                 break; // FIN ANNALYSE FORMULAIRE CONTACT
         }
-
-        // PARTIE TRAITEMENT DES DONNEES RECU APRES ANNALYSE
-        //If no errors founded , starting the storage process / Si $errors est vide alors on entame la phase de stockage des données
+//====================================================================================================================================//
+// PARTIE TRAITEMENT DES DONNEES RECU APRES ANNALYSE
+        //C'est ici après vérifications de l'intégrité des données envoyés 
         //-----------------------------------------------------------------------------------------------------------------------------
         //-----------------------------------------------------------------------------------------------------------------------------
         //-----------------------------------------------------------------------------------------------------------------------------
@@ -530,16 +559,25 @@ class dataManager
 
             $errors = "no_errors";
             $this->show_processing_message($errors);
-            // if debug mod enabled then show / si le mode débug est activé alors afficher : 
+            // if debug mod enabled then show / si le mode débug est activé alors afficher :
+                
+        // Si il y a des érreurs ont les affiches
         } else {
             if ($this->debugmode) {
                 echo '<pre>' . var_dump($errors) . '</pre>';
             }
             $this->show_processing_message($errors);
         }
-
-        return $errors;
+<
     }
+
+
+//====================================================================================================================================//
+// FONCTION INTERACTIONS UTILISATEURS .
+        //Des fonctions qui servent à communiquer avec l'utilisateur . 
+        //-----------------------------------------------------------------------------------------------------------------------------
+        //-----------------------------------------------------------------------------------------------------------------------------
+        //-----------------------------------------------------------------------------------------------------------------------------
 
     public function show_processing_message($dumb)
     {

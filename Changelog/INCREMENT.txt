@@ -94,4 +94,49 @@ Ajout de la possibilité de suprimé un comentaire à partir de l'interface util
 */DESIGN
 
 
+(0.1.31) Func : Suprimer commentaire (U.I)
+
+0.1.3 -> 0.1.31 
+[DOC . +]
+
+Description/ 
+
+Ajout de la possibilité de suprimé un comentaire à partir de l'interface utilisateur
+
+
+====================================================================
+*/FILE
+
+
+
+
+====================================================================
+*/DOC
+
+	* Amélioration général de la documentation du code
+
+
+====================================================================
+*/MODULAR 
+
+
+	
+
+====================================================================
+*/FUNC 
+
+
+
+
+====================================================================
+*/ORG
+
+
+
+
+====================================================================
+*/DESIGN
+
+
+
 
