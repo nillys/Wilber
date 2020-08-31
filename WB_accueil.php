@@ -21,12 +21,6 @@ $gestionnaire_data = new dataManager($pdo, $_POST);
   <link rel="stylesheet" type="text/css" href="Ressource_icone/open-iconic-master/open-iconic-master/font/css/open-iconic-bootstrap.css">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <script src="Wilber.script.js"></script>
-  <script src="Ressource_code/tinymce_5.4.2/tinymce/js/tinymce/tinymce.min.js"></script>
-  <script type="text/javascript">
-    tinymce.init({
-      selector: '#article_body'
-    });
-  </script>
 
 </head>
 
@@ -53,6 +47,7 @@ $gestionnaire_data = new dataManager($pdo, $_POST);
         $gestionnaire_data->add_treatment(article::generate_form());
 
         ?>
+      
       </div>
 
     </div>
@@ -93,8 +88,11 @@ $gestionnaire_data = new dataManager($pdo, $_POST);
     </div>
   </div>
 
-  <script src="bootstrap/js/jquery-3.4.1.min.js"></script>
-  <script src="bootstrap/js/bootstrap.bundle.js"></script>
+
+  <script src="ressource_code/bootstrap/js/jquery-3.4.1.min.js">
+
+  </script>
+  <script src="ressource_code/bootstrap/js/bootstrap.bundle.js"></script>
 </body>
 
 </html>

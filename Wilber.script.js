@@ -10,4 +10,5 @@
         document.getElementById('article_author').value = '';
         document.getElementById('article_title').value = '';
         document.getElementById('article_body').value = '';
+        tinymce.get("article_body").setContent("");
       }

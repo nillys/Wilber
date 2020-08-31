@@ -11,9 +11,9 @@ class data
 {
 
 
-    private $title, $author, $body, $category, $date_post;
+    private $title, $author, $body, $category,$id, $date_post;
 
-    public function __construct($title_or_data, $author = "", $body = "", $category = "", $date_post = "")
+    public function __construct($title_or_data, $author = "", $body = "", $category = "", $id="", $date_post = "")
     {
 
         if (is_string($title_or_data)) {
@@ -21,15 +21,19 @@ class data
             $this->setAuthor($author);
             $this->setBody($body);
             $this->setCategory($category);
+            $this->setId($id);
             $this->setDate_post($date_post);
         } elseif (is_array($title_or_data)) {
             $this->setTitle($title_or_data['title']);
             $this->setAuthor($title_or_data['author']);
             $this->setBody($title_or_data['body']);
             $this->setCategory($title_or_data['category']);
+            $this->setId($title_or_data['id']);
             $this->setDate_post($title_or_data['date_post']);
         }
     }
+
+    
 
     public function setTitle(string $title)
     {
@@ -49,6 +53,10 @@ class data
     public function setCategory(string $category)
     {
         $this->category = $category;
+    }
+
+    public function setId(int $id){
+        $this->id = $id;
     }
     public function setDate_post($date_post)
     {
@@ -76,6 +84,10 @@ class data
     public function category()
     {
         return $this->category;
+    }
+
+    public function id(){
+        return $this->id;
     }
     public function date_post()
     {

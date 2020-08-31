@@ -85,6 +85,61 @@ body{
   .button_erase_form:hover {
     padding: 20px;
   }
+
+/* CSS FOR ARTICLE FORM */
+
+.select_article_processing_mode{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    background-color: white;
+    border-radius: 0.5em;
+    border: rgba(105, 105, 105, 0.459) 1px solid;
+    width: 100%;
+}
+
+.select_article_processing_mode *{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+
+}
+
+.info_article_mode{
+    width: 100%;
+    text-align: center;
+    border-radius: inherit;
+
+}
+
+
+.select_edit_article_mode{
+    background-color: lightgreen;
+}
+
+.select_new_article_mode{
+    background-color: lightskyblue;
+}
+
+.select_show_article_name{
+    width: 100%;
+    font-style: italic;
+    border-radius:1em;
+    text-align: center;
+    display: inline-block;
+    padding: 0.2em;
+    box-shadow: black 0 0 5px;
+    background-color: white;
+}
+
+.select_show_article_btn{
+    padding: 0.5em;
+    border-radius: 1em;
+ 
+}
+
 /* CSS FOR COMENT / CSS pour les datas */
 
   #afficher_data{
@@ -143,7 +198,7 @@ body{
 
 .thumbnail_show_article_container{
     display: flex;
-    justify-content: center;
+    justify-content: left;
     align-items: center;
     overflow-x: scroll;
 }
@@ -159,25 +214,24 @@ body{
   text-transform: capitalize;
   max-width: 300px;
   min-width: 300px;
-  cursor: pointer;
   position: relative;
   transition: all 1s;
-
   overflow: hidden;
 }
 
 .thumbnail_article_container:hover{
     box-shadow: rgba(0, 0, 0, 0.678) 0 15px 15px -2px;
-    max-width: 305px;
+    max-width: 320px;
     position: relative;
     bottom:6px;
+    margin:2em;
 }
 
 .thumbnail_article_img_thumbnail{
     border-radius:  1em 1em 0 0;
     max-height: 250px;
     width: 100%;
-    max-width: 305px;
+    max-width: 320px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -257,6 +311,53 @@ font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
  height: 100% ;
 }
 
+.thumbnail_article_footer{
+    display: flex;
+    width: 100%;
+
+
+
+}
+
+.thumbnail_article_footer .button{
+    width: 100%;
+    padding: 0.5em;
+    border: white 1px solid;
+    text-align: center;
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: bold;
+    color: rgb(34, 30, 24);
+    text-shadow: white 0 0 3px;
+    cursor: pointer;
+    box-shadow: white inset 0 0 5px;
+    border-right: rgba(0, 0, 0, 0.383) 1px solid;
+    border-left: rgba(0, 0, 0, 0.294) 1px solid;
+    border-top: rgba(255, 255, 255, 0.294) 1px solid;
+    border-bottom: rgba(255, 255, 255, 0.294) 1px solid;
+}
+
+.thumbnail_article_footer .edit_button{
+    text-transform: uppercase;
+    flex: 2 1 auto;
+    background: rgb(245,252,118);
+    background: radial-gradient(circle, rgba(245,252,118,1) 46%, rgba(245,229,43,1) 100%); 
+
+}
+
+.thumbnail_article_footer .edit_button:hover{
+box-shadow: rgba(0, 0, 0, 0.534) inset 0 0 5px ;
+}
+
+.thumbnail_article_footer .delete_button{
+    flex: 1 2 auto;
+    text-transform: uppercase;
+    background: rgb(235,127,112);
+    background: radial-gradient(circle, rgba(235,127,112,1) 46%, rgba(180,75,56,1) 100%); 
+}
+
+.thumbnail_article_footer .delete_button:hover{
+    box-shadow: rgba(0, 0, 0, 0.534) inset 0 0 5px ;
+    }
 /* CSS AFFICHAGE ARTICLE FONCTION SHOW_AN_ARTICLE */
 
 .show_article_container{

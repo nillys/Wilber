@@ -3,10 +3,12 @@
 class article extends data
 
 
+
 {
 
     protected $db_table_name = "article";
     public $db_table_configuration = '(author,title,body,category,article_picture1,article_picture2,article_picture3) VALUES(:author,:title,:body,:category,:article_picture1,:article_picture2,:article_picture3)';
+    public $db_table_update = 'author = :author,title = :title,body = :body, category = :category,article_picture1 = :article_picture1,article_picture2 = :article_picture2, article_picture3 = :article_picture3';
 
     public function custom_request_data_parameters($q, $data_received)
     {
@@ -22,7 +24,7 @@ class article extends data
         return $this->db_table_name;
     }
 
-    public function __construct($title_or_data, $author = "", $body = "", $category = "", $article_picture1 = "", $article_picture2 = "", $article_picture3 = "", $date_post = "")
+    public function __construct($title_or_data, $author = "", $body = "", $category = "", $article_picture1 = "", $article_picture2 = "", $article_picture3 = "", $id = "", $date_post = "")
     {
         //Traitement dans le cas de l'hydratation de l'objet manuellement !
 
@@ -42,6 +44,7 @@ class article extends data
             $this->setAuthor($title_or_data['author']);
             $this->setBody($title_or_data['body']);
             $this->setCategory($title_or_data['category']);
+            $this->setId($title_or_data['id']);
             $this->article_picture1_name = $title_or_data['article_picture1'];
             $this->article_picture2_name = $title_or_data['article_picture2'];
             $this->article_picture3_name = $title_or_data['article_picture3'];
@@ -51,8 +54,12 @@ class article extends data
 
     public static function generate_form(int $variant = 1)
     {
+        if (isset($_GET['article_id'])) {
+            $current_article_dump = dataManager::pull_item_from_db('article', $_GET['article_id']);
+         }
 ?>
         <div class="form_container" class="d-flex">
+
             <div class="section_form" id="article_section_form">
 
                 <div class="data_title">
@@ -62,14 +69,16 @@ class article extends data
                 <form action="" method="post" enctype="multipart/form-data">
 
                     <div class="form-row">
-                        <div class="col">
+                        <div class="col-md-3">
 
                             <label for="title">Rentrer un titre : </label>
                             <input class="form-control" type="text" value="<?php if (!empty($_POST['article_title'])) {
                                                                                 echo $_POST['article_title'];
+                                                                            } elseif (isset($current_article_dump)) {
+                                                                                echo $current_article_dump->title;
                                                                             } ?>" name="article_title" id="article_title" placeholder="Le titre de l'article">
                         </div>
-                        <div class="col">
+                        <div class="col-md-3">
                             <div class="form-group">
                                 <label for="category">Choisissez une catégorie : </label>
                                 <select class="form-control" id="article_category" name="article_category">
@@ -79,21 +88,85 @@ class article extends data
                                 </select>
                             </div>
                         </div>
-                        <div class=" col form-group">
+                        <div class=" col-md-3 form-group">
                             <label for="nom">Nom / Pseudo : </label>
                             <input class="form-control" type="text" value="<?php if (!empty($_POST['article_author'])) {
                                                                                 echo $_POST['article_author'];
+                                                                            } elseif (isset($current_article_dump)) {
+                                                                                echo $current_article_dump->author;
                                                                             } ?>" name="article_author" id="article_author" placeholder="votre nom">
+                        </div>
+
+
+
+                        <div class="col-md-3 form-group">
+
+
+                            <label>Mode : </label>
+
+
+                            <?php if (isset($_GET['article_id'])) : ?>
+                                <div class="select_article_processing_mode select_edit_article_mode">
+                                    <div class="info_article_mode ">MODIFIER L'ARTICLE : </div>
+                                    <div class="select_show_article_name">
+                                        <quote>"<?= $current_article_dump->title ?>"</quote>
+                                    </div>
+                                    <a href="<?= strtok($_SERVER['REQUEST_URI'], '?') ?>">
+                                        <div class="select_show_article_btn delete_button"><span class="oi oi-x"></span></div>
+                                    </a>
+                                </div>
+                            <?php else : ?>
+                                <div class="select_article_processing_mode select_new_article_mode">
+                                    <div class="info_article_mode select_new_article_mode">NOUVELLE ARTICLE</div>
+                                </div>
+
+                            <?php endif ?>
+
+                            <!-- <div class="form-check form-check-inline">
+                                    <input type="radio" name="processing_mode" id="processing_mode_new" value="new" checked="checked">
+                                    <label class="form-check-label" for="inlineRadio1"> Nouvelle article </label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input type="radio" name="processing_mode" id="processing_mode_edit" value="edit" <?php if (isset($_GET['article_id'])) {
+                                                                                                                            echo 'checked="checked"';
+                                                                                                                        } ?>
+                                    <label class="form-check-label" for="inlineRadio2"> Modifier l'article</label>
+                                </div> -->
+
+
+
                         </div>
                     </div>
 
-                    <textarea id="article_body" name="article_body" class="form-control" placeholder="Entrez le corps de l'article ici"><?php if (!empty($_POST['article_body'])) {
-                                                                                                                                            echo $_POST['article_body'];
-                                                                                                                                        } ?></textarea>
+
+
+                    <textarea id="article_body" name="article_body" class="form-control" placeholder="Entrez le corps de l'article ici">
+                    </textarea>
+                    <!-- ! la seul façon de renvoyé le texte de tiny mce a été de placer l'instruction adéquate dans la fonction d'initialisation -->
+                    <script src="Ressource_code/tinymce_5.4.2/tinymce/js/tinymce/tinymce.min.js"></script>
+                    <script type="text/javascript">
+                        tinymce.init({
+                            selector: '#article_body',
+                            init_instance_callback: function(editor) {
+                                <?php if (!empty($_POST['article_body'])) {
+                                    echo 'tinymce.get("article_body").setContent("'. $_POST['article_body'].'")';
+                                } elseif (isset($current_article_dump)) {
+                                    // echo 'tinymce.get("article_body").setContent("' . addcslashes($current_article_dump->body,'"',"'",).'")';
+                                    echo 'tinymce.get("article_body").setContent("' . str_replace(array("\n", "\r"), "", addslashes($current_article_dump->body)) . '")';
+                                    // echo 'tinymce.get("article_body").setContent("' . $current_article_dump->body.'")';
+                                    // echo 'tinymce.get("article_body").setContent("<pre>\n\ncoucou"</pre>)';
+                                }
+                                ?>
+
+                                console.log('Editor: ' + editor.id + ' is now initialized.');
+                            }
+                        });
+                    </script>
                     <br>
 
                     <input type="file" name="article_picture1" id="article_picture1">
-                    <button class="btn btn-success class=" type="submit">Envoyer! </button>
+                    <button class="btn btn-success class=" type="submit"><?php if(isset($_GET['article_id'])){
+                        echo "Modifier !";}else{echo "Envoyer !";}?></button>
                 </form>
 
 

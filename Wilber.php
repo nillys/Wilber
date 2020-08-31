@@ -11,7 +11,7 @@
  * @author     Mathieu <dwwm-mathieu@mode83.onmicrosoft.com>
  */
 
-
+use function PHPSTORM_META\type;
 
 /**
  * article
@@ -41,7 +41,7 @@ class dataManager
     //le Pdo fournit par la méthode constructrice
     private $_db;
     // list des objets récupéré de la base de donné et stocké ici pour l'éxécution du programme
-    private $list_item_data = ["comment" => array(), "article" => array(), "contact" => array()];
+    public $list_item_data = ["comment" => array(), "article" => array(), "contact" => array()];
 
     /**
      * current_post
@@ -54,15 +54,22 @@ class dataManager
 
     private $debugmode;
     // Fournir à la classe un objet PDO 
-    public function __construct(PDO $db, $current_post, $debugmode = 0)
+
+    // GETTER
+
+    public function list_item_data()
     {
-        $this->_db = $db;
+        return $this->list_item_data;
+    }
+
+    public function __construct(PDO $pdo, $current_post, $debugmode = 0)
+    {
         $this->current_post = $current_post;
         if ($debugmode) {
             var_dump($current_post);
         }
 
-
+        $this->_db = $pdo;
         $this->debugmode = $debugmode;
     }
 
@@ -109,10 +116,32 @@ class dataManager
         $q->execute();
     }
 
+    public function modify($data_received, $id)
+    {
+
+        $q = $this->_db->prepare('UPDATE ' . $data_received->db_table_name() . ' SET ' . $data_received->db_table_update . ' WHERE id = :id');
+
+        // Partie Commune
+        // Affection des paramètres commun aux objet data
+        $q->bindValue(':title', $data_received->title());
+        $q->bindValue(':author', $data_received->author());
+        $q->bindValue(':body', $data_received->body());
+        $q->bindValue(':category', $data_received->category());
+        $q->bindValue(':id', $id);
+        // Partie Particulière
+        // Cette fonction est chargé d'éxecuter les parties de requettes propres aux objets traité qui dispose de paramètres suplémentaires 
+        if (method_exists($data_received, "custom_request_data_parameters")) {
+            $data_received->custom_request_data_parameters($q, $data_received);
+        }
+
+        $q->execute();
+    }
+
     public function pull($table)
     {
         // Selectionner la table qui corespond aux dernier mode !!!
         // Desc signifie inverser l'ordre de trie
+
         $q = $this->_db->prepare('SELECT * FROM ' . $table . ' ORDER BY id DESC');
         $q->execute();
 
@@ -123,6 +152,7 @@ class dataManager
                 }
                 break;
             case "article":
+
                 while ($result = $q->fetch(PDO::FETCH_ASSOC)) {
                     $this->list_item_data[$table][] = new article($result);
                 }
@@ -142,6 +172,20 @@ class dataManager
             var_dump($this->list_item_data[$table]);
             echo '</pre>';
         }
+    }
+
+    static public function pull_item_from_db($table, $id)
+    {
+
+        require "config.php";
+
+
+        $q = $pdo->prepare('SELECT * FROM ' . $table . ' WHERE id = ? ');
+        $q->execute([$id]);
+
+        $result = $q->fetch();
+
+        return $result;
     }
 
     public function show_comment($key = 0)
@@ -190,26 +234,44 @@ class dataManager
     {
         if (empty($this->list_item_data["article"])) {
             $this->pull("article");
+        } else {
         }
+
         echo '<div class="thumbnail_show_article_container">';
         foreach ($this->list_item_data["article"] as $key => $value) {
         ?>
-            <a href="WB_show_articles.php?position_article=<?= $key; ?>">
-                <div title="<?= $value->title(); ?>" class="thumbnail_article_container">
+
+            <div class="thumbnail_article_container">
+                <a href="WB_show_articles.php?position_article=<?= $key; ?>">
                     <div class="thumbnail_article_img_thumbnail" style="background-image: url('<?= $value->article_picture1_name; ?>')">
-                        <div class="thumbnail_article_title"><?= substr($value->title(),0,40).'...'; ?></div>
+                        <div title="<?= $value->title(); ?>" class="thumbnail_article_title"><?= substr($value->title(), 0, 40) . '...'; ?></div>
                         <div class="thumbnail_article_header">
                             <div class="thumbnail_article_author"><?= '<span class="oi oi-person"></span> ' . $value->author(); ?></div>
                             <div class="thumbnail_article_date"><?= "le : " . $value->date_post(); ?></div>
                         </div>
                     </div>
-                    <div class="thumbnail_article_container_body">
+                </a>
+                <div class="thumbnail_article_container_body">
 
 
-                        <div class="thumbnail_article_body"><?= $value->body(); ?></div>
-                    </div>
+                    <div class="thumbnail_article_body"><?= $value->body(); ?></div>
                 </div>
-            </a>
+                <div class="thumbnail_article_footer">
+
+                    <a class="button edit_button" href="<?= strtok($_SERVER['REQUEST_URI'], '?') . "?article_id=" . $value->id(); ?>">
+                        <div title="Modifier l'article">Modifier</div>
+                    </a>
+
+                    <a class="button delete_button" href="WB_sql_treatment.php?article_del_id=<?= $value->id(); ?>&url_origin=<?php echo strtok($_SERVER['REQUEST_URI'], '?'); ?>&folder_adress=<?php if (!empty($value->article_picture1_name)) {
+                                                                                                                                                                                                    print_r(explode('/', $value->article_picture1_name)[2]);
+                                                                                                                                                                                                } ?>">
+                        <div title="Supprimer l'article (ireversible)">Suprimer</div>
+                    </a>
+
+
+                </div>
+            </div>
+
         <?php
         }
         echo '</div>';
@@ -300,19 +362,18 @@ class dataManager
                 if ($this->debugmode) {
                     echo "This is what's inside SUPER GLOBAL POST Ceci est le contenu de la variable SUPER GLOBAL POST : " . var_dump($_POST);
                 }
+                if ($current_post['article_title'] and strlen($current_post['article_title']) >= 5 and strlen($current_post['article_title']) < 200) {
+                    // Starting testing phase on the content of object _POST / Début des tests sur l'envoi POST 
+                    if ($current_post['article_author'] and strlen($current_post['article_author']) > 1  and strlen($current_post['article_author']) < 80 and preg_match('/^[a-z0-9A-Z_é]+$/', $current_post['article_author'])) {
 
-                // Starting testing phase on the content of object _POST / Début des tests sur l'envoi POST 
-                if ($current_post['article_author'] and strlen($current_post['article_author']) > 1  and strlen($current_post['article_author']) < 80 and preg_match('/^[a-z0-9A-Z_é]+$/', $current_post['article_author'])) {
-
-                    if ($current_post['article_title'] and strlen($current_post['article_title']) >= 5 and strlen($current_post['article_title']) < 200) {
                         if (empty($current_post['article_body'])) {
                             $errors['article_body'] = "Veuillez rentrer un corps d'article d'une longueur inférieur à 1500 caractère les champs vides ne sont pas accepté";
                         }
                     } else {
-                        $errors['article_title'] = 'Veuillez rentrer un <span style="text-decoration:underline">titre</span> d\'une longeur inférieur à 200 caractère';
+                        $errors['article_author'] = "Veuillez rentrer un nom d'utilisateur valide";
                     }
                 } else {
-                    $errors['article_author'] = "Veuillez rentrer un nom d'utilisateur valide";
+                    $errors['article_title'] = 'Veuillez rentrer un <span style="text-decoration:underline">titre</span> d\'une longeur inférieur à 200 caractère';
                 }
 
 
@@ -445,7 +506,10 @@ class dataManager
                     $current_data = new comment($current_post['comment_title'], $current_post['comment_author'], $current_post['comment_body'], $current_post['comment_category']);
                     break;
                 case "article":
+
                     $current_data = new article($current_post['article_title'], $current_post['article_author'], $current_post['article_body'], $current_post['article_category'], $tmp_article_picture_1, $tmp_article_picture_2, $tmp_article_picture_3);
+
+
                     break;
                 case "contact":
                     $current_data = new contact($current_post['contact_title'], $current_post['contact_author'], $current_post['contact_body'], $current_post['contact_category']);
@@ -454,7 +518,13 @@ class dataManager
 
             // Then we use "add" method of gestionnaire_data to add a new comment to the bdd / puis nous utilisons la méthode "add" pour ajouter un nouvel objet à notre bdd
             // La fonction interne add prend en paramètre un objet a ajouter a la base de donnée . un article un commentaire etc
-            $this->add($current_data);
+
+            if (is_a($current_data, "article") and isset($_GET['article_id'])) {
+                $this->modify($current_data, $_GET['article_id']);
+            } else {
+                $this->add($current_data);
+            }
+
             $errors = "no_errors";
             $this->show_processing_message($errors);
             // if debug mod enabled then show / si le mode débug est activé alors afficher : 

@@ -1,21 +1,19 @@
-(0.1.0) Fonctionnalité Article ajouté
+(0.1.3) Fonctionnalité Article ajouté
 
-0.0.098 -> 0.1.0 => 0.1.1
+0.1.0 -> 0.1.3 => 0.1.1
 
-[FUNC . ++]
+[FUNC . +++ | Design . + | FILE . + ]
 
 Description/ 
 
-La première version de Wilber disposant de la possibilité d'ajouter un article et de les consulter. 
-Divers ajouts de futurs fonctionnalités sont prévus et cette version doit être débugué. 
-Belle avancé.
+Ajout de la possibilité de séléctionner un article pour l'éditer . Tout est possible mise en forme image associé etc . La possibilité également de le supprimer à partir de sa vignette
 
 
 ====================================================================
 */FILE
 
-	* Renomage de plusieurs fichiers
-
+	* Ajout du fichier increment qui servira a noté successivement toutes les améliorations de version en version
+	* Ajout du fichier WB_sql_treatment sur le quel s'opérera toutes les opérations sql qui ne peuvent s'opérer sur la page en cours . 
 
 ====================================================================
 */DOC
@@ -26,19 +24,15 @@ Belle avancé.
 ====================================================================
 */MODULAR 
 
-
+	-> Trouver façon plus adapté d'utiliser l'objet $pdo dans la méthode static pull_item_from_db
 
 
 ====================================================================
 */FUNC 
 
-	*** 
+	** Modifier l'article
 
-
-	->/ Implementer la possibilité de cliquer sur une vignette pour
-	modifier l'article
-	-->/ Inserer dans l'objet DATA l'ID de l'objet reçu ...
-	probablement nécessaire pour un tas de chose
+	* suprimer l'article
 
 
 ====================================================================
@@ -50,4 +44,5 @@ Belle avancé.
 ====================================================================
 */DESIGN
 
-	* Amélioration global du css pour les vignettes notament.
+	* Plus de responsivité pour le formulaire article 
+
