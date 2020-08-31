@@ -217,7 +217,10 @@ class dataManager
         foreach ($this->list_item_data["comment"] as $value) {
         ?>
             <div class="comment_container">
-                <div class="comment_title"><?= $value->title(); ?></div>
+                <div class="comment_title_container">
+                    <div class="comment_title"><?= $value->title(); ?></div>
+                    <a title="Suprimer le commentaire ceci est ireverssible" href="Wb_sql_treatment.php?comment_del_id=<?=$value->id();?>&url_origin=<?php echo strtok($_SERVER['REQUEST_URI'], '?')?>"><span class="oi oi-x"></span></a>
+                </div>
                 <div class="comment_header">
                     <div class="comment_author"><?= '<span class="oi oi-person"></span> ' . $value->author(); ?></div>
                     <div class="comment_date"><?= "le : " . $value->date_post(); ?></div>

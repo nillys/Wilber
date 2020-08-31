@@ -164,6 +164,15 @@ body{
     margin-top: 1em;
 }
 
+.comment_title_container{
+    display: flex;
+    justify-content: space-between;
+}
+
+.comment_header{
+    display: flex;
+    justify-content: space-between;
+}
 .comment_author{
     font-size: medium;
     font-family: Georgia, 'Times New Roman', Times, serif;
@@ -176,10 +185,7 @@ body{
     font-weight: bold;
 }
 
-.comment_header{
-    display: flex;
-    justify-content: space-between;
-}
+
 
 .comment_body{
     border: black 1px solid;

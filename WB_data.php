@@ -55,7 +55,7 @@ class data
         $this->category = $category;
     }
 
-    public function setId(int $id){
+    public function setId($id){
         $this->id = $id;
     }
     public function setDate_post($date_post)

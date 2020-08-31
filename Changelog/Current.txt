@@ -1,19 +1,19 @@
-(0.1.3) Fonctionnalité Article ajouté
+(0.1.3) Func : Suprimer commentaire (U.I)
 
-0.1.0 -> 0.1.3 => 0.1.1
+0.1.2 -> 0.1.3 => 0.1.4
 
-[FUNC . +++ | Design . + | FILE . + ]
+[ FUNC . + ]
 
 Description/ 
 
-Ajout de la possibilité de séléctionner un article pour l'éditer . Tout est possible mise en forme image associé etc . La possibilité également de le supprimer à partir de sa vignette
+Ajout de la possibilité de suprimé un comentaire à partir de l'interface utilisateur
 
 
 ====================================================================
 */FILE
 
-	* Ajout du fichier increment qui servira a noté successivement toutes les améliorations de version en version
-	* Ajout du fichier WB_sql_treatment sur le quel s'opérera toutes les opérations sql qui ne peuvent s'opérer sur la page en cours . 
+
+
 
 ====================================================================
 */DOC
@@ -30,9 +30,7 @@ Ajout de la possibilité de séléctionner un article pour l'éditer . Tout est 
 ====================================================================
 */FUNC 
 
-	** Modifier l'article
-
-	* suprimer l'article
+	-> Possibilité de suprimer les commentaires
 
 
 ====================================================================
@@ -44,5 +42,5 @@ Ajout de la possibilité de séléctionner un article pour l'éditer . Tout est 
 ====================================================================
 */DESIGN
 
-	* Plus de responsivité pour le formulaire article 
+
 
