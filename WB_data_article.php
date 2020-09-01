@@ -69,7 +69,7 @@ class article extends data
                 <form action="" method="post" enctype="multipart/form-data">
 
                     <div class="form-row">
-                        <div class="col-md-3">
+                        <div class="col-md-6">
 
                             <label for="title">Rentrer un titre : </label>
                             <input class="form-control" type="text" value="<?php if (!empty($_POST['article_title'])) {
@@ -78,7 +78,7 @@ class article extends data
                                                                                 echo $current_article_dump->title;
                                                                             } ?>" name="article_title" id="article_title" placeholder="Le titre de l'article">
                         </div>
-                        <div class="col-md-3">
+                        <div class="col-md-2">
                             <div class="form-group">
                                 <label for="category">Choisissez une catégorie : </label>
                                 <select class="form-control" id="article_category" name="article_category">
@@ -88,7 +88,7 @@ class article extends data
                                 </select>
                             </div>
                         </div>
-                        <div class=" col-md-3 form-group">
+                        <div class=" col-md-2 form-group">
                             <label for="nom">Nom / Pseudo : </label>
                             <input class="form-control" type="text" value="<?php if (!empty($_POST['article_author'])) {
                                                                                 echo $_POST['article_author'];
@@ -99,7 +99,7 @@ class article extends data
 
 
 
-                        <div class="col-md-3 form-group">
+                        <div class="col-md-2 form-group">
 
 
                             <label>Mode : </label>

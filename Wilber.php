@@ -568,7 +568,7 @@ class dataManager
             }
             $this->show_processing_message($errors);
         }
-<
+
     }
 
 

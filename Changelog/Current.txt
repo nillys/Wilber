@@ -29,7 +29,6 @@ Ajout de la possibilité de suprimé un comentaire à partir de l'interface util
 ====================================================================
 */FUNC 
 
-	-> Possibilité de suprimer les commentaires
 
 
 ====================================================================
