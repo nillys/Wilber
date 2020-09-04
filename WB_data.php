@@ -37,7 +37,6 @@ class data
 
     public function setTitle(string $title)
     {
-
         $this->title = $title;
     }
     public function setAuthor(string $author)

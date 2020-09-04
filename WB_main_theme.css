@@ -220,17 +220,19 @@ body{
   text-transform: capitalize;
   max-width: 300px;
   min-width: 300px;
-  position: relative;
   transition: all 1s;
+
   overflow: hidden;
+  border: 5px rgba(255, 255, 255, 0) solid;
+  
 }
 
 .thumbnail_article_container:hover{
+    transform: scale(1.1);
     box-shadow: rgba(0, 0, 0, 0.678) 0 15px 15px -2px;
-    max-width: 320px;
-    position: relative;
-    bottom:6px;
-    margin:2em;
+    margin: 2em;
+    max-width: 325px;
+
 }
 
 .thumbnail_article_img_thumbnail{

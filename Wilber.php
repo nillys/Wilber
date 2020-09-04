@@ -39,6 +39,7 @@ require "WB_Toolbox.php";
 include "WB_about.php";
 
 
+
 class dataManager
 {
     //le Pdo fournit par la méthode constructrice
@@ -259,7 +260,26 @@ class dataManager
             $this->pull("article");
         } else {
         }
+?>
 
+<div class="row">
+    <div class="col-lg-6">
+        <h2><span class="oi oi-sort-ascending"></span>filtrer</h2>
+    </div>
+    <div class="col-lg-6">
+        <div class="form-group">
+            <label>Ville : </label>
+            <select id="article_sort" onchange="article_sort()">
+                <option>Tous</option>
+                <option>Le module</option>
+                <option>L'auteur</option>
+                <option>Dans le futur</option>
+            </select>
+        </div>  
+    </div>
+</div>
+
+    <?php
         echo '<div class="thumbnail_show_article_container">';
         foreach ($this->list_item_data["article"] as $key => $value) {
         ?>
@@ -268,6 +288,7 @@ class dataManager
                 <a href="WB_show_articles.php?position_article=<?= $key; ?>">
                     <div class="thumbnail_article_img_thumbnail" style="background-image: url('<?= $value->article_picture1_name; ?>')">
                         <div title="<?= $value->title(); ?>" class="thumbnail_article_title"><?= substr($value->title(), 0, 40) . '...'; ?></div>
+                        <div title="<?= $value->title(); ?>" class="thumbnail_article_category"><?= substr($value->category(), 0, 40) . '...'; ?></div>
                         <div class="thumbnail_article_header">
                             <div class="thumbnail_article_author"><?= '<span class="oi oi-person"></span> ' . $value->author(); ?></div>
                             <div class="thumbnail_article_date"><?= "le : " . $value->date_post(); ?></div>
@@ -416,7 +437,12 @@ class dataManager
 
                 $tmp_article_picture_1 = "";
                 $tmp_article_picture_2 = "";
-                $tmp_article_picture_3 = "";
+                    if (isset($_GET['article_id'])){
+                        $tmp_article_picture_1 = $_POST['article_picture1_name'];
+                    }else{
+                        $tmp_article_picture_3 = "";
+                    }
+                $tmp_article_picture_3 = ""; 
 
                 // Traitement fichier 1
                 if (isset($_FILES['article_picture1']) and !empty($_FILES['article_picture1']['name'])) {

@@ -6,7 +6,7 @@ class article extends data
 
 {
 
-    protected $db_table_name = "article";
+    protected $db_table_name = "articfle";
     public $db_table_configuration = '(author,title,body,category,article_picture1,article_picture2,article_picture3) VALUES(:author,:title,:body,:category,:article_picture1,:article_picture2,:article_picture3)';
     public $db_table_update = 'author = :author,title = :title,body = :body, category = :category,article_picture1 = :article_picture1,article_picture2 = :article_picture2, article_picture3 = :article_picture3';
 
@@ -55,8 +55,9 @@ class article extends data
     public static function generate_form(int $variant = 1)
     {
         if (isset($_GET['article_id'])) {
+            // pull_item_from_db prend en paramètre le nom de la table et l'id
             $current_article_dump = dataManager::pull_item_from_db('article', $_GET['article_id']);
-
+            var_dump($current_article_dump);
          }
 ?>
         <div class="form_container" class="d-flex">
@@ -153,9 +154,10 @@ class article extends data
                             selector: '#article_body',
                             init_instance_callback: function(editor) {
                                 <?php if (!empty($_POST['article_body'])) {
-                                    echo 'tinymce.get("article_body").setContent("'. $_POST['article_body'].'")';
+                                    echo 'tinymce.get("article_body").setContent("'. str_replace(array("\n", "\r"), "", addslashes($_POST['article_body'])).'")';
                                 } elseif (isset($current_article_dump)) {
                                     // echo 'tinymce.get("article_body").setContent("' . addcslashes($current_article_dump->body,'"',"'",).'")';
+                                    // Très important : le module tinymce génère des érreurs si le texte réintroduit comporte des blanc ou des saut de ligne tel qu'inséré dans mysql
                                     echo 'tinymce.get("article_body").setContent("' . str_replace(array("\n", "\r"), "", addslashes($current_article_dump->body)) . '")';
                                     // echo 'tinymce.get("article_body").setContent("' . $current_article_dump->body.'")';
                                     // echo 'tinymce.get("article_body").setContent("<pre>\n\ncoucou"</pre>)';
@@ -168,8 +170,9 @@ class article extends data
                     </script>
                     <br>
 
-                    <input type="file" name="article_picture1" id="article_picture1">
+                    <input type="file" name="article_picture1" id="article_picture1" value>
                     <button class="btn btn-success class=" type="submit"><?php if(isset($_GET['article_id'])){
+                        $_POST['article_picture1_name'] = $current_article_dump->article_picture1;
                         echo "Modifier !";}else{echo "Envoyer !";}?></button>
                 </form>
 
