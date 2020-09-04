@@ -56,8 +56,7 @@ class article extends data
     {
         if (isset($_GET['article_id'])) {
             $current_article_dump = dataManager::pull_item_from_db('article', $_GET['article_id']);
-            echo "non";
-            var_dump($current_article_dump);    
+
          }
 ?>
         <div class="form_container" class="d-flex">
@@ -78,7 +77,7 @@ class article extends data
                                                                                 echo $_POST['article_title'];
                                                                                
                                                                             } elseif (isset($current_article_dump)) {
-                                                                                echo "oui";
+  
                                                                                 ;
                                                                                 echo $current_article_dump->title;
                                                                             } ?>" name="article_title" id="article_title" placeholder="Le titre de l'article">

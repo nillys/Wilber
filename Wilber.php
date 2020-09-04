@@ -186,7 +186,6 @@ class dataManager
 
         require "config.php";
 
-        var_dump($table, $id);
         $q = $pdo->prepare('SELECT * FROM ' . $table . ' WHERE id = ? ');
         $q->execute([$id]);
 
