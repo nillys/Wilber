@@ -6,7 +6,7 @@ class article extends data
 
 {
 
-    protected $db_table_name = "articfle";
+    protected $db_table_name = "article";
     public $db_table_configuration = '(author,title,body,category,article_picture1,article_picture2,article_picture3) VALUES(:author,:title,:body,:category,:article_picture1,:article_picture2,:article_picture3)';
     public $db_table_update = 'author = :author,title = :title,body = :body, category = :category,article_picture1 = :article_picture1,article_picture2 = :article_picture2, article_picture3 = :article_picture3';
 
