@@ -1,7 +1,7 @@
-(0.1.31) Amélioration documentation 
+(0.1.32) Amélioration documentation 
 
-0.1.3 -> 0.1.31 => 0.1.4
-[DOC . +]
+0.1.31 -> 0.1.32 => 0.1.4
+[DOC . + | FUNC . + | DEBUG ++]
 
 Description/ 
 
@@ -29,7 +29,7 @@ Ajout de la possibilité de suprimé un comentaire à partir de l'interface util
 ====================================================================
 */FUNC 
 
-
+	* Ajout d'une fonctionnalité javascript pour trier les articles affichés
 
 ====================================================================
 */ORG
@@ -39,6 +39,8 @@ Ajout de la possibilité de suprimé un comentaire à partir de l'interface util
 
 ====================================================================
 */DESIGN
+
+
 
 
 
