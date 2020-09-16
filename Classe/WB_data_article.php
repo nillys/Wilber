@@ -58,8 +58,8 @@ class article extends data
             // pull_item_from_db prend en paramètre le nom de la table et l'id
             $current_article_dump = dataManager::pull_item_from_db('article', $_GET['article_id']);
             var_dump($current_article_dump);
-         }
-?>
+        }
+        ?>
         <div class="form_container" class="d-flex">
 
             <div class="section_form" id="article_section_form">
@@ -76,10 +76,7 @@ class article extends data
                             <label for="title">Rentrer un titre : </label>
                             <input class="form-control" type="text" value="<?php if (!empty($_POST['article_title'])) {
                                                                                 echo $_POST['article_title'];
-                                                                               
-                                                                            } elseif (isset($current_article_dump)) {
-  
-                                                                                ;
+                                                                            } elseif (isset($current_article_dump)) {;
                                                                                 echo $current_article_dump->title;
                                                                             } ?>" name="article_title" id="article_title" placeholder="Le titre de l'article">
                         </div>
@@ -154,7 +151,7 @@ class article extends data
                             selector: '#article_body',
                             init_instance_callback: function(editor) {
                                 <?php if (!empty($_POST['article_body'])) {
-                                    echo 'tinymce.get("article_body").setContent("'. str_replace(array("\n", "\r"), "", addslashes($_POST['article_body'])).'")';
+                                    echo 'tinymce.get("article_body").setContent("' . str_replace(array("\n", "\r"), "", addslashes($_POST['article_body'])) . '")';
                                 } elseif (isset($current_article_dump)) {
                                     // echo 'tinymce.get("article_body").setContent("' . addcslashes($current_article_dump->body,'"',"'",).'")';
                                     // Très important : le module tinymce génère des érreurs si le texte réintroduit comporte des blanc ou des saut de ligne tel qu'inséré dans mysql
@@ -164,23 +161,152 @@ class article extends data
                                 }
                                 ?>
 
-                                console.log('Editor: ' + editor.id + ' is now initialized.');
+                                // console.log('Editor: ' + editor.id + ' is now initialized.');
                             }
                         });
                     </script>
                     <br>
 
                     <input type="file" name="article_picture1" id="article_picture1" value>
-                    <button class="btn btn-success class=" type="submit"><?php if(isset($_GET['article_id'])){
+                    <?php if (isset($_GET['article_id'])) {
+
                         $_POST['article_picture1_name'] = $current_article_dump->article_picture1;
-                        echo "Modifier !";}else{echo "Envoyer !";}?></button>
+                    } ?>
+
+                    <button class="btn btn-success class=" type="submit"><?php if (isset($_GET['article_id'])) {
+                                                                                echo "Modifier !";
+                                                                            } else {
+                                                                                echo "Envoyer !";
+                                                                            } ?></button>
                 </form>
 
 
             </div>
 
         </div>
+        <?php
+        if (!empty($_POST['article_title'])) {
+            $article_check = new form_manager;
+            $article_check->checking_integrity("article_author", "Auteur");
+            $article_check->checking_integrity("article_title", "Titre", 0);
+            $article_check->checking_integrity("article_body", "Corps du texte", 0, [1, 1, 300]);
+            $article_check->checking_picture_integrity("article_picture1");
+
+            $article_check->processing_form("article");
+        }
+    }
+    // ARTICLE // AFICHER UN ARTICLE
+    //-----------------------------------------------------------------------------------------------------------------------------\\
+    public static function show_an_article()
+    {
+        if (isset($_GET['position_article'])) {
+
+
+            if (empty(dataManager::$list_item_data["article"])) {
+                dataManager::pull("article");
+            }
+        ?>
+
+            <div class="show_article_container">
+                <!-- style="background-image: url('<?= dataManager::$list_item_data["article"][$_GET['position_article']]->article_picture1_name; ?>')" -->
+
+                <div class="article_container">
+
+                    <div class="article_title"><?= dataManager::$list_item_data["article"][$_GET['position_article']]->title(); ?></div>
+                    <div class="article_header">
+                        <div class="article_author"><?= '<span class="oi oi-person"></span>' . ' : ' . dataManager::$list_item_data["article"][$_GET['position_article']]->author(); ?></div>
+                        <div class="article_date"><?= '<span class="oi oi-timer"></span>' . " le : " . dataManager::$list_item_data["article"][$_GET['position_article']]->date_post(); ?></div>
+                    </div>
+
+                    <div class="article_container_body">
+                        <div class="container-fluid">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <img class="article_img1" src="<?= dataManager::$list_item_data["article"][$_GET['position_article']]->article_picture1_name; ?>" alt="article_picture1">
+                                </div>
+                                <div class="col-md-8">
+                                    <div class="article_body"><?= dataManager::$list_item_data["article"][$_GET['position_article']]->body(); ?></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="article_">
+
+                    </div>
+                </div>
+            </div>
+
+
+        <?php
+        }
+    }
+
+// ALL ARTICLE // AFFICHER TOUTES LES VIGNETTES ARTICLES
+    //-----------------------------------------------------------------------------------------------------------------------------\\
+    public static function show_all_article_thumbnail()
+    {
+        if (empty(dataManager::$list_item_data["article"])) {
+            dataManager::pull("article");
+        } else {
+        }
+        ?>
+
+        <div class="row">
+            <div class="col-lg-6">
+                <h2><span class="oi oi-sort-ascending"></span>filtrer</h2>
+            </div>
+            <div class="col-lg-6">
+                <div class="form-group">
+                    <label>Ville : </label>
+                    <select id="article_sort" onchange="article_sort()">
+                        <option>Tous</option>
+                        <option>Le module</option>
+                        <option>L'auteur</option>
+                        <option>Dans le futur</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <?php
+        echo '<div class="thumbnail_show_article_container">';
+        foreach (dataManager::$list_item_data["article"] as $key => $value) {
+        ?>
+
+            <div class="thumbnail_article_container">
+                <a href="WB_show_articles.php?position_article=<?= $key; ?>">
+                    <div class="thumbnail_article_img_thumbnail" style="background-image: url('<?= $value->article_picture1_name; ?>')">
+                        <div title="<?= $value->title(); ?>" class="thumbnail_article_title"><?= substr($value->title(), 0, 40) . '...'; ?></div>
+                        <div title="<?= $value->title(); ?>" class="thumbnail_article_category"><?= substr($value->category(), 0, 40) . '...'; ?></div>
+                        <div class="thumbnail_article_header">
+                            <div class="thumbnail_article_author"><?= '<span class="oi oi-person"></span> ' . $value->author(); ?></div>
+                            <div class="thumbnail_article_date"><?= "le : " . $value->date_post(); ?></div>
+                        </div>
+                    </div>
+                </a>
+                <div class="thumbnail_article_container_body">
+
+
+                    <div class="thumbnail_article_body"><?= $value->body(); ?></div>
+                </div>
+                <div class="thumbnail_article_footer">
+
+                    <a class="button edit_button" href="<?= strtok($_SERVER['REQUEST_URI'], '?') . "?article_id=" . $value->id(); ?>">
+                        <div title="Modifier l'article">Modifier</div>
+                    </a>
+
+                    <a class="button delete_button" href="WB_sql_treatment.php?article_del_id=<?= $value->id(); ?>&url_origin=<?php echo strtok($_SERVER['REQUEST_URI'], '?'); ?>&folder_adress=<?php if (!empty($value->article_picture1_name)) {
+                                                                                                                                                                                                    print_r(explode('/', $value->article_picture1_name)[2]);
+                                                                                                                                                                                                } ?>">
+                        <div title="Supprimer l'article (ireversible)">Suprimer</div>
+                    </a>
+
+
+                </div>
+            </div>
+
 <?php
-        return "article";
+        }
+        echo '</div>';
     }
 } // article

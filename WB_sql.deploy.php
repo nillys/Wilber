@@ -22,11 +22,11 @@
 <div id="main_container">
     <?php
 
-    if (!file_exists("config.php")) {
+    if (!file_exists("config.db.php")) {
         header('location: WB_start.php');
     }
 
-    require "config.php";
+    require "config.db.php";
 
     global $check_count;
 

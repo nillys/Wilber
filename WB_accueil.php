@@ -4,7 +4,7 @@
 
 <?php
 
-require "Wilber.php";
+require "Classe/Wilber.php";
 $gestionnaire_data = new dataManager($pdo, $_POST);
 
 ?>
@@ -18,7 +18,7 @@ $gestionnaire_data = new dataManager($pdo, $_POST);
   <link rel="stylesheet" type="text/css" href="WB_main_theme.css">
   <link rel="stylesheet" type="text/css" href="Ressource_icone/open-iconic-master/open-iconic-master/font/css/open-iconic-bootstrap.css">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
- 
+
 
 </head>
 
@@ -42,10 +42,10 @@ $gestionnaire_data = new dataManager($pdo, $_POST);
       <div class="col-lg-12">
         <?php
 
-        $gestionnaire_data->add_treatment(article::generate_form());
+        article::generate_form();
 
         ?>
-      
+
       </div>
 
     </div>
@@ -53,7 +53,7 @@ $gestionnaire_data = new dataManager($pdo, $_POST);
       <div class="col-lg-12">
         <?php
 
-        $gestionnaire_data->show_all_article_thumbnail();
+        article::show_all_article_thumbnail();
 
         ?>
       </div>
@@ -71,7 +71,7 @@ $gestionnaire_data = new dataManager($pdo, $_POST);
         // montrer les messages d'intéraction utilisateur
 
         // générer le formulaire de votre choix avec enclenchement de la procédure de traitement.
-        $gestionnaire_data->add_treatment(comment::generate_form());
+        comment::generate_form();
 
         ?>
       </div>
@@ -79,7 +79,7 @@ $gestionnaire_data = new dataManager($pdo, $_POST);
       <div class="col-lg-6" style="max-height:100%">
 
         <?php
-        $gestionnaire_data->show_all_comment();
+        comment::show_all_comment();
         ?>
 
       </div>

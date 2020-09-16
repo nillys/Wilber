@@ -1,9 +1,9 @@
 <?php
-if (!file_exists("config.php")) {
+if (!file_exists("config.db.php")) {
     header('location: WB_start.php');
 }
-require "config.php";
-require "WB_Toolbox.php";
+require "config.db.php";
+require "classe/WB_Toolbox.php";
 
 switch ($_GET) {
 

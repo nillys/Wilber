@@ -4,7 +4,7 @@
 
 <?php
 
-require "Wilber.php";
+require "Classe/Wilber.php";
 $gestionnaire_data = new dataManager($pdo, $_POST);
 
 ?>
@@ -37,14 +37,14 @@ $gestionnaire_data = new dataManager($pdo, $_POST);
             <div class="col-lg-12">
                 <?php
 
-                $gestionnaire_data->show_an_article();
+                article::show_an_article();
 
                 ?>
             </div>
             <div class="col-lg-12">
                 <?php
 
-                $gestionnaire_data->show_all_article_thumbnail();
+                article::show_all_article_thumbnail();
 
                 ?>
             </div>

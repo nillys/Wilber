@@ -78,7 +78,7 @@ if (!empty($_POST)) {
         $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
         //Création du fichier
-        $myfile = fopen("config.php", "w+");
+        $myfile = fopen("config.db.php", "w+");
         fwrite($myfile, '<?php $pdo_options[PDO::MYSQL_ATTR_INIT_COMMAND] = \'SET NAMES utf8\';
         $pdo = new PDO(\'' . $bdd_name_and_adress . '\', \'' . $user . '\', \'' . $password . '\', $pdo_options);
         $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);

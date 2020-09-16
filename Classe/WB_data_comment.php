@@ -1,5 +1,7 @@
 <?php
 
+require "WB_form_manager.php";
+
 class comment extends data
 {
 
@@ -14,7 +16,7 @@ class comment extends data
 
     public static function generate_form(int $variant = 1)
     {
-?>
+        ?>
         <div class="form_container">
             <div class="section_form" id="comment_section_form">
 
@@ -55,7 +57,68 @@ class comment extends data
             </div>
 
         </div>
-    <?php
-        return "comment";
+
+
+
+        <?php
+
+        if (!empty($_POST['comment_title'])) {
+            $comment_check = new form_manager;
+            $comment_check->checking_integrity("comment_author", "Auteur");
+            $comment_check->checking_integrity("comment_title", "Titre", 0);
+            $comment_check->checking_integrity("comment_body", "Corps du texte", 0, [1, 1, 300]);
+
+            $comment_check->processing_form("comment");
+        }
+    }
+
+    // ALL COMMENT // AFFICHER TOUT LES COMMENTAIRES
+    //-----------------------------------------------------------------------------------------------------------------------------\\
+    public static function show_all_comment()
+    {
+        if (empty(dataManager::$list_item_data["comment"])) {
+            dataManager::pull("comment");
+        }
+        echo '<div class="show_comment_container">';
+        foreach (dataManager::$list_item_data["comment"] as $value) {
+        ?>
+            <div class="comment_container">
+                <div class="comment_title_container">
+                    <div class="comment_title"><?= $value->title(); ?></div>
+                    <a title="Suprimer le commentaire ceci est ireverssible" href="Wb_sql_treatment.php?comment_del_id=<?= $value->id(); ?>&url_origin=<?php echo strtok($_SERVER['REQUEST_URI'], '?') ?>"><span class="oi oi-x"></span></a>
+                </div>
+                <div class="comment_header">
+                    <div class="comment_author"><?= '<span class="oi oi-person"></span> ' . $value->author(); ?></div>
+                    <div class="comment_date"><?= "le : " . $value->date_post(); ?></div>
+                </div>
+
+                <div class="comment_body"><?= $value->body(); ?></div>
+            </div>
+
+        <?php
+        }
+        echo '</div>';
+    }
+
+    // COMMENT // AFFICHER UN SEUL COMMENTAIRE
+    //-----------------------------------------------------------------------------------------------------------------------------\\
+    public static function show_comment($key = 0)
+    {
+
+        // self::pull();
+
+        if (is_int($key)) {
+        ?>
+            <div class="comment_container">
+                <div class="comment_title"><?= dataManager::$list_item_data["comment"][$key]->title(); ?></div>
+                <div class="comment_header">
+                    <div class="comment_author"><?= '<span class="oi oi-person"></span> ' . dataManager::$list_item_data["comment"][$key]->author(); ?></div>
+                    <div class="comment_date"><?= "le : " . dataManager::$list_item_data["comment"][$key]->date_post(); ?></div>
+                </div>
+
+                <div class="comment_body"><?= dataManager::$list_item_data["comment"][$key]->body(); ?></div>
+            </div>
+<?php
+        }
     }
 } // COMMENT
