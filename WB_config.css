@@ -1,0 +1,187 @@
+html, body{
+    height: 100%;
+    background-color: yellow;
+}
+
+#image_entete img{
+    max-width: 100%;
+    display: inline-block;
+    box-sizing: border-box;
+    box-shadow: white 0 0 1px;
+}
+
+.background_container{
+    justify-content: center;
+    align-items: center;
+    min-height: 100%;
+    background: rgb(191,214,90);
+    background: linear-gradient(353deg, rgba(191,214,90,1) 0%, rgba(91,191,92,1) 41%, rgba(0,212,255,1) 100%); 
+    background-attachment: fixed;
+    background-size: contain;
+}
+
+#header{
+    background-color: rgba(255, 255, 255, 0.39);
+    box-shadow: white 0 0 5px;
+    padding: 0 2.5em;
+    color: white;
+    text-shadow: white 0 0 3px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    margin-bottom: 2em;
+}
+
+.mainmenu{
+    margin: 20px;
+}
+
+#accordion_menu{
+    cursor: pointer;
+    color: black;
+    border-radius: 0.6em;
+}
+
+.menu_head{
+    margin-bottom: 10px;
+    background-color: rgba(255, 255, 255, 0.301);
+    border-radius: 0.6em;
+    padding-left: 4em;
+}
+
+.menu_head:hover{
+    margin-bottom: 10px;
+    background-color: rgba(255, 255, 255, 0.678);
+    border-radius: 0.6em;
+    padding-left: 4em;
+}
+
+.menu_head:hover button{
+    color: black;
+}
+
+.menu_head button{
+    color: white;
+    text-shadow: white 0 0 2px;
+    font-weight: bold;
+    text-transform: uppercase;
+
+}
+.menu_body{
+    border: none !important;
+    text-align: center;
+}
+.menu_body li{
+    background-color: rgba(255, 255, 255, 0.329);
+    
+}
+.menu_body li:hover{
+    font-weight: bold;
+    background-color: rgba(255, 255, 255, 0.63);
+}
+
+.menu_body div{
+
+}
+
+
+.title{
+    color: white;
+    text-shadow: white 0 0 5px;
+    font-size: 2em;font-weight:bold;text-align:center;text-shadow:black 0 0 1px;
+    
+}
+
+label{
+    color: white;
+    font-weight: bold;
+}
+
+.help_symbole{
+    background-color: black ;
+    border-radius: 1em;
+}
+
+#section_form{
+min-width: 100%;
+background-color: rgba(255, 255, 255, 0.178);
+box-shadow: white 0 0 5px;
+padding: 1em;
+}
+
+
+#button_erase_form {
+    margin-left: 20px;
+    background-color: aquamarine;
+    transition-property: padding;
+    transition-duration: 2s;
+  }
+
+  #button_erase_form:hover {
+    padding: 20px;
+  }
+
+  #button_autoFill{
+    margin-left: 20px;
+    background-color: aquamarine;
+    transition-property: padding;
+    transition-duration: all 2s;
+  }
+
+  #button_autoFill:hover {
+    background-color: rgb(188, 255, 233);
+    border: white 2px solid;
+  }
+/* CSS FOR COMENT / CSS pour les datas */
+
+  #afficher_data{
+      max-height: 400px;
+      overflow-y: scroll;
+  }
+.comment_container{
+    display: flex;
+    flex-direction: column;
+    box-shadow: black 0 2px 2px -1px,rgba(0, 0, 0, 0.411) 0 5px 5px -2px;
+    padding: 0.8em;
+    border-radius: 1em;
+    background: rgb(255,255,255);
+    background: linear-gradient(0deg, rgba(255,255,255,1) 45%, rgba(0,212,255,0.17128858379289214) 100%); 
+    border: black solid  2px 1px;
+    margin-top: 1em;
+    text-transform: capitalize;
+}
+
+.comment_author{
+    font-size: medium;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    font-style: italic;
+    text-transform: capitalize;
+}
+
+.comment_title{
+    font-size: larger;
+    text-decoration: underline;
+    font-weight: bold;
+    text-transform: capitalize;
+    text-transform: capitalize;
+}
+
+.comment_header{
+    display: flex;
+    justify-content: space-between;
+    text-transform: capitalize;
+}
+
+.comment_body{
+    border: black 1px solid;
+    border-radius: 1em;
+    background-color: white;
+    box-shadow: inset black 0 1px 2px;
+    padding: 1em;
+    text-transform: capitalize;
+}
+
+.comment_date{
+    font-style: italic;
+}

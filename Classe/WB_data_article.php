@@ -57,7 +57,7 @@ class article extends data
         if (isset($_GET['article_id'])) {
             // pull_item_from_db prend en paramètre le nom de la table et l'id
             $current_article_dump = dataManager::pull_item_from_db('article', $_GET['article_id']);
-            var_dump($current_article_dump);
+  
         }
         ?>
         <div class="form_container" class="d-flex">
