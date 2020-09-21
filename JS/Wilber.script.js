@@ -7,12 +7,18 @@
 
     
     function erase_article_form() {
-        document.getElementById('article_author').value = '';
         document.getElementById('article_title').value = '';
         document.getElementById('article_body').value = '';
         tinymce.get("article_body").setContent("");
       }
 
+     function erase_register_form(){
+
+        document.getElementById('user_pseudo').value = '';
+        document.getElementById('user_mail').value = '';
+        document.getElementById('user_password').value = '';
+        document.getElementById('user_confirmation_password').value = '';
+     }
 
       function article_sort(){
         let value_from_select = document.getElementById('article_sort').value;

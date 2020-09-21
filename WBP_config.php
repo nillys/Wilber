@@ -4,7 +4,9 @@
 <head>
 
     <meta charset="utf-8">
-    <link rel="stylesheet" type="text/css" href="WB_config.css">
+    <link rel="stylesheet" type="text/css" href="CSS/WB_config.css">
+    <link rel="stylesheet" type="text/css" href="CSS/WB_main_theme.css">
+    <link rel="stylesheet" type="text/css" href="CSS/WB_main_css.css">
     <link rel="stylesheet" type="text/css" href="Ressource_code/bootstrap/css/bootstrap.css">
 
     <link rel="stylesheet" type="text/css" href="Ressource_icone/open-iconic-master/open-iconic-master/font/css/open-iconic-bootstrap.css">
@@ -49,7 +51,7 @@
 
 // Partie traitement
 // Starting testing phase on the content of object _POST / Début des tests sur l'envoi POST 
-require "WB_about.php";
+require "wilber.php";
 
 if (!empty($_POST)) {
 
@@ -78,7 +80,7 @@ if (!empty($_POST)) {
         $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
         //Création du fichier
-        $myfile = fopen("config.db.php", "w+");
+        $myfile = fopen("info.db.php", "w+");
         fwrite($myfile, '<?php $pdo_options[PDO::MYSQL_ATTR_INIT_COMMAND] = \'SET NAMES utf8\';
         $pdo = new PDO(\'' . $bdd_name_and_adress . '\', \'' . $user . '\', \'' . $password . '\', $pdo_options);
         $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
@@ -144,18 +146,10 @@ if (!empty($_POST)) {
 
 <body>
 
+    <?php require "Inc/WB_header.php"; ?>
     <div class="container_fluid background_container">
-        <div class="row no-gutters justify-content-center">
-            <header id="header">
-                <h1 id="main_title">WILBER</h1>
-                <h6 id="label_version"><?= $WB_version_number; ?></h6>
-                <h2 id="page_name">Configuration</h2>
-            </header>
-        </div>
         <div class="row p-5">
             <div class="col-md-3">
-
-
 
                 <div id="accordion_menu">
 
@@ -174,6 +168,7 @@ if (!empty($_POST)) {
                                 <ul class="nav nav-tabs flex-column" role="tablist">
                                     <li class="nav-item">
                                         <div class="nav-link active" id="menu_item_bdd_tab" data-toggle="tab" href="#menu_item_bdd" role="tab" aria-controls="home" aria-selected="true">BDD</div>
+                                        <div class="nav-link" id="menu_utilisateur_tab" data-toggle="tab" href="#menu_utilisateur" role="tab" aria-controls="home" aria-selected="true">utilisateur</div>
                                     </li>
 
                                 </ul>
@@ -235,9 +230,7 @@ if (!empty($_POST)) {
             <div class="col-md-9">
 
                 <div class="tab-content" id="">
-                    <div class="tab-pane fade show active" id="menu_item_bdd" role="tabpanel" aria-labelledby="menu_item_bdd_tab">
-
-
+                    <div class="tab-pane fade" id="menu_item_bdd" role="tabpanel" aria-labelledby="menu_item_bdd_tab">
 
                         <div id="section_form">
                             <h2 class="title" style="">Configuration BDD</h2>
@@ -278,8 +271,13 @@ if (!empty($_POST)) {
 
                         </div>
                     </div>
+                    <div class="tab-pane fade show active" id="menu_utilisateur" role="tabpanel" aria-labelledby="menu_utilisateur">
+                        <h2 class="title" style="">UTILISATEUR</h2>
+                        <?php configManager::generate_user_list(); ?>
+
+                    </div>
                     <div class="tab-pane fade" id="menu_item_article" role="tabpanel" aria-labelledby="menu_item_article">
-                        <h2 class="title" style="">Configuration ARTICLE</h2>
+                        <h2 class="title" style="">ARTICLE</h2>
                     </div>
                     <div class="tab-pane fade" id="menu_item_comment" role="tabpanel" aria-labelledby="contact-tab">
                         <h2 class="title" style="">Configuration COMMENTAIRE</h2>

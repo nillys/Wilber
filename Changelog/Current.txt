@@ -1,31 +1,43 @@
-(0.1.35) Amélioration modularité
+(0.1.42) MODULARITE ESPACE UTILISATEUR
 
-0.1.32 -> 0.1.35 => 0.1.4
-[MODULAR . ++ | FILE . +]
+0.1.32 -> 0.1.42 => 0.1.5
+[MODULAR . +++ | FILE . ++ | ORG . ++ | FUNC . ++]
 
-Description/ 
+Description/
 
-Les fonctions d'affichage des objets sont désormais lié aux classes inhérentes a ces objets
-la verification des données envoyé par les formulaires sont maintenant annalysé par des méthodes dédié d'une nouvelle class form_manager ! 
+Enorme travail de réorganisation des fichiers et d'amélioration de la modularité
+Ajout d'un autoLoader 
+Système d'utilisateur en cours d'implémentation ! 
+possibilité de s'inscrire d'éfacer un utilisateur etc
+Ajout d'une page de configuration de wilber avec divers rubrique
+
 
 ====================================================================
 */FILE
 
-	* Les fichiers de classes se trouvent à présent dans un dossier 
+	* Css séparé
+	* Création d'un dossier Info d'un dossier Inc , CSS , sql etc
+	* Création d'un dossier init contenant entre autre l'auto loader
+	* Création page WBP_config.php etc
+	* Refonte total de l'organisation des fichiers
 
 
 ====================================================================
 */DOC
-
+	
 
 
 ====================================================================
 */MODULAR 
 
-	* Trouver façon plus adapté d'utiliser l'objet $pdo dans la méthode static pull_item_from_db
-	* Les méthodes de la classe dataManager sont devenu static et peuvent donc être utilisé partout ou c'est nécessaire
-	* Classe form_manager ajouté : le processus = Création de formulaire , vérification , 	traitement est 	adopté les étapes sont séparés en différente méthode appliqué via la classe dans chaque objet
 	
+	* Séparation de dataManager de Wilber et instauration d'une classe dédié a la connexion avec la base de donné . Le programme se compose maintenant ainsi !
+	Des managers gérant des objets qui leurs sont propres et pour l'instant deux grand type d'objet "utilisateur" et "donnée"
+
+	* Création d'un header avec menu pour naviguer de page en page ! 
+	* Affectation des fonctions d'affichages aux objets en eux même !
+
+
 	-> Créer le moyen de pouvoir poster différents commentaire depuis des pages différentes et les afficher 	selon une option choisit
 	
 	-> idem avec article
@@ -33,18 +45,24 @@ la verification des données envoyé par les formulaires sont maintenant annalys
 
 ====================================================================
 */FUNC 
-
+	* Page config avec possibilité de gérer les utilisateurs et les supprimer !
+	* possibilité de s'inscrire sur le site
+	* Possibilité d'éffacer le formulaire d'inscription
+	* Ajout de fonction de test sur la classe de test de formulaire
 
 
 ====================================================================
 */ORG
 
+	* Paufinage amélioration de la classe servant a tester les formulaires 
+	* Autoloader fonctionnel 
+	* Décomposition de la procédure de traitement des données envoyé a l'aide des méthode de la class formManager (vefification , traitement)
 
 
 ====================================================================
 */DESIGN
 
 
-
+	*
 
 

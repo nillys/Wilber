@@ -1,49 +1,8 @@
 <?php
 
-/**
- * This file contains class and functions to treat with comments and linked forms 
- * 
- * Ce fichier contient des classes et des fonctions permetant de disposer d'objet préconçu permetant de gérer facilement de dispositif comme des formulaires et des articles etc
- * 
- *
- * @license    http://opensource.org/licenses/gpl-license.php  GNU Public License
- * @author     Mathieu <dwwm-mathieu@mode83.onmicrosoft.com>
- */
-
-use function PHPSTORM_META\type;
-
-/**
- * article
- * 
- * A class that contain property and method related to article 
- * 
- * 
- */
-// si le fichier de config n'a pas été créé on redirige l'utilisateur vers la page approprié
-if (!file_exists("config.db.php")) {
-    header('location: WB_start.php');
-}
-require "config.db.php";
-
-// La classe abstraite servant de base aux différents modèles de données
-require "WB_data.php";
-
-// Les classes de données pour l'instant chacune des classes enfants contient les formulaires associé / 
-require "WB_data_comment.php";
-require "WB_data_article.php";
-require "WB_data_contact.php";
-
-// Une classe regroupant des méthodes utiles divers et variés trouvé sur le net ou conçu par moi même
-require "WB_Toolbox.php";
-// Un fichier contenant toutes les informations sur la version de Wilber en cours , et d'autres détails
-include "WB_about.php";
-
-
-
 class dataManager
 {
     //le Pdo fournit par la méthode constructrice
-    static public $_db;
     // list des objets récupéré de la base de donné et stocké ici quand besoin d'êtres utilisé par d'autres fonctions
     public static $list_item_data = ["comment" => array(), "article" => array(), "contact" => array()];
 
@@ -53,25 +12,23 @@ class dataManager
     // Si cette variable est positive alors partout dans l'éxécution du code les infos de débuggage s'afficheront.
     public static $debugmode;
 
-    // GETTER
 
-    public function list_item_data()
-    {
-        return self::$list_item_data;
-    }
 
-    public function __construct(PDO $pdo, $current_post, $debugmode = 0)
+    public function __construct($current_post, $debugmode = 0)
     {
         $this->current_post = $current_post;
 
         if ($debugmode) {
             var_dump($current_post);
         }
-
-        self::$_db = $pdo;
         self::$debugmode = $debugmode;
     }
+    // GETTER
 
+    public function list_item_data()
+    {
+        return self::$list_item_data;
+    }
 
     //====================================================================================================================================//
     // PARTIE FONCTION LIEES A LA BASE DE DONNEES
@@ -82,12 +39,12 @@ class dataManager
 
     // Fonction intéligente qui detecte et rentre des données dans la base de donnée 
     // Elle prend en entrée un objet de donnée (type : article , commentaire, etc)
-    public static function add($data_received)
+    public static function add_data($data_received)
     {
         // Traitement approprié au type d'objet (article , commentaire , contact etc)
 
 
-        $q = self::$_db->prepare('INSERT INTO ' . $data_received->db_table_name() . $data_received->db_table_configuration);
+        $q = DB::$pdo->prepare('INSERT INTO ' . $data_received->db_table_name() . $data_received->db_table_configuration);
 
         // Partie Commune
         // Affection des paramètres commun aux objet data
@@ -106,10 +63,10 @@ class dataManager
         $q->execute();
     }
 
-    public static function modify($data_received, $id)
+    public static function modify_data($data_received, $id)
     {
 
-        $q = self::$_db->prepare('UPDATE ' . $data_received->db_table_name() . ' SET ' . $data_received->db_table_update . ' WHERE id = :id');
+        $q = DB::$pdo->prepare('UPDATE ' . $data_received->db_table_name() . ' SET ' . $data_received->db_table_update . ' WHERE id = :id');
 
         // Partie Commune
         // Affection des paramètres commun aux objet data
@@ -129,12 +86,12 @@ class dataManager
     }
 
     // Cette fonction hydrate le tableau de donnée
-    public static function pull($table)
+    public static function pull_data($table)
     {
         // Selectionner la table qui corespond aux dernier mode !!!
         // Desc signifie inverser l'ordre de trie
 
-        $q = self::$_db->prepare('SELECT * FROM ' . $table . ' ORDER BY id DESC');
+        $q = DB::$pdo->prepare('SELECT * FROM ' . $table . ' ORDER BY id DESC');
         $q->execute();
 
         switch ($table) {
@@ -166,10 +123,10 @@ class dataManager
         }
     }
 
-    static public function pull_item_from_db($table, $id)
+    static public function pull_data_from_db($table, $id)
     {
 
-        require "config.db.php";
+        require "info.db.php";
 
         $q = $pdo->prepare('SELECT * FROM ' . $table . ' WHERE id = ? ');
         $q->execute([$id]);
@@ -178,17 +135,4 @@ class dataManager
 
         return $result;
     }
-
-
-  
-
-
-    
-
-    
-   
-
-
-
-
 }

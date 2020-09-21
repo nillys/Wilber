@@ -2,6 +2,28 @@ body{
     background-image: linear-gradient(120deg, #a1c4fd 0%, #c2e9fb 100%);
 }
 
+/* GENERAL */
+
+.wilber_button{
+    border-radius: 1em;
+    border: rgba(127, 255, 138, 0.76) 1px solid;
+    background-color: rgba(127, 255, 212, 0.541);
+    padding: 0.5em;
+    color: black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+    transition-property: padding;
+    transition-duration: all 2sec;
+}
+
+.wilber_button:hover{
+    padding: 20px;
+}
+
+/* HEADER */
+
 #header{
 
     display: flex;
@@ -13,6 +35,14 @@ body{
 
 #header p{
     color: white;
+}
+
+#Wilber_main_menu{
+    background-color: rgba(255, 255, 255, 0.397);
+    box-shadow: white 0 0 5px;
+    margin-bottom: 1em;
+    color: white;
+    font-size: larger;
 }
 
 #label_version{
@@ -41,6 +71,27 @@ body{
     text-align: center;
 }
 
+.connect_button{
+    border-radius: 1em;
+    border: rgba(127, 255, 138, 0.76) 1px solid;
+    background-color: rgba(127, 255, 212, 0.541);
+    padding: 0.5em;
+    color: black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+}
+
+.login_form *{
+    margin-bottom: 0.5em;
+}
+.connect_button:hover{
+    border-radius: 1em;
+    background-color: aquamarine;
+}
+
+/* FIN DU HEADER */
 .form_container{
     padding: 1em;
     background: rgb(255,255,255);
@@ -75,6 +126,8 @@ body{
     text-decoration: underline;
     text-transform: uppercase;
 }
+
+
 
 .button_erase_form {
     margin-left: 20px;
@@ -461,6 +514,120 @@ flex-wrap: wrap;
 #article_body{
     min-height: 500px;
 
+}
+
+/* LISTES */
+
+.table_header{
+    background-color: rgb(255, 255, 255);
+    border-radius: 1em;
+    padding: 0.1em;
+    margin: 0.5em;
+    color: black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: white 0 0 5px;
+    border: white 1px solid;
+}
+
+.table_header > *{
+
+
+
+}
+
+.list_main_container{
+
+    background-color: rgba(255, 0, 0, 0.356);
+    border-radius: 1em;
+    padding: 1em;
+    min-width: 100%;
+
+}
+.list_item_container{
+    display: inline-block;
+    background-color: rgb(255, 255, 255);
+  
+}
+
+
+.list_item_container > *{
+    display: flex;
+    border-radius: 1em;
+    margin-right: 0.5em;
+    width: 100%;
+}
+
+.user_information{
+    width: 100%;
+    justify-content: space-around;
+}
+
+.user_information >*{
+
+    display: flex;
+    justify-content: center;
+    box-shadow: inset rgba(66, 249, 255, 0.432) 0 -2px 3px;
+    padding:0 0.5em ;
+    border-radius: 1em;
+
+}
+
+.list_item_container a{
+    padding: 0.5em;
+    border-radius: 1em;
+}
+
+.list_item_container a:hover{
+
+  color: black;
+  text-decoration: none;
+
+}
+
+.user_item_pseudo{
+
+}
+
+
+.user_item_mail{
+
+}
+
+.user_item_password{
+
+}
+
+.user_item_password:hover {
+
+
+
+}
+.user_item_role{
+
+}
+.edit_button{
+    padding: 0.8em;
+}
+
+.edit_button:hover{
+    color: black;
+    text-decoration: none;
+    background-color: rgb(241, 255, 176);
+}
+.delete_button{
+    padding: 0.8em;
+}
+
+.delete_button:hover{
+    color: black;
+    text-decoration: none;
+    background-color: lightpink;
+}
+
+.list_item_modify_form{
+    background-color: white;
 }
 
 .debug_source_item{

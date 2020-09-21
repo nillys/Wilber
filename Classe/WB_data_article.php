@@ -55,8 +55,8 @@ class article extends data
     public static function generate_form(int $variant = 1)
     {
         if (isset($_GET['article_id'])) {
-            // pull_item_from_db prend en paramètre le nom de la table et l'id
-            $current_article_dump = dataManager::pull_item_from_db('article', $_GET['article_id']);
+            // pull_data_from_db prend en paramètre le nom de la table et l'id
+            $current_article_dump = dataManager::pull_data_from_db('article', $_GET['article_id']);
   
         }
         ?>
@@ -186,13 +186,13 @@ class article extends data
         </div>
         <?php
         if (!empty($_POST['article_title'])) {
-            $article_check = new form_manager;
+            $article_check = new formManager;
             $article_check->checking_integrity("article_author", "Auteur");
             $article_check->checking_integrity("article_title", "Titre", 0);
             $article_check->checking_integrity("article_body", "Corps du texte", 0, [1, 1, 300]);
             $article_check->checking_picture_integrity("article_picture1");
 
-            $article_check->processing_form("article");
+            $article_check->processing_data_form("article");
         }
     }
     // ARTICLE // AFICHER UN ARTICLE
@@ -203,7 +203,7 @@ class article extends data
 
 
             if (empty(dataManager::$list_item_data["article"])) {
-                dataManager::pull("article");
+                dataManager::pull_data("article");
             }
         ?>
 
@@ -246,7 +246,7 @@ class article extends data
     public static function show_all_article_thumbnail()
     {
         if (empty(dataManager::$list_item_data["article"])) {
-            dataManager::pull("article");
+            dataManager::pull_data("article");
         } else {
         }
         ?>
@@ -274,7 +274,7 @@ class article extends data
         ?>
 
             <div class="thumbnail_article_container">
-                <a href="WB_show_articles.php?position_article=<?= $key; ?>">
+                <a href="WBP_display_articles.php?position_article=<?= $key; ?>">
                     <div class="thumbnail_article_img_thumbnail" style="background-image: url('<?= $value->article_picture1_name; ?>')">
                         <div title="<?= $value->title(); ?>" class="thumbnail_article_title"><?= substr($value->title(), 0, 40) . '...'; ?></div>
                         <div title="<?= $value->title(); ?>" class="thumbnail_article_category"><?= substr($value->category(), 0, 40) . '...'; ?></div>

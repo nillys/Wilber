@@ -4,32 +4,25 @@
 
 <?php
 
-require "Classe/Wilber.php";
-$gestionnaire_data = new dataManager($pdo, $_POST);
+require "Wilber.php";
+$gestionnaire_data = new dataManager($_POST);
 
 ?>
 
 <head>
 
     <meta charset="utf-8">
-    <link rel="stylesheet" type="text/css" href="WB_main_theme.css">
+    <link rel="stylesheet" type="text/css" href="CSS/WB_main_theme.css">
 
 <link rel="stylesheet" type="text/css" href="Ressource_code/bootstrap/css/bootstrap.css">
-<link rel="stylesheet" type="text/css" href="WB_main_css.css">
+<link rel="stylesheet" type="text/css" href="CSS/WB_main_css.css">
     <link rel="stylesheet" type="text/css" href="Ressource_icone/open-iconic-master/open-iconic-master/font/css/open-iconic-bootstrap.css">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <script src="Wilber.script.js"></script>
 
 </head>
 
-<header id="header">
-    <a href="WB_accueil.php"><h1 id="main_title">WILBER</h1></a>
-    <h6 id="label_version"><?=$WB_version_number;?></h6>
-    <h6 id="label_version"><?=$WB_slogan;?></h6>
-    <h2 id="page_name">Afficher un article</h2>
-
-</header>
-
+<?php require "Inc/WB_header.php"?>
 <body>
     <!-- ARTICLE  -->
     <div class="container-fluid">
