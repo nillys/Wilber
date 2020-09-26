@@ -1,5 +1,5 @@
 <?php
-
+session_start();
 spl_autoload_register("auto_load");
 
 function auto_load($class)
@@ -9,7 +9,11 @@ function auto_load($class)
     // echo "Nombre d'éléments dans l'url : " . count(explode("/", $_SERVER['REQUEST_URI']));
 
     if ($class == "article" or $class == "comment" or $class == "contact") {
-        require "Classe/WB_data_" . $class . ".php";
+        if (count(explode("/", $_SERVER['REQUEST_URI'])) >= 4) {
+            require "../Classe/WB_data_" . $class . ".php";
+        } else {
+            require "Classe/WB_data_" . $class . ".php";
+        }
     } elseif ($class == "formManager" or $class == "configManager" or $class == "userManager" or $class == "dataManager" or $class == "data" or $class == "toolbox" or $class == "dataManager" or $class == "DB") {
 
         if (count(explode("/", $_SERVER['REQUEST_URI'])) >= 4) {

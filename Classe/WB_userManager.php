@@ -17,6 +17,7 @@ class userManager
         $q->bindValue(':mail', $user_received->getMail());
         $q->bindValue(':password', $user_received->getPassword());
         $q->bindValue(':role', $user_received->getRole());
+        $q->bindValue(':confirmation_token',$user_received->getConfirmation_token()) ;
 
         // Partie Particulière
         // Cette fonction est chargé d'éxecuter les parties de requettes propres aux objets traité qui dispose de paramètres suplémentaires 
@@ -44,5 +45,18 @@ class userManager
 
 
       
+    }
+
+    public static function is_connected(){
+        if(isset($_SESSION['logged_in'])){
+            return true;
+        }else{
+            return false;
+        }
+    }
+    public static function connected_name(){
+        if(isset($_SESSION['logged_in'])){
+            var_dump($_SESSION['logged_in']);
+        }
     }
 }

@@ -1,26 +1,25 @@
-(0.1.42) MODULARITE ESPACE UTILISATEUR
+(0.1.5) MODULARITE ESPACE UTILISATEUR
 
-0.1.32 -> 0.1.42 => 0.1.5
-[MODULAR . +++ | FILE . ++ | ORG . ++ | FUNC . ++]
+0.1.32 -> 0.1.5 => 0.1.6
+[MODULAR | FILE . ++ | ORG . ++ | FUNC . ++]
 
 Description/
 
-Enorme travail de réorganisation des fichiers et d'amélioration de la modularité
-Ajout d'un autoLoader 
-Système d'utilisateur en cours d'implémentation ! 
-possibilité de s'inscrire d'éfacer un utilisateur etc
-Ajout d'une page de configuration de wilber avec divers rubrique
+Espace utilisateur fonctionnel 
+
+Header ajouté commun a toute les pages
+
+connexion inscription fait , page de config avec gestion par liste fait 
+
+Nouveau moteur de Wilber prêt a acceuillir sereinement les futurs mise a jour 
 
 
 ====================================================================
 */FILE
 
-	* Css séparé
-	* Création d'un dossier Info d'un dossier Inc , CSS , sql etc
-	* Création d'un dossier init contenant entre autre l'auto loader
-	* Création page WBP_config.php etc
-	* Refonte total de l'organisation des fichiers
-
+	* Création de la page d'inscription utilisateur
+	* Création de la page espace utilisateur
+	* dossier INC ajouté 
 
 ====================================================================
 */DOC
@@ -30,13 +29,6 @@ Ajout d'une page de configuration de wilber avec divers rubrique
 ====================================================================
 */MODULAR 
 
-	
-	* Séparation de dataManager de Wilber et instauration d'une classe dédié a la connexion avec la base de donné . Le programme se compose maintenant ainsi !
-	Des managers gérant des objets qui leurs sont propres et pour l'instant deux grand type d'objet "utilisateur" et "donnée"
-
-	* Création d'un header avec menu pour naviguer de page en page ! 
-	* Affectation des fonctions d'affichages aux objets en eux même !
-
 
 	-> Créer le moyen de pouvoir poster différents commentaire depuis des pages différentes et les afficher 	selon une option choisit
 	
@@ -45,24 +37,19 @@ Ajout d'une page de configuration de wilber avec divers rubrique
 
 ====================================================================
 */FUNC 
-	* Page config avec possibilité de gérer les utilisateurs et les supprimer !
-	* possibilité de s'inscrire sur le site
-	* Possibilité d'éffacer le formulaire d'inscription
-	* Ajout de fonction de test sur la classe de test de formulaire
+	* Espace utilisateur fonctionnel avec lien de confirmation
 
+	* Possibilité de suprrimer gérer les utilisateurs et les articles
+	-> Possibilité de modification groupé en cours
+	* Possibilité de connexion par le header 
 
 ====================================================================
 */ORG
 
-	* Paufinage amélioration de la classe servant a tester les formulaires 
-	* Autoloader fonctionnel 
-	* Décomposition de la procédure de traitement des données envoyé a l'aide des méthode de la class formManager (vefification , traitement)
-
+	
 
 ====================================================================
 */DESIGN
 
-
-	*
 
 

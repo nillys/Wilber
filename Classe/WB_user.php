@@ -6,10 +6,10 @@ class user
 
     protected $db_table_name = "user";
 
-    public $db_table_configuration = '(pseudo,mail,password,role) VALUES(:pseudo,:mail,:password,:role)';
+    public $db_table_configuration = '(pseudo,mail,password,role,confirmation_token) VALUES(:pseudo,:mail,:password,:role,:confirmation_token)';
     public $db_table_update = 'pseudo = :pseudo,mail = :mail,password = :password, role = :role';
 
-    protected $id, $pseudo, $mail, $password, $role, $date_post;
+    protected $id, $pseudo, $mail, $password, $role,$confirmation_token,$confirmed_at, $date_post;
 
     // public function custom_request_data_parameters($q, $data_received)
     // {
@@ -25,7 +25,7 @@ class user
         return $this->db_table_name;
     }
 
-    public function __construct($pseudo_or_data, $mail = "", $password = "", $role = "", $id = "", $date_post = "")
+    public function __construct($pseudo_or_data, $mail = "", $password = "", $role = "",$confirmation_token ="",$confirmed_at="",  $date_post = "",$id = "")
     {
         //Traitement dans le cas de l'hydratation de l'objet manuellement !
 
@@ -34,15 +34,17 @@ class user
             $this->setMail($mail);
             $this->setPassword($password);
             $this->setRole($role);
+            $this->setConfirmation_token($confirmation_token);
+            $this->setConfirmed_at($confirmed_at);
             $this->setDate_post($date_post);
         }
         //Traitement dans le cas de l'hydratation de l'objet avec un tableau
         elseif (is_array($pseudo_or_data)) {
+            $this->setId($pseudo_or_data['id']);
             $this->setPseudo($pseudo_or_data['pseudo']);
             $this->setMail($pseudo_or_data['mail']);
             $this->setPassword($pseudo_or_data['password']);
             $this->setRole($pseudo_or_data['role']);
-            $this->setId($pseudo_or_data['id']);
 
             $this->setDate_post($pseudo_or_data['date_post']);
         }
@@ -67,6 +69,14 @@ class user
     public function getRole()
     {
         return $this->role;
+    }
+    public function getConfirmation_token()
+    {
+        return $this->confirmation_token;
+    }
+    public function getConfirmed_at()
+    {
+        return $this->confirmed_at;
     }
     public function getDate_post()
     {
@@ -93,6 +103,13 @@ class user
     public function setRole($role)
     {
         $this->role = $role;
+    }
+
+    public function setConfirmation_token($confirmation_token){
+        $this->confirmation_token = $confirmation_token;
+    }
+    public function setConfirmed_at($confirmed_at){
+        $this->confirmed_at = $confirmed_at;
     }
     public function setDate_post($date_post)
     {
@@ -141,7 +158,7 @@ class user
 
 
                     <br>
-                    <button class="btn btn-success class=" type="submit">Envoyer! </button>
+                    <button class="btn btn-success class=" type="submit" value="register">Envoyer! </button>
                 </form>
 
 
@@ -159,13 +176,18 @@ class user
             $user_check = new formManager;
             $user_check->checking_integrity("user_pseudo", "Pseudo",1,1,0,0);
             $user_check->checking_integrity("user_mail", "Mail", 0, 1, 1, 0);
+            // vérifie si le password corespond au champ password confirmation
             $user_check->checking_integrity("user_password","Passwords",0,1,0,"user_password_confirmation");
             
             // verif si déjà présent dans bdd
-            $user_check->checking_integrity("user_password","Passwords",0,0,0,0,["user","pseudo"]);
-            $user_check->checking_integrity("user_mail","mail",0,0,0,0,["user","mail"]);
+            $user_check->checking_integrity("user_password","Passwords",0,0,0,0,0,["user","pseudo"]);
+            $user_check->checking_integrity("user_mail","mail",0,0,0,0,0,["user","mail"]);
 
-            $user_check->processing_user_form();
+            $user_check->processing_user_register_form();
         }
+    }
+
+    public static function generate_user_login_form(){
+
     }
 }

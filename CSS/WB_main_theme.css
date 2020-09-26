@@ -2,6 +2,81 @@ body{
     background-image: linear-gradient(120deg, #a1c4fd 0%, #c2e9fb 100%);
 }
 
+/* MIXE  */
+
+/* ---------------------------
+SWITCH */
+
+.switch {
+    display: inline-block;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    width: 50px;
+    height: 24px;
+  }
+  
+  /* Hide default HTML checkbox */
+  .switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+  }
+  
+  /* The slider */
+  .slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    -webkit-transition: .4s;
+    transition: .4s;
+    width: 100%;
+    height: 100%;
+  }
+  
+  .slider:before {
+    position: absolute;
+    content: "";
+    height: 16px;
+    width: 16px;
+    left: 4px;
+    bottom: 4px;
+    background-color: white;
+    -webkit-transition: .4s;
+    transition: .4s;
+  }
+  
+  input:checked + .slider {
+    background-color: rgba(179, 240, 189, 0.726);
+  }
+  
+  input:focus + .slider {
+    box-shadow: 0 0 1px #2196F3;
+  }
+  
+  input:checked + .slider:before {
+    -webkit-transform: translateX(26px);
+    -ms-transform: translateX(26px);
+    transform: translateX(26px);
+  }
+  
+  /* Rounded sliders */
+  .slider.round {
+    border-radius: 34px;
+  }
+  
+  .slider.round:before {
+    border-radius: 50%;
+  }
+
+  /* CREDIT : W3C */
+
+  
+
 /* GENERAL */
 
 .wilber_button{
@@ -14,12 +89,62 @@ body{
     justify-content: center;
     align-items: center;
     font-weight: bold;
-    transition-property: padding;
-    transition-duration: all 2sec;
+    transition: background-color 2s;
+}
+.wilber_button_action{
+    border-radius: 1em;
+    border: rgba(255, 255, 255, 0.76) 1px solid;
+    background-color: rgba(255, 255, 255, 0.541);
+    padding: 0.5em;
+    color: black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+    transition: background-color 0.8s;
 }
 
 .wilber_button:hover{
-    padding: 20px;
+    background-color: rgb(181, 255, 185);
+    border: rgba(127, 255, 212, 0.877) 1px solid;
+}
+.wilber_button:hover .wilber_button:active{
+    background-color: aquamarine;
+    transform: scale(1.5);
+}
+
+.utilisateur_button{
+    border-radius: 1em;
+    background-color: white;
+    border-bottom: 1px solid black;
+    padding: 0.5em;
+    cursor: pointer;
+    margin: 0.3em;
+    transition: background-color 1s;
+    transition: transform 1s;
+    background: rgb(212,255,228);
+    background: linear-gradient(0deg, rgba(212,255,228,1) 0%, rgba(61,200,101,1) 9%, rgba(233,255,232,1) 94%, rgba(255,255,255,1) 100%); 
+}
+
+.utilisateur_button:hover{
+    background: rgb(212,255,228);
+    background: linear-gradient(0deg, rgba(212,255,228,1) 0%, rgba(253,255,253,1) 9%, rgba(233,255,232,1) 94%, rgba(255,255,255,1) 100%); 
+    /* transform: scale(1.1); */
+}
+
+#utilisateurSubMenu{
+    padding: 1em;
+    background-color: rgba(127, 255, 212, 0.349);
+    border-radius: 0.5em;
+    border: white 2px solid;
+    display: none;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+#utilisateurRegister{
+    font-size: 0.8em;
 }
 
 /* HEADER */
@@ -518,60 +643,67 @@ flex-wrap: wrap;
 
 /* LISTES */
 
-.table_header{
+.list_item_header{
     background-color: rgb(255, 255, 255);
     border-radius: 1em;
     padding: 0.1em;
     margin: 0.5em;
     color: black;
-    display: flex;
-    justify-content: center;
-    align-items: center;
     box-shadow: white 0 0 5px;
     border: white 1px solid;
 }
 
-.table_header > *{
+.list_item_header *{
 
-
+    display: flex;
+    justify-content: center;
+    align-items: center;
 
 }
 
 .list_main_container{
-
-    background-color: rgba(255, 0, 0, 0.356);
-    border-radius: 1em;
-    padding: 1em;
-    min-width: 100%;
+    padding: 0.5em;
+    background-color: rgba(255, 255, 255, 0.411);
 
 }
+
+
 .list_item_container{
-    display: inline-block;
     background-color: rgb(255, 255, 255);
-  
-}
-
-
-.list_item_container > *{
-    display: flex;
+    margin: 0.2em;
     border-radius: 1em;
-    margin-right: 0.5em;
-    width: 100%;
+
 }
 
-.user_information{
-    width: 100%;
-    justify-content: space-around;
-}
 
-.user_information >*{
+
+.list_item_container > * {
 
     display: flex;
     justify-content: center;
-    box-shadow: inset rgba(66, 249, 255, 0.432) 0 -2px 3px;
-    padding:0 0.5em ;
-    border-radius: 1em;
+    align-items: center;
+    width: 100%;
+}
 
+
+.list_item_container > input {
+
+    border: none;
+
+}
+
+.list_item_container > input:focus {
+    background-color: rgba(240, 230, 140, 0.349);
+    border: none;
+
+}
+
+.list_item_container > select::-ms-expand {
+    display: none;
+}
+
+.test{
+    border: none;
 }
 
 .list_item_container a{
@@ -586,27 +718,6 @@ flex-wrap: wrap;
 
 }
 
-.user_item_pseudo{
-
-}
-
-
-.user_item_mail{
-
-}
-
-.user_item_password{
-
-}
-
-.user_item_password:hover {
-
-
-
-}
-.user_item_role{
-
-}
 .edit_button{
     padding: 0.8em;
 }
@@ -627,7 +738,8 @@ flex-wrap: wrap;
 }
 
 .list_item_modify_form{
-    background-color: white;
+    border-radius: 0;
+    background-color: rgba(190, 245, 255, 0.404);
 }
 
 .debug_source_item{

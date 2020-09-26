@@ -68,31 +68,31 @@ class data
         $this->db_table_name = $db_table_name;
     }
 
-    public function title()
+    public function getTitle()
     {
         return $this->title;
     }
-    public function author()
+    public function getAuthor()
     {
         return $this->author;
     }
-    public function body()
+    public function getBody()
     {
         return $this->body;
     }
-    public function category()
+    public function getCategory()
     {
         return $this->category;
     }
 
-    public function id(){
+    public function getId(){
         return $this->id;
     }
-    public function date_post()
+    public function getDate_post()
     {
         return $this->date_post;
     }
-    public function db_table_name()
+    public function getDb_table_name()
     {
         return $this->db_table_name;
     }

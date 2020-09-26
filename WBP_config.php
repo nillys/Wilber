@@ -230,7 +230,7 @@ if (!empty($_POST)) {
             <div class="col-md-9">
 
                 <div class="tab-content" id="">
-                    <div class="tab-pane fade" id="menu_item_bdd" role="tabpanel" aria-labelledby="menu_item_bdd_tab">
+                    <div class="tab-pane fade show active" id="menu_item_bdd" role="tabpanel" aria-labelledby="menu_item_bdd_tab">
 
                         <div id="section_form">
                             <h2 class="title" style="">Configuration BDD</h2>
@@ -271,13 +271,14 @@ if (!empty($_POST)) {
 
                         </div>
                     </div>
-                    <div class="tab-pane fade show active" id="menu_utilisateur" role="tabpanel" aria-labelledby="menu_utilisateur">
+                    <div class="tab-pane fade " id="menu_utilisateur" role="tabpanel" aria-labelledby="menu_utilisateur">
                         <h2 class="title" style="">UTILISATEUR</h2>
                         <?php configManager::generate_user_list(); ?>
 
                     </div>
-                    <div class="tab-pane fade" id="menu_item_article" role="tabpanel" aria-labelledby="menu_item_article">
+                    <div class="tab-pane fade " id="menu_item_article" role="tabpanel" aria-labelledby="menu_item_article">
                         <h2 class="title" style="">ARTICLE</h2>
+                        <?php configManager::generate_article_list(); ?>
                     </div>
                     <div class="tab-pane fade" id="menu_item_comment" role="tabpanel" aria-labelledby="contact-tab">
                         <h2 class="title" style="">Configuration COMMENTAIRE</h2>

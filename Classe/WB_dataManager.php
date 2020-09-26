@@ -48,10 +48,10 @@ class dataManager
 
         // Partie Commune
         // Affection des paramètres commun aux objet data
-        $q->bindValue(':title', $data_received->title());
-        $q->bindValue(':author', $data_received->author());
-        $q->bindValue(':body', $data_received->body());
-        $q->bindValue(':category', $data_received->category());
+        $q->bindValue(':title', $data_received->getTitle());
+        $q->bindValue(':author', $data_received->getAuthor());
+        $q->bindValue(':body', $data_received->getBody());
+        $q->bindValue(':category', $data_received->getCategory());
 
         // Partie Particulière
         // Cette fonction est chargé d'éxecuter les parties de requettes propres aux objets traité qui dispose de paramètres suplémentaires 
@@ -70,10 +70,12 @@ class dataManager
 
         // Partie Commune
         // Affection des paramètres commun aux objet data
-        $q->bindValue(':title', $data_received->title());
-        $q->bindValue(':author', $data_received->author());
-        $q->bindValue(':body', $data_received->body());
-        $q->bindValue(':category', $data_received->category());
+        $q->bindValue(':title', $data_received->getTitle());
+        $q->bindValue(':author', $data_received->getAuthor());
+        $q->bindValue(':body', $data_received->getBody());
+        $q->bindValue(':category', $data_received->getCategory());
+        $q->bindValue(':slug', $data_received->getSlug());
+        $q->bindValue(':visibility', $data_received->getVisibility());
         $q->bindValue(':id', $id);
 
         // Partie Particulière
@@ -90,7 +92,6 @@ class dataManager
     {
         // Selectionner la table qui corespond aux dernier mode !!!
         // Desc signifie inverser l'ordre de trie
-
         $q = DB::$pdo->prepare('SELECT * FROM ' . $table . ' ORDER BY id DESC');
         $q->execute();
 
@@ -126,9 +127,8 @@ class dataManager
     static public function pull_data_from_db($table, $id)
     {
 
-        require "info.db.php";
 
-        $q = $pdo->prepare('SELECT * FROM ' . $table . ' WHERE id = ? ');
+        $q = DB::$pdo->prepare('SELECT * FROM ' . $table . ' WHERE id = ? ');
         $q->execute([$id]);
 
         $result = $q->fetch();

@@ -7,8 +7,9 @@ class article extends data
 {
 
     protected $db_table_name = "article";
-    public $db_table_configuration = '(author,title,body,category,article_picture1,article_picture2,article_picture3) VALUES(:author,:title,:body,:category,:article_picture1,:article_picture2,:article_picture3)';
-    public $db_table_update = 'author = :author,title = :title,body = :body, category = :category,article_picture1 = :article_picture1,article_picture2 = :article_picture2, article_picture3 = :article_picture3';
+    public $db_table_configuration = '(author,title,body,category,slug,visibility,article_picture1,article_picture2,article_picture3) VALUES(:author,:title,:body,:category,:slug,:visibility,:article_picture1,:article_picture2,:article_picture3)';
+    public $db_table_update = 'author = :author,title = :title,body = :body, category = :category , slug = :slug,visibility = :visibility,article_picture1 = :article_picture1,article_picture2 = :article_picture2, article_picture3 = :article_picture3';
+
 
     public function custom_request_data_parameters($q, $data_received)
     {
@@ -16,7 +17,8 @@ class article extends data
         $q->bindValue(':article_picture2', $data_received->article_picture2_name);
         $q->bindValue(':article_picture3', $data_received->article_picture3_name);
     }
-    public $article_picture1_name, $article_picture2_name, $article_picture3_name;
+
+    private $slug, $visibility, $article_picture1_name, $article_picture2_name, $article_picture3_name;
 
 
     public function db_table_name()
@@ -24,7 +26,7 @@ class article extends data
         return $this->db_table_name;
     }
 
-    public function __construct($title_or_data, $author = "", $body = "", $category = "", $article_picture1 = "", $article_picture2 = "", $article_picture3 = "", $id = "", $date_post = "")
+    public function __construct($title_or_data, $author = "", $body = "", $category = "", $slug = "", $visibility = "", $article_picture1 = "", $article_picture2 = "", $article_picture3 = "", $id = "", $date_post = "")
     {
         //Traitement dans le cas de l'hydratation de l'objet manuellement !
 
@@ -33,18 +35,22 @@ class article extends data
             $this->setAuthor($author);
             $this->setBody($body);
             $this->setCategory($category);
+            $this->setSlug($slug);
+            $this->setVisibility($visibility);
+            $this->setArticle_picture1_name($article_picture1);
+            $this->setArticle_picture2_name($article_picture2);
+            $this->setArticle_picture3_name($article_picture3);
             $this->setDate_post($date_post);
-            $this->article_picture1_name = $article_picture1;
-            $this->article_picture2_name = $article_picture2;
-            $this->article_picture3_name = $article_picture3;
         }
         //Traitement dans le cas de l'hydratation de l'objet avec un tableau
         elseif (is_array($title_or_data)) {
+            $this->setId($title_or_data['id']);
             $this->setTitle($title_or_data['title']);
             $this->setAuthor($title_or_data['author']);
             $this->setBody($title_or_data['body']);
             $this->setCategory($title_or_data['category']);
-            $this->setId($title_or_data['id']);
+            $this->setSlug($title_or_data['slug']);
+            $this->setVisibility($title_or_data['visibility']);
             $this->article_picture1_name = $title_or_data['article_picture1'];
             $this->article_picture2_name = $title_or_data['article_picture2'];
             $this->article_picture3_name = $title_or_data['article_picture3'];
@@ -52,14 +58,58 @@ class article extends data
         }
     }
 
+
+    public function setSlug($slug)
+    {
+        $this->slug = $slug;
+    }
+    public function setVisibility($visibility)
+    {
+        $this->visibility = $visibility;
+    }
+
+    public function setArticle_picture1_name($article_picture1_name)
+    {
+        $this->article_picture1_name = $article_picture1_name;
+    }
+    public function setArticle_picture2_name($article_picture2_name)
+    {
+        $this->article_picture2_name = $article_picture2_name;
+    }
+    public function setArticle_picture3_name($article_picture3_name)
+    {
+        $this->article_picture3_name = $article_picture3_name;
+    }
+
+    public function getSlug()
+    {
+        return $this->slug;
+    }
+    public function getVisibility()
+    {
+        return $this->visibility;
+    }
+
+    public function getArticle_picture1_name($article_picture1_name)
+    {
+        return $this->article_picture1_name;
+    }
+    public function getArticle_picture2_name($article_picture2_name)
+    {
+        return $this->article_picture2_name;
+    }
+    public function getArticle_picture3_name($article_picture3_name)
+    {
+        return $this->article_picture3_name;
+    }
+
     public static function generate_form(int $variant = 1)
     {
         if (isset($_GET['article_id'])) {
             // pull_data_from_db prend en paramètre le nom de la table et l'id
             $current_article_dump = dataManager::pull_data_from_db('article', $_GET['article_id']);
-  
         }
-        ?>
+?>
         <div class="form_container" class="d-flex">
 
             <div class="section_form" id="article_section_form">
@@ -71,7 +121,7 @@ class article extends data
                 <form action="" method="post" enctype="multipart/form-data">
 
                     <div class="form-row">
-                        <div class="col-md-6">
+                        <div class="col-md-4">
 
                             <label for="title">Rentrer un titre : </label>
                             <input class="form-control" type="text" value="<?php if (!empty($_POST['article_title'])) {
@@ -98,8 +148,6 @@ class article extends data
                                                                                 echo $current_article_dump->author;
                                                                             } ?>" name="article_author" id="article_author" placeholder="votre nom">
                         </div>
-
-
 
                         <div class="col-md-2 form-group">
 
@@ -138,8 +186,17 @@ class article extends data
 
 
                         </div>
-                    </div>
+                        <div class=" col-md-2 form-group">
+                            <label for="nom">Visible : </label>
+                            <label class="switch">
+                                <input name="article_visibility" type="checkbox" value="1" <?php if (isset($current_article_dump) and $current_article_dump->visibility == 1) {
+                                                                                                echo "checked";
+                                                                                            } ?>>
+                                <span class="slider round"></span>
+                            </label>
 
+                        </div>
+                    </div>
 
 
                     <textarea id="article_body" name="article_body" class="form-control" placeholder="Entrez le corps de l'article ici">
@@ -192,7 +249,7 @@ class article extends data
             $article_check->checking_integrity("article_body", "Corps du texte", 0, [1, 1, 300]);
             $article_check->checking_picture_integrity("article_picture1");
 
-            $article_check->processing_data_form("article");
+            $article_check->processing_data_form("article",$_POST);
         }
     }
     // ARTICLE // AFICHER UN ARTICLE
@@ -212,10 +269,10 @@ class article extends data
 
                 <div class="article_container">
 
-                    <div class="article_title"><?= dataManager::$list_item_data["article"][$_GET['position_article']]->title(); ?></div>
+                    <div class="article_title"><?= dataManager::$list_item_data["article"][$_GET['position_article']]->getTitle(); ?></div>
                     <div class="article_header">
-                        <div class="article_author"><?= '<span class="oi oi-person"></span>' . ' : ' . dataManager::$list_item_data["article"][$_GET['position_article']]->author(); ?></div>
-                        <div class="article_date"><?= '<span class="oi oi-timer"></span>' . " le : " . dataManager::$list_item_data["article"][$_GET['position_article']]->date_post(); ?></div>
+                        <div class="article_author"><?= '<span class="oi oi-person"></span>' . ' : ' . dataManager::$list_item_data["article"][$_GET['position_article']]->getAuthor(); ?></div>
+                        <div class="article_date"><?= '<span class="oi oi-timer"></span>' . " le : " . dataManager::$list_item_data["article"][$_GET['position_article']]->getDate_post(); ?></div>
                     </div>
 
                     <div class="article_container_body">
@@ -225,7 +282,7 @@ class article extends data
                                     <img class="article_img1" src="<?= dataManager::$list_item_data["article"][$_GET['position_article']]->article_picture1_name; ?>" alt="article_picture1">
                                 </div>
                                 <div class="col-md-8">
-                                    <div class="article_body"><?= dataManager::$list_item_data["article"][$_GET['position_article']]->body(); ?></div>
+                                    <div class="article_body"><?= dataManager::$list_item_data["article"][$_GET['position_article']]->getBody(); ?></div>
                                 </div>
                             </div>
                         </div>
@@ -241,7 +298,7 @@ class article extends data
         }
     }
 
-// ALL ARTICLE // AFFICHER TOUTES LES VIGNETTES ARTICLES
+    // ALL ARTICLE // AFFICHER TOUTES LES VIGNETTES ARTICLES
     //-----------------------------------------------------------------------------------------------------------------------------\\
     public static function show_all_article_thumbnail()
     {
@@ -271,41 +328,44 @@ class article extends data
         <?php
         echo '<div class="thumbnail_show_article_container">';
         foreach (dataManager::$list_item_data["article"] as $key => $value) {
+            if ($value->getVisibility() == 1) {
+
         ?>
 
-            <div class="thumbnail_article_container">
-                <a href="WBP_display_articles.php?position_article=<?= $key; ?>">
-                    <div class="thumbnail_article_img_thumbnail" style="background-image: url('<?= $value->article_picture1_name; ?>')">
-                        <div title="<?= $value->title(); ?>" class="thumbnail_article_title"><?= substr($value->title(), 0, 40) . '...'; ?></div>
-                        <div title="<?= $value->title(); ?>" class="thumbnail_article_category"><?= substr($value->category(), 0, 40) . '...'; ?></div>
-                        <div class="thumbnail_article_header">
-                            <div class="thumbnail_article_author"><?= '<span class="oi oi-person"></span> ' . $value->author(); ?></div>
-                            <div class="thumbnail_article_date"><?= "le : " . $value->date_post(); ?></div>
+                <div class="thumbnail_article_container">
+                    <a href="WBP_display_articles.php?position_article=<?= $key; ?>">
+                        <div class="thumbnail_article_img_thumbnail" style="background-image: url('<?= $value->article_picture1_name; ?>')">
+                            <div title="<?= $value->getTitle(); ?>" class="thumbnail_article_title"><?= substr($value->getTitle(), 0, 40) . '...'; ?></div>
+                            <div title="<?= $value->getTitle(); ?>" class="thumbnail_article_category"><?= substr($value->getCategory(), 0, 40) . '...'; ?></div>
+                            <div class="thumbnail_article_header">
+                                <div class="thumbnail_article_author"><?= '<span class="oi oi-person"></span> ' . $value->getAuthor(); ?></div>
+                                <div class="thumbnail_article_date"><?= "le : " . $value->getDate_post(); ?></div>
+                            </div>
                         </div>
+                    </a>
+                    <div class="thumbnail_article_container_body">
+
+
+                        <div class="thumbnail_article_body"><?= $value->getBody(); ?></div>
                     </div>
-                </a>
-                <div class="thumbnail_article_container_body">
+                    <div class="thumbnail_article_footer">
+
+                        <a class="button edit_button" href="<?= strtok($_SERVER['REQUEST_URI'], '?') . "?article_id=" . $value->getId(); ?>">
+                            <div title="Modifier l'article">Modifier</div>
+                        </a>
+
+                        <a class="button delete_button" href="WB_sql_treatment.php?article_del_id=<?= $value->getId(); ?>&url_origin=<?php echo strtok($_SERVER['REQUEST_URI'], '?'); ?>&folder_adress=<?php if (!empty($value->article_picture1_name)) {
+                                                                                                                                                                                                            print_r(explode('/', $value->article_picture1_name)[2]);
+                                                                                                                                                                                                        } ?>">
+                            <div title="Supprimer l'article (ireversible)">Suprimer</div>
+                        </a>
 
 
-                    <div class="thumbnail_article_body"><?= $value->body(); ?></div>
+                    </div>
                 </div>
-                <div class="thumbnail_article_footer">
-
-                    <a class="button edit_button" href="<?= strtok($_SERVER['REQUEST_URI'], '?') . "?article_id=" . $value->id(); ?>">
-                        <div title="Modifier l'article">Modifier</div>
-                    </a>
-
-                    <a class="button delete_button" href="WB_sql_treatment.php?article_del_id=<?= $value->id(); ?>&url_origin=<?php echo strtok($_SERVER['REQUEST_URI'], '?'); ?>&folder_adress=<?php if (!empty($value->article_picture1_name)) {
-                                                                                                                                                                                                    print_r(explode('/', $value->article_picture1_name)[2]);
-                                                                                                                                                                                                } ?>">
-                        <div title="Supprimer l'article (ireversible)">Suprimer</div>
-                    </a>
-
-
-                </div>
-            </div>
 
 <?php
+            }
         }
         echo '</div>';
     }

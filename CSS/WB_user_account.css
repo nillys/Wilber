@@ -1,0 +1,14 @@
+html, body{
+    height: 100%;
+
+}
+
+.background_container{
+    justify-content: center;
+    align-items: center;
+    min-height: 100%;   
+    background-attachment: fixed;
+    background-size: contain;
+    background: rgb(200,61,185);
+    background: linear-gradient(0deg, rgba(200,61,185,1) 0%, rgba(255,255,255,1) 100%); 
+}

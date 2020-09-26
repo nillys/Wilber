@@ -83,15 +83,15 @@ class comment extends data
         ?>
             <div class="comment_container">
                 <div class="comment_title_container">
-                    <div class="comment_title"><?= $value->title(); ?></div>
-                    <a title="Suprimer le commentaire ceci est ireverssible" href="Sql/Wb_sql_treatment.php?comment_del_id=<?= $value->id(); ?>&url_origin=<?php echo strtok($_SERVER['REQUEST_URI'], '?') ?>"><span class="oi oi-x"></span></a>
+                    <div class="comment_title"><?= $value->getTitle(); ?></div>
+                    <a title="Suprimer le commentaire ceci est ireverssible" href="Sql/Wb_sql_treatment.php?comment_del_id=<?= $value->getId(); ?>&url_origin=<?php echo strtok($_SERVER['REQUEST_URI'], '?') ?>"><span class="oi oi-x"></span></a>
                 </div>
                 <div class="comment_header">
-                    <div class="comment_author"><?= '<span class="oi oi-person"></span> ' . $value->author(); ?></div>
-                    <div class="comment_date"><?= "le : " . $value->date_post(); ?></div>
+                    <div class="comment_author"><?= '<span class="oi oi-person"></span> ' . $value->getAuthor(); ?></div>
+                    <div class="comment_date"><?= "le : " . $value->getDate_post(); ?></div>
                 </div>
 
-                <div class="comment_body"><?= $value->body(); ?></div>
+                <div class="comment_body"><?= $value->getBody(); ?></div>
             </div>
 
         <?php
@@ -109,13 +109,13 @@ class comment extends data
         if (is_int($key)) {
         ?>
             <div class="comment_container">
-                <div class="comment_title"><?= dataManager::$list_item_data["comment"][$key]->title(); ?></div>
+                <div class="comment_title"><?= dataManager::$list_item_data["comment"][$key]->getTitle(); ?></div>
                 <div class="comment_header">
-                    <div class="comment_author"><?= '<span class="oi oi-person"></span> ' . dataManager::$list_item_data["comment"][$key]->author(); ?></div>
-                    <div class="comment_date"><?= "le : " . dataManager::$list_item_data["comment"][$key]->date_post(); ?></div>
+                    <div class="comment_author"><?= '<span class="oi oi-person"></span> ' . dataManager::$list_item_data["comment"][$key]->getAuthor(); ?></div>
+                    <div class="comment_date"><?= "le : " . dataManager::$list_item_data["comment"][$key]->getDate_post(); ?></div>
                 </div>
 
-                <div class="comment_body"><?= dataManager::$list_item_data["comment"][$key]->body(); ?></div>
+                <div class="comment_body"><?= dataManager::$list_item_data["comment"][$key]->getBody(); ?></div>
             </div>
 <?php
         }

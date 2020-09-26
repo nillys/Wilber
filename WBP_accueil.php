@@ -75,7 +75,7 @@ $gestionnaire_data = new dataManager($_POST);
     </div>
   </div>
 
-  <script src="Wilber.script.js"></script>
+  <script src="JS/Wilber.script.js"></script>
   <script src="ressource_code/bootstrap/js/jquery-3.4.1.min.js">
 
   </script>
