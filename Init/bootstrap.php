@@ -2,6 +2,11 @@
 session_start();
 spl_autoload_register("auto_load");
 
+if(!file_exists('Info/info.db.php') and substr(strrchr($_SERVER['PHP_SELF'], '/'), 1) != "WB_sql_deploy.php"){
+    
+    // header("Location: Init/WB_start.php");
+}
+
 function auto_load($class)
 {
     // DEBUG
