@@ -87,7 +87,7 @@
         `title` varchar(255) NOT NULL,
         `author` varchar(100) NOT NULL,
         `body` text NOT NULL,
-        `category` varchar(255) DEFAULT NULL,
+        `category` varchar(255) DEFAULT NULL,   
         `slug` varchar(255) DEFAULT NULL,
         `visible` boolean DEFAULT NULL,
         `date_post` timestamp NOT NULL DEFAULT current_timestamp(),

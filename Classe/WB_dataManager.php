@@ -43,7 +43,6 @@ class dataManager
     {
         // Traitement approprié au type d'objet (article , commentaire , contact etc)
 
-
         $q = DB::$pdo->prepare('INSERT INTO ' . $data_received->db_table_name() . $data_received->db_table_configuration);
 
         // Partie Commune
@@ -52,6 +51,7 @@ class dataManager
         $q->bindValue(':author', $data_received->getAuthor());
         $q->bindValue(':body', $data_received->getBody());
         $q->bindValue(':category', $data_received->getCategory());
+       
 
         // Partie Particulière
         // Cette fonction est chargé d'éxecuter les parties de requettes propres aux objets traité qui dispose de paramètres suplémentaires 
@@ -75,7 +75,7 @@ class dataManager
         $q->bindValue(':body', $data_received->getBody());
         $q->bindValue(':category', $data_received->getCategory());
         $q->bindValue(':slug', $data_received->getSlug());
-        $q->bindValue(':visibility', $data_received->getVisibility());
+        $q->bindValue(':visible', $data_received->getVisibility());
         $q->bindValue(':id', $id);
 
         // Partie Particulière

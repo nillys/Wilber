@@ -7,12 +7,14 @@ class article extends data
 {
 
     protected $db_table_name = "article";
-    public $db_table_configuration = '(author,title,body,category,slug,visibility,article_picture1,article_picture2,article_picture3) VALUES(:author,:title,:body,:category,:slug,:visibility,:article_picture1,:article_picture2,:article_picture3)';
-    public $db_table_update = 'author = :author,title = :title,body = :body, category = :category , slug = :slug,visibility = :visibility,article_picture1 = :article_picture1,article_picture2 = :article_picture2, article_picture3 = :article_picture3';
+    public $db_table_configuration = '(author,title,body,category,slug,visible,article_picture1,article_picture2,article_picture3) VALUES(:author,:title,:body,:category,:slug,:visible,:article_picture1,:article_picture2,:article_picture3)';
+    public $db_table_update = 'author = :author,title = :title,body = :body, category = :category , slug = :slug , visible = :visible,article_picture1 = :article_picture1,article_picture2 = :article_picture2, article_picture3 = :article_picture3';
 
 
     public function custom_request_data_parameters($q, $data_received)
     {
+        $q->bindValue(':slug', "");
+        $q->bindValue(':visible', $this->getVisibility());
         $q->bindValue(':article_picture1', $data_received->article_picture1_name);
         $q->bindValue(':article_picture2', $data_received->article_picture2_name);
         $q->bindValue(':article_picture3', $data_received->article_picture3_name);
@@ -50,7 +52,7 @@ class article extends data
             $this->setBody($title_or_data['body']);
             $this->setCategory($title_or_data['category']);
             $this->setSlug($title_or_data['slug']);
-            $this->setVisibility($title_or_data['visibility']);
+            $this->setVisibility($title_or_data['visible']);
             $this->article_picture1_name = $title_or_data['article_picture1'];
             $this->article_picture2_name = $title_or_data['article_picture2'];
             $this->article_picture3_name = $title_or_data['article_picture3'];
@@ -189,7 +191,7 @@ class article extends data
                         <div class=" col-md-2 form-group">
                             <label for="nom">Visible : </label>
                             <label class="switch">
-                                <input name="article_visibility" type="checkbox" value="1" <?php if (isset($current_article_dump) and $current_article_dump->visibility == 1) {
+                                <input name="article_visibility" type="checkbox" value="1" <?php if (isset($current_article_dump) and $current_article_dump->visible == 1) {
                                                                                                 echo "checked";
                                                                                             } ?>>
                                 <span class="slider round"></span>
