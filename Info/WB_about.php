@@ -6,5 +6,3 @@ class about{
     public static $WB_slogan = '<p id="WB_slogan">Content managing made : <em>easy fresh and simple !</em> (for developper)</p>';
 }
 
-
-

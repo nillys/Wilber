@@ -163,37 +163,37 @@
             <p><strong>Succès ! </strong>La table <strong>contact</strong> a été créé avec succès ! </p>
 
 
-        </div>
-    <?php
+       </div>
+   <?php
 
-    } catch (PDOException $e) {
-    ?>
+   } catch (PDOException $e) {
+   ?>
 
-        <!-- MESSAGE ERREUR  -->
+       <!-- MESSAGE ERREUR  -->
 
-        <div class="alert alert-danger alert-dismissible fade show m-0 text-center" role="alert">
+       <div class="alert alert-danger alert-dismissible fade show m-0 text-center" role="alert">
 
-            <div class="card border-danger mb-3">
-                <div class="card-header" id="headingOne">
-                    <h5 class="mb-0 d-flex justify-content-between align-items-center">
-                        <strong>La création de la table "article" a échoué </strong><em title="En vérifiant les informations">Si vous n'avez pas lancé WB_start.php cela pourrait être la raison</em>
-                        <button class="btn btn-danger btn-smbtn-danger " data-toggle="collapse" data-target="#returned_error" aria-expanded="false" aria-controls="returned_error">
-                            Voir l'érreur retournée !
-                        </button>
-                        </h2>
-                </div>
+           <div class="card border-danger mb-3">
+               <div class="card-header" id="headingOne">
+                   <h5 class="mb-0 d-flex justify-content-between align-items-center">
+                       <strong>La création de la table "article" a échoué </strong><em title="En vérifiant les informations">Si vous n'avez pas lancé WB_start.php cela pourrait être la raison</em>
+                       <button class="btn btn-danger btn-smbtn-danger " data-toggle="collapse" data-target="#returned_error" aria-expanded="false" aria-controls="returned_error">
+                           Voir l'érreur retournée !
+                       </button>
+                       </h2>
+               </div>
 
-                <div id="returned_error" class="collapse" aria-labelledby="headingOne">
-                    <div class="card-body"><?= $e->getMessage(); ?></div>
-                </div>
-            </div>
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-            </button>
-        </div>
+               <div id="returned_error" class="collapse" aria-labelledby="headingOne">
+                   <div class="card-body"><?= $e->getMessage(); ?></div>
+               </div>
+           </div>
+           <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+               <span aria-hidden="true">&times;</span>
+           </button>
+       </div>
 
-    <?php
-    }
+   <?php
+   }
     // CREATION de la table utilisateur 
     try {
         $req = DB::$pdo->query('CREATE TABLE IF NOT EXISTS `user` (
@@ -202,6 +202,8 @@
     `mail` varchar(255) NOT NULL,
     `password` varchar(255) NOT NULL,
     `role` varchar(255) DEFAULT NULL,
+    `confirmation_token` varchar(255) DEFAULT NULL,
+    `confirmed_at` datetime DEFAULT NULL,
     `date_post` timestamp NOT NULL DEFAULT current_timestamp(),
     PRIMARY KEY (`id`)
    ) ENGINE=MyISAM DEFAULT CHARSET=utf8');
@@ -217,7 +219,7 @@
     ?>
         <div class="alert alert-success m-3 text-center" role="alert">
             <h4 class="alert-heading">Effectué !</h4>
-            <p><strong>Succès ! </strong>La table <strong>article</strong> a été créé avec succès ! </p>
+            <p><strong>Succès ! </strong>La table <strong>utilisateur</strong> a été créé avec succès ! </p>
 
 
         </div>

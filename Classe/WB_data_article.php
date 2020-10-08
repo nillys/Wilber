@@ -2,8 +2,6 @@
 
 class article extends data
 
-
-
 {
 
     protected $db_table_name = "article";
