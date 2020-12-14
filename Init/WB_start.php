@@ -94,7 +94,7 @@ if (!empty($_POST)) {
                 <div class="card-header" id="headingOne">
                     <h5 class="mb-0 d-flex justify-content-between align-items-center">
                         <strong>Dernière étape :</strong><em title="En vérifiant les informations">Vous pouvez désormais cliquez sur ce bouton afin de procéder au déploiement de l'application !</em>
-                        <a href="WB_sql.deploy.php"><button class="btn btn-success btn-smbtn-success " data-toggle="collapse" data-target="#returned_error" aria-expanded="false" aria-controls="returned_error">
+                        <a href="../Sql/WB_sql.deploy.php"><button class="btn btn-success btn-smbtn-success " data-toggle="collapse" data-target="#returned_error" aria-expanded="false" aria-controls="returned_info">
                                 Déployer !
                             </button></a>
                     </h5>

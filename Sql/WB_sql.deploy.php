@@ -4,7 +4,7 @@
 <head>
 
     <meta charset="utf-8">
-    <link rel="stylesheet" type="text/css" href="Ressource_code/bootstrap/css/bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="../Ressource_code/bootstrap/css/bootstrap.css">
 
     <link rel="stylesheet" type="text/css" href="Ressource_icone/open-iconic-master/open-iconic-master/font/css/open-iconic-bootstrap.css">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -22,11 +22,8 @@
 <div id="main_container">
     <?php
 
-    if (!file_exists("info.db.php")) {
-        header('location: WB_start.php');
-    }
 
-    require "info.db.php";
+    require "../config/info.db.php";
 
     global $check_count;
 
@@ -261,12 +258,12 @@
 
 <div id="final_message">
     <?php
-    if ($check_count == 3) {
+    if ($check_count == 4) {
     ?>
         <div class="alert alert-success m-4 text-center" role="alert">
             <h4 class="alert-heading">Fellicitation !</h4>
             <p><strong>Succès ! </strong>Les trois tables on été créé avec succès tout devrait bien fonctionner !</p>
-            <a href="WB_accueil.php"><button class="card">Vous pouvez fermer cet onglet !</button></a>
+            <a href="../WBP_accueil.php"><button class="card">Vous pouvez fermer cet onglet !</button></a>
 
         </div>
 
