@@ -67,7 +67,7 @@ class comment extends data
             $comment_check->checking_integrity("comment_title", "Titre", 0);
             $comment_check->checking_integrity("comment_body", "Corps du texte", 0, [1, 1, 300]);
 
-            $comment_check->processing_data_form("comment");
+            $comment_check->processing_data_form("comment",$_POST);
         }
     }
 

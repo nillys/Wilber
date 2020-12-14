@@ -90,7 +90,7 @@
         `body` text NOT NULL,
         `category` varchar(255) DEFAULT NULL,
         `slug` varchar(255) DEFAULT NULL,
-        `visible` boolean DEFAULT NULL,
+        `visibility` boolean DEFAULT NULL,
         `date_post` timestamp NOT NULL DEFAULT current_timestamp(),
         `article_picture1` varchar(100) DEFAULT NULL,
         `article_picture2` varchar(100) DEFAULT NULL,
@@ -264,7 +264,7 @@
             <h4 class="alert-heading">Fellicitation !</h4>
             <p><strong>Succès ! </strong>Les trois tables on été créé avec succès tout devrait bien fonctionner !</p>
             <a href="../WBP_accueil.php"><button class="card">Vous pouvez fermer cet onglet !</button></a>
-
+    
         </div>
 
     <?php

@@ -13,6 +13,9 @@ class article extends data
 
     public function custom_request_data_parameters($q, $data_received)
     {
+
+        $q->bindValue(':visibility', $data_received->getVisibility());
+        $q->bindValue(':slug', $data_received->getSlug());
         $q->bindValue(':article_picture1', $data_received->article_picture1_name);
         $q->bindValue(':article_picture2', $data_received->article_picture2_name);
         $q->bindValue(':article_picture3', $data_received->article_picture3_name);
