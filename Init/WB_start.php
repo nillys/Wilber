@@ -5,9 +5,9 @@
 
     <meta charset="utf-8">
     <link rel="stylesheet" type="text/css" href="../CSS/WB_start.css">
-    <link rel="stylesheet" type="text/css" href="Ressource_code/bootstrap/css/bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="../Ressource_code/bootstrap/css/bootstrap.css">
 
-    <link rel="stylesheet" type="text/css" href="Ressource_icone/open-iconic-master/open-iconic-master/font/css/open-iconic-bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="../Ressource_icone/open-iconic-master/open-iconic-master/font/css/open-iconic-bootstrap.css">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <script>
         function autofill() {
@@ -148,7 +148,7 @@ if (!empty($_POST)) {
             <h2 class="title" style="font-size: 2em;font-weight:bold;text-align:center;text-shadow:black 0 0 1px">Wilber !</h2>
             <h5 class="title" style="text-align:center;">BIENVENUE </h2>
                 <div id="image_entete">
-                    <img src="Mascot.jpg" alt="image_mascot">
+                    <img src="../Mascot.jpg" alt="image_mascot">
                 </div>
                 <div class="d-flex justify-content-between m-2">
                     <h2 class="title">Configuration</h2> <button id="button_erase_form" style="" title="Reinitialiser le formulaire" class="oi oi-action-undo btn" onclick="erase()"></button>
